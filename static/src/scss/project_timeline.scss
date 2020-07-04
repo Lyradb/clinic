@@ -1,0 +1,43 @@
+.o_project_timeline_item {
+    small[name='duty_time'] {
+        font-size: 85%;
+    }
+}
+
+.text-muted {
+    color: #fff !important;
+}
+
+.text-yellow {
+    color: #fbf82f !important;
+}
+.text-white {
+    color: #ffffff !important;
+}
+
+.deselect-activity {
+    border-radius: 50px;
+    background-color: #c0c0c7;
+    width:20%; 
+    text-align: center;
+    vertical-align: middle;
+}
+
+.selected-activity {
+    border-radius: 50px;
+    background-color: #2dca45;
+    width:20%; 
+    text-align: center;
+    vertical-align: middle;
+}
+
+.title-activity {
+    width:20%; 
+    text-align: center;
+    vertical-align: middle;
+}
+
+.no_dots {
+    list-style-type: none;
+}
+ 

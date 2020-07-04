@@ -1,0 +1,421 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="seq_clinic_booking" model="ir.sequence">
+            <field name="name">clinic.booking</field>
+            <field name="code">clinic.booking</field>
+            <field name="prefix">BKG/%(year)s/%(month)s/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="config_lab_request_cbc" model="config.laboratory.request">
+            <field name="name">CBC</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_lab_request_urine" model="config.laboratory.request">
+            <field name="name">Urinalysis</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_lab_request_stool" model="config.laboratory.request">
+            <field name="name">Stool Exam</field>
+            <field name="active">True</field>
+        </record>
+
+        <!-- group 1 -->
+        <record id="config_blood_chem_request_fbs" model="config.blood.chem.request">
+            <field name="name">FBS</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_bun" model="config.blood.chem.request">
+            <field name="name">BUN</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_creatinine" model="config.blood.chem.request">
+            <field name="name">Creatinine</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_uric" model="config.blood.chem.request">
+            <field name="name">Uric Acid</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_cholesterol" model="config.blood.chem.request">
+            <field name="name">Total Cholesterol</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_hdl" model="config.blood.chem.request">
+            <field name="name">HDL</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_globulin" model="config.blood.chem.request">
+            <field name="name">Glubulin</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <!-- group 2 -->
+        <record id="config_blood_chem_request_ser_na" model="config.blood.chem.request">
+            <field name="name">Serum Na</field>
+            <field name="group" eval='2'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_ser_k" model="config.blood.chem.request">
+            <field name="name">Serum k</field>
+            <field name="group" eval='2'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_ser_ci" model="config.blood.chem.request">
+            <field name="name">Serum CI</field>
+            <field name="group" eval='2'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_ser_ca" model="config.blood.chem.request">
+            <field name="name">Serum Ca</field>
+            <field name="group" eval='2'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_ser_mg" model="config.blood.chem.request">
+            <field name="name">Serum Mg</field>
+            <field name="group" eval='2'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_ser_bt" model="config.blood.chem.request">
+            <field name="name">BT</field>
+            <field name="group" eval='2'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_ldl" model="config.blood.chem.request">
+            <field name="name">LDL</field>
+            <field name="group" eval='2'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_hbsag" model="config.blood.chem.request">
+            <field name="name">HBSaG</field>
+            <field name="group" eval='2'/>
+            <field name="active">True</field>
+        </record>
+
+        <!-- group 3 -->
+        <record id="config_blood_chem_request_sgot" model="config.blood.chem.request">
+            <field name="name">SGPT</field>
+            <field name="group" eval='3'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_sgpt" model="config.blood.chem.request">
+            <field name="name">SGOT</field>
+            <field name="group" eval='3'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_ldh" model="config.blood.chem.request">
+            <field name="name">LDH</field>
+            <field name="group" eval='3'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_ak" model="config.blood.chem.request">
+            <field name="name">Alk Phos</field>
+            <field name="group" eval='3'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_Tng" model="config.blood.chem.request">
+            <field name="name">Triglycerides</field>
+            <field name="group" eval='3'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_Albumin" model="config.blood.chem.request">
+            <field name="name">Albumin</field>
+            <field name="group" eval='3'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_blood_chem_request_ptpa" model="config.blood.chem.request">
+            <field name="name">PTPA</field>
+            <field name="group" eval='3'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_xray_exam_request_cervic" model="config.xray.exam.request">
+            <field name="name">Cervical Spine Series</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_xray_exam_request_lumbo" model="config.xray.exam.request">
+            <field name="name">Lumbosacral Spine Series</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_xray_exam_request_thora" model="config.xray.exam.request">
+            <field name="name">Thoracolumbar Spinal Series</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_xray_exam_request_chest" model="config.xray.exam.request">
+            <field name="name">Chest X-Ray</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_xray_exam_request_barium" model="config.xray.exam.request">
+            <field name="name">Barium Engma</field>
+            <field name="group" eval='2'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_xray_exam_request_ugt" model="config.xray.exam.request">
+            <field name="name">UGI Series</field>
+            <field name="group" eval='2'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_xray_exam_request_abdomin" model="config.xray.exam.request">
+            <field name="name">Complete Abdomin</field>
+            <field name="group" eval='2'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_xray_exam_request_kub" model="config.xray.exam.request">
+            <field name="name">KUB IVP</field>
+            <field name="group" eval='2'/>
+            <field name="active">True</field>
+        </record>
+
+        <!-- CBC -->
+
+        <record id="config_config_lab_test_cbc_wbc" model="config.lab.test.cbc">
+            <field name="name">WBC</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_cbc_wbc_dc" model="config.lab.test.cbc">
+            <field name="name">WBC differential count</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_cbc_rbc" model="config.lab.test.cbc">
+            <field name="name">RBC</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_cbc_hct" model="config.lab.test.cbc">
+            <field name="name">Hermatocrit</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_cbc_hbg" model="config.lab.test.cbc">
+            <field name="name">hemoglobin</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_cbc_mcv" model="config.lab.test.cbc">
+            <field name="name">MCV</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_cbc_mch" model="config.lab.test.cbc">
+            <field name="name">MCH</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_cbc_mchc" model="config.lab.test.cbc">
+            <field name="name">MCHC</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_cbc_rdw" model="config.lab.test.cbc">
+            <field name="name">RDW</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_cbc_platelet" model="config.lab.test.cbc">
+            <field name="name">Platelet Count</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_cbc_mpv" model="config.lab.test.cbc">
+            <field name="name">MPV</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <!-- Urinalysis -->
+
+        <record id="config_config_lab_test_urinalysis_color" model="config.lab.test.urinalysis">
+            <field name="name">Color</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_transparency" model="config.lab.test.urinalysis">
+            <field name="name">Transparency</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_ph" model="config.lab.test.urinalysis">
+            <field name="name">PH</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_spec_gran" model="config.lab.test.urinalysis">
+            <field name="name">Spec. Gran</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_glucose" model="config.lab.test.urinalysis">
+            <field name="name">Glucose</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_protein" model="config.lab.test.urinalysis">
+            <field name="name">Protein</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_ketone" model="config.lab.test.urinalysis">
+            <field name="name">Ketone</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_bile" model="config.lab.test.urinalysis">
+            <field name="name">Bile</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_urob" model="config.lab.test.urinalysis">
+            <field name="name">Urobbilinogen</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_nitrate" model="config.lab.test.urinalysis">
+            <field name="name">Nitrate</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_cast" model="config.lab.test.urinalysis">
+            <field name="name">Cast</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_pus_cell" model="config.lab.test.urinalysis">
+            <field name="name">Pus Cell</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_red_blood" model="config.lab.test.urinalysis">
+            <field name="name">Red Blood</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_eph_cell" model="config.lab.test.urinalysis">
+            <field name="name">Ephithelial Cells</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_yeast_cell" model="config.lab.test.urinalysis">
+            <field name="name">Yeast Cells</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_bacteria" model="config.lab.test.urinalysis">
+            <field name="name">Bacteria</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_mucus" model="config.lab.test.urinalysis">
+            <field name="name">Mucus Thread</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_crystals" model="config.lab.test.urinalysis">
+            <field name="name">Crystals</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_amor_urates" model="config.lab.test.urinalysis">
+            <field name="name">Amor. Urates</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_spec_amor_p04" model="config.lab.test.urinalysis">
+            <field name="name">Amor. P04</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="config_config_lab_test_urinalysis_cal_oxakate" model="config.lab.test.urinalysis">
+            <field name="name">Calcium Oxalate</field>
+            <field name="group" eval='1'/>
+            <field name="active">True</field>
+        </record>
+
+        <record id="product_category_3" model="product.category">
+            <field name="parent_id" ref="product.product_category_1"/>
+            <field name="name">Services</field>
+        </record>        
+
+        <record id="product_clinic_pf" model="product.product">
+            <field name="name">Professional Fee</field>
+            <field name="purchase_ok" eval='0'/>
+            <field name="type">service</field>
+            <field name="active">True</field>
+            <field name="categ_id" ref='clinic_mgt.product_category_3'/>
+
+        </record>
+
+    </data>
+</odoo>
