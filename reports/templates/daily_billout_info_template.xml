@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- QWeb Reports -->
+       <!-- NAME & FILE_NAME should be the same -->
+                <!--CHANGE MODEL-->
+               <report
+                   id="action_daily_billout_report"
+                   model="clinic.booking"
+                   report_type="qweb-pdf"
+                   string="Bill-out Information"
+                   name="clinic_reports.daily_billout_info_template"
+                   file="clinic_reports.daily_billout_info_template"
+                   paperformat="clinic_reports.custom_letter_margin10_paperformat"
+                   menu="True"
+               />
+        <template id="clinic_reports.daily_billout_info_template">
+            <t t-call="web.html_container">
+<!--                <t t-call="report.internal_layout">-->
+                <!-- <t t-call="report.external_layout"> -->
+                    <style>
+                        .table-condensed{
+                        border-collapse:collapse;
+                        }
+                        table{
+                        empty-cells:show;
+                        }
+                        .border{
+                        border: 1px solid #a2bed0 !important;
+                        }
+                        .blue-top{
+                        border-top: 3px solid #19618d !important;
+                        }
+                        tr{
+                        min-height:2em;
+                        }
+                        td{
+                        padding: 5px 8px 5px !important;
+                        }
+                        .no-pad{
+                        padding: 0px 0px 0px !important;
+                        }
+                        span{
+                        color: #414547;
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 1.08333333rem;
+                        font-weight: 400;
+                        line-height: 1.5;
+                        text-align: left;
+                        margin: 0px 0px 0px !important;
+                        }
+                        .center{
+                        text-align: center;
+                        }
+                        .right{
+                        text-align: right;
+                        }
+                        .top{
+                        vertical-align: top;
+                        }
+                        .middle{
+                        vertical-align: middle;
+                        }
+                        .bottom{
+                        vertical-align: bottom;
+                        }
+                        .strong{
+                        font-weight:bold;
+                        }
+                        .upcase{
+                        text-transform: uppercase;
+                        }
+                    </style>
+                    <div class="page">
+                        <table class="table table-condensed">
+                            <tr>
+
+                            </tr>
+                        </table>
+                    </div>
+<!--                </t>-->
+            </t>
+        </template>
+
+
+
+    </data>
+</odoo>

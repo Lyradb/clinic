@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- QWeb Reports -->
+       <!-- NAME & FILE_NAME should be the same -->
+               <report
+                   id="action_medical_certificate"
+                   model="clinic.booking"
+                   report_type="qweb-pdf"
+                   string="Medical Certificate"
+                   name="clinic_reports.medical_certificate_template"
+                   file="clinic_reports.medical_certificate_template"
+                   paperformat="clinic_reports.custom_letter_margin10_paperformat"
+                   menu="True"
+               />
+        <template id="clinic_reports.medical_certificate_template">
+            <t t-call="web.html_container">
+<!--                <t t-call="report.internal_layout">-->
+                <t t-foreach="docs" t-as="doc">
+                <!-- <t t-call="report.external_layout"> -->
+                    <style>
+                        .table-condensed{
+                        border-collapse:collapse;
+                        }
+                        table{
+                        empty-cells:show;
+                        }
+                        .border{
+                        border: 1px solid #a2bed0 !important;
+                        }
+                        .blue-top{
+                        border-top: 3px solid #19618d !important;
+                        }
+                        tr{
+                        min-height:2em;
+                        }
+                        td{
+                        padding: 5px 8px 5px !important;
+                        }
+                        .no-pad{
+                        padding: 0px 0px 0px !important;
+                        }
+                        span{
+                        color: #414547;
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 1.08333333rem;
+                        font-weight: 400;
+                        line-height: 1.5;
+                        text-align: left;
+                        margin: 0px 0px 0px !important;
+                        }
+                        .center{
+                        text-align: center;
+                        }
+                        .right{
+                        text-align: right;
+                        }
+                        .top{
+                        vertical-align: top;
+                        }
+                        .middle{
+                        vertical-align: middle;
+                        }
+                        .bottom{
+                        vertical-align: bottom;
+                        }
+                        .strong{
+                        font-weight:bold;
+                        }
+                        .upcase{
+                        text-transform: uppercase;
+                        }
+                        .border-top{
+                        border-top:1px solid black;
+                        }
+                        .border-bottom{
+                        border-bottom:1px solid black;
+                        }
+                        p{
+                        font-size:20px !important;
+                        line-height: 2 !important;
+                        }
+                    </style>
+                    <div class="page">
+                        <table class="table-condensed table">
+                            <tr>
+                                <td class="no-border center strong" colspan="5" width="100%"><h1>Natividad M. Torre MD</h1></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center strong upcase" colspan="5" width="100%"><h4>Internal Medicine</h4></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center strong upcase" colspan="5" width="100%"><h4>kidney disease and hypertension</h4></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1" width="10%"/>
+                                <td class="no-border upcase no-pad" colspan="1" width="20%">Clinic Hours</td>
+                                <td class="no-border no-pad" colspan="2" width="30%"/>
+                                <td class="no-border upcase no-pad" colspan="1" width="40%">hospital affiliations</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1" width="10%"/>
+                                <td class="no-border no-pad" colspan="1" width="20%">Mon - Sat Except Wed</td>
+                                <td class="no-border no-pad" colspan="2" width="30%"/>
+                                <td class="no-border no-pad" colspan="1" width="40%">Mindanao Medical Center</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1" width="10%"/>
+                                <td class="no-border no-pad" colspan="1" width="20%">GenMedex Bldg.</td>
+                                <td class="no-border no-pad" colspan="2" width="30%"/>
+                                <td class="no-border no-pad" colspan="1" width="40%">St. Elizabeth Hospital</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1" width="10%"/>
+                                <td class="no-border no-pad" colspan="1" width="20%">Santiago Blvd. GSC</td>
+                                <td class="no-border no-pad" colspan="2" width="30%"/>
+                                <td class="no-border no-pad" colspan="1" width="40%">General Santos Doctors Hospital</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1" width="10%"/>
+                                <td class="no-border no-pad" colspan="1" width="20%">9:00 AM - 12:00 NN</td>
+                                <td class="no-border no-pad" colspan="2" width="30%"/>
+                                <td class="no-border no-pad" colspan="1" width="40%">SUN No: 09228232825</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1" width="10%"/>
+                                <td class="no-border no-pad" colspan="1" width="20%">Tel No: 554-7750</td>
+                                <td class="no-border no-pad" colspan="3" width="70%"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" style="border-bottom: 3px solid black" colspan="5" width="100%"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" style="padding-top: 2em !important;" colspan="2"><span t-field="doc.transaction_date"/></td>
+                                <td class="no-border" colspan="3"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border center strong upcase" colspan="5"><h1>medical certificate</h1></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="padding-bottom:3em !important;"><p>To whom it may concern,</p></td>
+                                <td class="no-border" colspan="3"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="5"><p>This is to certify that Mr/Ms/Mrs <strong><span t-field="doc.patient_name"/>
+                                </strong> age/sex <strong><span t-field="doc.age"/>/<span t-field="doc.gender"/></strong> of <strong><span t-field="doc.street"/>
+                                    <span t-field="doc.street2"/> <span t-field="doc.city"/></strong>
+                                was seen and examined on <strong><span t-field="doc.result_date"/></strong> and was diagnosed to have <strong><span t-field="doc.findings"/></strong>
+                                I therefore recommend <strong><span t-field="doc.recommendation"/></strong> <br/>This certificate is being issued upon the request of the above mentioned name for whatever purpose it may serve.</p></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2" style="padding-top:6em !important"><p>Respectfully yours,</p></td>
+                                <td class="no-border" colspan="3"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="3" style="border-bottom: 2px solid black;padding-top: 6em !important;"/>
+                                <td class="no-border" colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border strong upcase" colspan="3"><h3> <span t-field="doc.physician_id.name"/></h3></td>
+                                <td class="no-border" colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1">License No.</td>
+                                <td class="no-border border-bottom" colspan="1"><span t-field="doc.physician_id.license_no"/></td>
+                                <td class="no-border" colspan="3"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1">PTR No.</td>
+                                <td class="no-border border-bottom" colspan="1"><span t-field="doc.physician_id.ptr_no"/></td>
+                                <td class="no-border" colspan="3"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1">S2 No.</td>
+                                <td class="no-border border-bottom" colspan="1"><span t-field="doc.physician_id.s2_no"/></td>
+                                <td class="no-border" colspan="3"/>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+
+    </data>
+</odoo>
