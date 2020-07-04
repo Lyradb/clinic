@@ -1,0 +1,842 @@
+<odoo>
+  <data>
+
+    <!-- product.prescription form view -->
+    <record id="config_product_prescription_view_form" model="ir.ui.view">
+        <field name="name">product.prescription.view.form</field>
+        <field name="model">product.prescription</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <div class="oe_right oe_button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- config.product.generic form view -->
+    <record id="config_product_generic_view_form" model="ir.ui.view">
+        <field name="name">config.product.generic.view.form</field>
+        <field name="model">config.product.generic</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <div class="oe_right oe_button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+  
+    <record id="generic_product_product_view_form_inherit" model="ir.ui.view">
+        <field name="name">product.product.form.generic</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="type" position="before">
+                <field name="generic_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Laboratory Request Start -->booking
+        <record id="config_laboratory_request_view_form" model="ir.ui.view">
+            <field name="name">config.laboratory.request.view.form</field>
+            <field name="model">config.laboratory.request</field>
+            <field name="arch" type="xml">
+                <form string="Laboratory Request">
+                    <sheet>
+                        <div class="oe_right oe_button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="config_laboratory_request_view_tree" model="ir.ui.view">
+            <field name="name">config.laboratory.request.tree</field>
+            <field name="model">config.laboratory.request</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="config_laboratory_request_action" model="ir.actions.act_window">
+            <field name="name">Laboratory</field>
+            <field name="res_model">config.laboratory.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Click "Create" to add Laboratory.
+                </p>
+                <p>
+                    <!-- More details about what a user can do -->
+                </p>
+            </field>
+        </record>
+        <!-- Laboratory Request End -->
+
+    <!-- Blood Chemistry Request Start -->
+        <record id="config_blood_chem_request_view_form" model="ir.ui.view">
+            <field name="name">config.blood.chem.request.view.form</field>
+            <field name="model">config.blood.chem.request</field>
+            <field name="arch" type="xml">
+                <form string="Blood Chemistry Request">
+                    <sheet>
+                        <div class="oe_right oe_button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="config_blood_chem_request_view_tree" model="ir.ui.view">
+            <field name="name">config.blood.chem.request.tree</field>
+            <field name="model">config.blood.chem.request</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="config_blood_chem_request_action" model="ir.actions.act_window">
+            <field name="name">Blood Chemistry</field>
+            <field name="res_model">config.blood.chem.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Click "Create" to add Blood Chemistry.
+                </p>
+                <p>
+                    <!-- More details about what a user can do -->
+                </p>
+            </field>
+        </record>
+        <!-- Blood Chemistry Request End -->
+
+    <!-- CBC Request Start -->
+        <record id="config_lab_test_cbc_view_form" model="ir.ui.view">
+            <field name="name">config.lab.test.cbc.view.form</field>
+            <field name="model">config.lab.test.cbc</field>
+            <field name="arch" type="xml">
+                <form string="Blood Chemistry Request">
+                    <sheet>
+                        <div class="oe_right oe_button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="config_lab_test_cbc_view_tree" model="ir.ui.view">
+            <field name="name">config.lab.test.cbc.tree</field>
+            <field name="model">config.lab.test.cbc</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="config_lab_test_cbc_action" model="ir.actions.act_window">
+            <field name="name">Complete Blood Count</field>
+            <field name="res_model">config.lab.test.cbc</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Click "Create" to add Complete Blood Count.
+                </p>
+                <p>
+                    <!-- More details about what a user can do -->
+                </p>
+            </field>
+        </record>
+        <!-- CBC Request End -->
+
+    <!-- Urinalysis Request Start -->
+        <record id="config_lab_test_urinalysis_view_form" model="ir.ui.view">
+            <field name="name">config.lab.test.urinalysis.view.form</field>
+            <field name="model">config.lab.test.urinalysis</field>
+            <field name="arch" type="xml">
+                <form string="Blood Chemistry Request">
+                    <sheet>
+                        <div class="oe_right oe_button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="config_lab_test_urinalysis_view_tree" model="ir.ui.view">
+            <field name="name">config.lab.test.urinalysis.tree</field>
+            <field name="model">config.lab.test.urinalysis</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="config_lab_test_urinalysis_action" model="ir.actions.act_window">
+            <field name="name">Urinalysis</field>
+            <field name="res_model">config.lab.test.urinalysis</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Click "Create" to add Urinalysis.
+                </p>
+                <p>
+                    <!-- More details about what a user can do -->
+                </p>
+            </field>
+        </record>
+        <!-- Urinalysis Request End -->
+
+    <!-- X-Ray Examination Request Start -->
+        <record id="config_xray_examination_request_view_form" model="ir.ui.view">
+            <field name="name">config.xray.exam.request.view.form</field>
+            <field name="model">config.xray.exam.request</field>
+            <field name="arch" type="xml">
+                <form string="X-Ray Examination Request">
+                    <sheet>
+                        <div class="oe_right oe_button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="config_xray_examination_request_view_tree" model="ir.ui.view">
+            <field name="name">config.xray.exam.request.tree</field>
+            <field name="model">config.xray.exam.request</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="config_xray_examination_request_action" model="ir.actions.act_window">
+            <field name="name">X-Ray Examination</field>
+            <field name="res_model">config.xray.exam.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Click "Create" to add X-Ray Examination.
+                </p>
+                <p>
+                    <!-- More details about what a user can do -->
+                </p>
+            </field>
+        </record>
+        <!-- X-Ray Examination Request End -->
+
+    <!-- MD License Start -->
+        <record id="config_md_license_view_form" model="ir.ui.view">
+            <field name="name">config.md.license.view.form</field>
+            <field name="model">config.md.license</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_right oe_button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="effectivity_date"/>
+                                <field name="license_no"/>
+                            </group>
+                            <group>
+                                <field name="ptr_no"/>
+                                <field name="s2_no"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="config_md_license_view_tree" model="ir.ui.view">
+            <field name="name">config.md.license.tree</field>
+            <field name="model">config.md.license</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="effectivity_date"/>
+                    <field name="license_no"/>
+                    <field name="ptr_no"/>
+                    <field name="s2_no"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="config_md_license_action" model="ir.actions.act_window">
+            <field name="name">Professional License</field>
+            <field name="res_model">config.md.license</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Click "Create" to add your MD License.
+                </p>
+                <p>
+                    <!-- More details about what a user can do -->
+                </p>
+            </field>
+        </record>
+        <!-- MD Licensce End -->
+
+        <!-- MD PF Start -->
+        <record id="config_md_pf_view_form" model="ir.ui.view">
+            <field name="name">config.md.pf.view.form</field>
+            <field name="model">config.md.pf</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_right oe_button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="effectivity_date"/>
+                                <field name="pf"/>
+                                <field name="pf_currency_id" invisible="1"/>
+                            </group>
+                            <group/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="config_md_pf_view_tree" model="ir.ui.view">
+            <field name="name">config.md.pf.tree</field>
+            <field name="model">config.md.pf</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="effectivity_date"/>
+                    <field name="pf"/>
+                    <field name="pf_currency_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="config_md_pf_action" model="ir.actions.act_window">
+            <field name="name">Professional Fee</field>
+            <field name="res_model">config.md.pf</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Click "Create" to add your MD Professional Fee.
+                </p>
+                <p>
+                    <!-- More details about what a user can do -->
+                </p>
+            </field>
+        </record>
+        <!-- MD PF End -->
+
+        <!--Res partner Start-->=
+        <record id="res_partner_view_form_inherit_clinic" model="ir.ui.view">
+            <field name="name">res.partner.view.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="type" position="before">
+                    <field name="gender" attrs="{'invisible':[('company_type','!=','person')]}"/>
+                    <field name="birthdate" attrs="{'invisible':[('company_type','!=','person')]}"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- clinic.booking search view -->
+        <record id="clinic_booking_view_search" model="ir.ui.view">
+            <field name="name">clinic.booking.view.search</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <search string="Search Description">
+                    <filter name="filter_booking_date" date="booking_date" string="Consultation Date" default_period="today"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_state" string="Status" domain="[]" context="{'group_by':'group_state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- clinic.booking calendar view -->
+        <record id="clinic_booking_view_calendar" model="ir.ui.view">
+            <field name="name">clinic.booking.view.calendar</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <calendar string="Clinic Booking" date_start="booking_date" mode="week"
+                    event_open_popup="True" quick_add="False" color="patient_id">
+                        <field name="patient_id"/>
+                        <!-- <field name="employee_id"/> -->
+                </calendar>
+            </field>
+        </record>
+
+        <!-- clinic.booking kanban view -->
+        <record id="clinic_booking_view_kanban" model="ir.ui.view">
+            <field name="name">clinic.booking.view.kanban</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <kanban string="Appointment" quick_add="False"> 
+                <field name="name"/>
+                <field name="state"/>
+                <field name="booking_date"/>
+                <field name="image_medium"/>
+                <field name="image_small"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="o_kanban_record_has_image_fill oe_kanban_global_click o_res_partner_kanban">
+                            <div class="o_kanban_image_fill_left" t-attf-style="background-image:url('#{kanban_image('res.partner', 'image_small', record.patient_id.raw_value)}')">
+                                    <h1 style="color: #17a2b8 !important;">
+                                        <field name="transaction_date" invisible="1"/>
+                                    </h1>
+                            </div>
+                            <div  class="oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading"><field name="patient_id"/></strong>
+                                <ul>
+                                    <li class="float-right mb4 badge"><div class="col-12" style="background-color: #2dca45; border-radius: 5px;"><h1><field name="sequence"/></h1></div></li>
+                                    <li><field name="booking_date"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+                    
+                </kanban>
+            </field>
+        </record>
+
+        <record id="clinic_booking_view_form" model="ir.ui.view">
+            <field name="name">clinic.booking.form</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <form string="Clinic Booking">
+                    <header>
+
+                        <button name="action_confirm" class="oe_highlight oe_read_only"
+                        type="object" string="Confirm" states='draft'/>
+
+                        <button name="action_opd" class="oe_highlight oe_read_only"
+                        type="object" string="Out-Patient" states='confirm'/>
+
+                        <button name="action_bill_out" class="oe_highlight oe_read_only" 
+                        type="object" string="Bill-Out" states='opd'
+                        groups="clinic_mgt.group_md_appointment_admin"/>
+
+                        <button name="action_free" class="oe_highlight oe_read_only" 
+                        type="object" string="Free" states='opd'
+                        groups="clinic_mgt.group_md_appointment_admin"/>
+
+                        <button name="action_done" class="oe_highlight oe_read_only" 
+                        type="object" string="Done" states='bo'
+                        attrs="{'invisible':[('invoice_id','=',False)]}"/>
+
+                        <button name="action_prev_state"  class="oe_read_only"
+                        type="object" string="Previous Status"
+                        states="confirm,opd,bo,free,done,transfer"/>
+
+                        <button name="action_void"  class="oe_read_only"
+                        type="object" string="Void"
+                        states="draft,confirm,opd,bo,free,transfer"/>
+
+                        <field name="state" widget="statusbar" 
+                        statusbar_visible="draft,confirm,opd,bo,done,free,transfer,void"/>
+                    </header>
+                    <sheet>
+                        
+                        <div class="oe_right oe_button_box oe_read_only">
+                            <button states="bo,done" name="action_check_invoice" type="object" help="Invoice"
+                                    class="oe_stat_button" icon="fa-file-text">
+                                <field name="invoice_id" widget="statinfo"/>
+                            </button>
+                            <button name="action_nothing" type="action" help='Priority Number'
+                                    class="oe_stat_button" icon="fa-users">
+                                <field name="sequence" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="patient_id" default_focus="1" placeholder="Name"/>
+                            </h1>
+                            <div class="o_row">
+                                <field name="transaction_date"/>
+                            </div>
+                            <div class="o_row">
+                                <field name="transfer_to_id"/>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                            <field name="booking_date"/>
+                            </group>
+                            <group/>
+                        </group>
+                        <notebook>
+                            <page string="Patient Information" name='patient_info'>
+                                <group>
+                                    <group>
+                                        <field name="gender"/>
+                                        <field name="birthdate"/>
+                                        <field name="age"/>
+                                        <field name="civil_status"/>
+                                        <field name="occupation_id"/>
+                                    </group>
+                                    <group>
+                                        <label for="street" string="Address"/>
+                                        <div class="o_address_format">
+                                            <field name="street" placeholder="Street..." class="o_address_street"/>
+                                            <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                            <field name="city" placeholder="City" class="o_address_city"/>
+                                            <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"/>
+                                            <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                            <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group string='Vital Statistic'>
+                                    <group>
+                                        <field name="bp"/>
+                                        <field name="heart_rate"/>
+                                        <field name="temp"/>
+                                    </group>
+                                    <group>
+                                        <field name="height"/>
+                                        <field name="weight"/>
+                                    </group>
+                                </group>
+                                <group string="Chief Complaint">
+                                    <field name="chief_complaint" nolabel="1"/>
+                                </group>
+                                
+                            </page>
+                            <page string="Test Request" name="test_request">
+                                <group string="Laboratory Request">
+                                    <field name="lab_request_ids"  
+                                        widget="many2many_checkboxes" nolabel="1"/>
+                                </group>
+                                <group string="X-ray Examination Request" style='width:66%'>
+                                    <group>
+                                        <field name="grp1_xray_exam_ids"  
+                                            widget="many2many_checkboxes" nolabel="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="grp2_xray_exam_ids"  
+                                            widget="many2many_checkboxes" nolabel="1"/>
+                                    </group>
+                                    <group style='width: 100%'>
+                                        <field name="xray_exam_others"/>
+                                    </group>
+                                </group>
+                                <group string="Blood Chemistry Request">
+                                    <group style='width:33%'>
+                                        <field name="grp1_blood_chem_ids"  
+                                            widget="many2many_checkboxes" nolabel="1"/>
+                                    </group>
+                                    <group style='width:33%'>
+                                        <field name="grp2_blood_chem_ids"  
+                                            widget="many2many_checkboxes" nolabel="1"/>
+                                    </group>
+                                    <group style='width:33%'>
+                                        <field name="grp3_blood_chem_ids"  
+                                            widget="many2many_checkboxes" nolabel="1"/>
+                                    </group>
+                                <group style='width: 100%'>
+                                    <field name="blood_chem_views"/>
+                                    <field name="blood_chem_others"/>
+                                </group>
+                                </group>
+                            </page>
+                            <page string="Test Result" name="test_results">
+                                <group>
+                                    <field name="result_date"/>
+                                </group>
+                                <group>
+                                    <group string='Complete Blood Count' style="width: 100%">
+                                        <field name="test_cbc_ids" nolabel='1'>
+                                            <tree editable='bottom'>
+                                                <field name="lab_cbc_id" string="Test Name"/>
+                                                <field name="result"/>
+                                                <field name="unit"/>
+                                                <field name="ref_interval"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                    <group style="width: 100%">
+                                        <field name="test_cbc_others" string="Others"/>
+                                    </group>
+                                    <group string='Urinalysis' style="width: 100%">
+                                        <field name="test_urinalysis_ids" nolabel='1'>
+                                            <tree editable='bottom'>
+                                                <field name="lab_urinal_id" string="Test Name"/>
+                                                <field name="result"/>
+                                                <field name="unit"/>
+                                                <field name="ref_interval"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                    <group style="width: 100%">
+                                        <field name="test_urinalysis_others" string="Others"/>
+                                    </group>
+                                    <group string='Blood Chemistry' style="width: 100%">
+                                        <field name="test_blood_chem_ids" nolabel='1'>
+                                            <tree editable='bottom'>
+                                                <field name="blood_chem_req_id" string="Test Name"/>
+                                                <field name="result"/>
+                                                <field name="unit"/>
+                                                <field name="ref_interval"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                    <group style="width: 100%">
+                                        <field name="test_blood_chem_others" string="Others"/>
+                                    </group>
+                                    <group string="X-Ray Examination" style="width: 100%">
+                                        <field name="test_xray_views" string="Xray Views"/>
+                                        <field name="test_xray_others" string="Xray Others"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Findings/Medications" name="findings" 
+                                groups="clinic_mgt.group_md_appointment_admin"
+                                attrs="{'invisible':[('state','in',['draft','confirm'])]}">
+                                <group string="Significant Findings / Remarks">
+                                    <field name="findings" nolabel="1" widget="html"/>
+                                </group>
+                                <group string="Recommendation">
+                                    <field name="recommendation" nolabel="1" widget="html"/>
+                                </group>
+                                <group string="Prescription">
+                                    <field name="prescribe_med_ids" nolabel="1">
+                                         <tree string="Medicines"  editable="top">
+                                            <field name="product_id"/>
+                                            <field name="generic_ids" widget="many2many_tags"/>
+                                            <field name="prescription_ids" widget="many2many_tags"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group>
+                                <field name="physician_id" attrs="{'invisible':[('physician_id','=',False)]}"/>
+                                </group>
+                            </page>
+
+                            <!-- <page string="Billing" name="bill" states="bo,done">
+                                <group>
+                                    <field name="invoice_id"/>
+                                </group>
+                            </page> -->
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="clinic_booking_view_tree" model="ir.ui.view">
+            <field name="name">clinic.booking.tree</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="transaction_date"/>
+                    <field name="sequence"/>
+                    <field name="patient_id"/>
+                    <field name="birthdate"/>
+                    <field name="gender"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="clinic_booking_action_form" model="ir.actions.act_window">
+            <field name="name">Booking</field>
+            <field name="res_model">clinic.booking</field>
+            <field name="view_mode">kanban,calendar,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click "Create" to add your first Booking
+                </p>
+                <p>
+                    You have no booking today.
+                </p>
+            </field>
+            <field name="context">{'search_default_group_by_state':1,'search_default_filter_booking_date':1}</field>
+        </record>
+
+        <!--Res partner End-->
+
+        <!-- config.occupation form view -->
+        <record id="config_occupation_view_form" model="ir.ui.view">
+            <field name="name">config.occupation.view.form</field>
+            <field name="model">config.occupation</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name" string='Occupation'/>
+                        </group>
+                        <group/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="menu_clinic_appointment" 
+        name="Appointment" 
+        web_icon="clinic_mgt,static/description/icon.png"
+        sequence="22"
+        groups="group_md_appointment_user"/>
+
+        <menuitem id="menu_clinic_appointment_booking" 
+        name="Booking" 
+        parent="menu_clinic_appointment"
+        action="clinic_booking_action_form"
+        sequence="1"/>
+
+        <menuitem id="menu_clinic_appointment_config" 
+        name="Configuration" 
+        parent="menu_clinic_appointment"
+        sequence="99"/>
+
+        <menuitem id="menu_clinic_appointment_config_lab"
+        name="Laboratory" 
+        parent="menu_clinic_appointment_config" 
+        sequence="1"/>
+
+        <menuitem id="menu_clinic_appointment_config_lab_req" 
+        parent="menu_clinic_appointment_config_lab"
+        action="config_laboratory_request_action"
+        sequence="1"/>
+
+        <menuitem id="menu_config_lab_test_cbc" 
+        parent="menu_clinic_appointment_config_lab"
+        action="config_lab_test_cbc_action"
+        sequence="2"/>
+
+        <menuitem id="menu_config_lab_test_urinalysis" 
+        parent="menu_clinic_appointment_config_lab"
+        action="config_lab_test_urinalysis_action"
+        sequence="3"/>
+
+        <menuitem id="menu_clinic_appointment_config_chem" 
+        parent="menu_clinic_appointment_config"
+        action="config_blood_chem_request_action"
+        sequence="2"/>
+
+        <menuitem id="menu_clinic_appointment_config_xray" 
+        parent="menu_clinic_appointment_config"
+        action="config_xray_examination_request_action"
+        sequence="3"/>
+
+
+        <menuitem id="menu_clinic_appointment_config_md" 
+        name="Physician" 
+        parent="menu_clinic_appointment_config" 
+        sequence="4"
+        groups="group_md_appointment_admin"/>
+
+        <menuitem id="menu_clinic_appointment_config_md_license" 
+        parent="menu_clinic_appointment_config_md"
+        action="config_md_license_action"
+        sequence="1"/>
+
+        <menuitem id="menu_clinic_appointment_config_md_pf" 
+        parent="menu_clinic_appointment_config_md"
+        action="config_md_pf_action"
+        sequence="2"/>
+
+  </data>
+</odoo>
