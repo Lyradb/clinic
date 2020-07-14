@@ -17,13 +17,13 @@ from odoo import models, fields, api
 #     blood_pressure = fields.Char('Blood Pressure')
 #     heart_rate = fields.Char('Heart Rate')
 #     temperature = fields.Char('Body Temperature')
-class Users(models.Model):
-    _inherit = 'res.users'
-
-    license_no = fields.Char(default = lambda self:self.env['config.md.license'].search('user_id','=',self.id))
-    ptr_no = fields.Char(default = lambda self:self.env['config.md.license'].search('user_id','=',self.id))
-    s2_no = fields.Char(default = lambda self:self.env['config.md.license'].search('user_id','=',self.id))
-
+# class Users(models.Model):
+#     _inherit = 'res.users'
+#
+#     license_no = fields.Char(default = lambda self:self.env['config.md.license'].search('user_id','=',self.env.user.id))
+#     ptr_no = fields.Char(default = lambda self:self.env['config.md.license'].search('user_id','=',self.env.user.id))
+#     s2_no = fields.Char(default = lambda self:self.env['config.md.license'].search('user_id','=',self.env.user.id))
+#
 
 #
 # class ClinicBooking(models.Model):

@@ -142,11 +142,11 @@
                                 <td class="no-border" colspan="3"/>
                             </tr>
                             <tr>
-                                <td class="no-border" colspan="5"><p>This is to certify that Mr/Ms/Mrs <strong><span t-field="doc.patient_name"/>
+                                <td class="no-border" colspan="5">This is to certify that Mr/Ms/Mrs <strong><span t-field="doc.patient_name"/>
                                 </strong> age/sex <strong><span t-field="doc.age"/>/<span t-field="doc.gender"/></strong> of <strong><span t-field="doc.street"/>
                                     <span t-field="doc.street2"/> <span t-field="doc.city"/></strong>
                                 was seen and examined on <strong><span t-field="doc.result_date"/></strong> and was diagnosed to have <strong><span t-field="doc.findings"/></strong>
-                                I therefore recommend <strong><span t-field="doc.recommendation"/></strong> <br/>This certificate is being issued upon the request of the above mentioned name for whatever purpose it may serve.</p></td>
+                                I therefore recommend <strong><span t-field="doc.recommendation"/></strong> <br/>This certificate is being issued upon the request of the above mentioned name for whatever purpose it may serve.</td>
                             </tr>
                             <tr>
                                 <td class="no-border" colspan="2" style="padding-top:6em !important"><p>Respectfully yours,</p></td>

@@ -27,7 +27,7 @@
         'security/security.xml',
         'views/views.xml',
         'data/data.xml',
-        'reports/templates/paper_sizes.xml',
+        # 'reports/templates/paper_sizes.xml',
         #'reports/templates/entry_forms_template.xml',
         #'reports/templates/refferal_forms_template.xml',
         #'reports/templates/item_stock_card_template.xml',

@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['legnacare_appointment','clinic_mgt'],
+    'depends': ['clinic_mgt'],
 
     # always loaded
     'data': [
