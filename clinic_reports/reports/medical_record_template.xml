@@ -123,7 +123,7 @@
                             </tr>
                             <tr>
                                 <td class="no-border" style="padding-top: 2em;" colspan="1">Patient</td>
-                                <td class="no-border border-bottom" style="padding-top: 2em;" colspan="4"><span t-field="doc.partner_name"/></td>
+                                <td class="no-border border-bottom" style="padding-top: 2em;" colspan="4"><span t-field="doc.patient_name"/></td>
                                 <td class="no-border" style="padding-top: 2em;" colspan="2">Sex</td>
                                 <td class="no-border border-bottom" style="padding-top: 2em;" colspan="1"><span t-field="doc.gender"/></td>
                             </tr>
@@ -149,7 +149,7 @@
                             <tr>
                                 <td class="no-border strong upcase" style="padding-bottom:2em" colspan="6"><u>consultation details</u></td>
                                 <td class="no-border" style="padding-bottom:2em" colspan="1">Consultation Date</td>
-                                <td class="no-border border-bottom" style="padding-bottom:2em" colspan="1"/>
+                                <td class="no-border border-bottom" style="padding-bottom:2em" colspan="1"><span t-field="doc.booking_date"/></td>
                             </tr>
                             <tr>
                                 <td class="no-border upcase" colspan="8">COMPLETE BLOOD COUNT >></td>

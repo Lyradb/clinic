@@ -4,16 +4,16 @@
        <!-- QWeb Reports -->
        <!-- NAME & FILE_NAME should be the same -->
                <report
-                   id="action_lab_results"
+                   id="action_lab_result"
                    model="clinic.booking"
                    report_type="qweb-pdf"
-                   string="Laboratory Requests"
-                   name="clinic_reports.lab_results_template"
-                   file="clinic_reports.lab_results_template"
+                   string="Laboratory Result"
+                   name="clinic_reports.lab_result_template"
+                   file="clinic_reports.lab_result_template"
                    paperformat="clinic_reports.custom_letter_margin10_paperformat"
                    menu="True"
                />
-        <template id="clinic_reports.lab_results_template">
+        <template id="clinic_reports.lab_result_template">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="doc">
 <!--                <t t-call="report.internal_layout">-->
@@ -78,200 +78,206 @@
                         }
                     </style>
                     <div class="page">
-                        <table class="table-condensed table">
+                        <table class="table-condensed table" colspan="8" width="100%">
                             <tr>
-                                <td class="no-border center strong" colspan="5" width="100%"><h2>Natividad M. Torre MD</h2></td>
+                                <td class="no-border center strong" colspan="8"><h1>Natividad M. Torre MD</h1></td>
                             </tr>
                             <tr>
-                                <td class="no-border center strong upcase" colspan="5" width="100%"><h4>Internal Medicine</h4></td>
+                                <td class="no-border center strong upcase" colspan="8"><h4>Internal Medicine <br/> kidney disease and hypertension</h4></td>
                             </tr>
                             <tr>
-                                <td class="no-border center strong upcase" colspan="5" width="100%"><h4>kidney disease and hypertension</h4></td>
+                                <td class="no-border  no-pad" colspan="1"/>
+                                <td class="no-border upcase no-pad" colspan="3">Clinic Hours</td>
+                                <td class="no-border upcase no-pad" colspan="4">hospital affiliations</td>
                             </tr>
                             <tr>
-                                <td class="no-border" colspan="1" width="10%"/>
-                                <td class="no-border upcase" colspan="1" width="20%"><span>Clinic Hours</span></td>
-                                <td class="no-border" colspan="2" width="30%"/>
-                                <td class="no-border upcase" colspan="1" width="40%"><span>hospital affiliations</span></td>
+                                <td class="no-border  no-pad" colspan="1"/>
+                                <td class="no-borde  no-padr" colspan="3">Mon - Sat Except Wed</td>
+                                <td class="no-border no-pad" colspan="4">Mindanao Medical Center</td>
                             </tr>
                             <tr>
-                                <td class="no-border" colspan="1" width="10%"/>
-                                <td class="no-border" colspan="1" width="20%"><span>Mon - Sat Except Wed</span></td>
-                                <td class="no-border" colspan="2" width="30%"/>
-                                <td class="no-border" colspan="1" width="40%"><span>Mindanao Medical Center</span></td>
+                                <td class="no-border no-pad" colspan="1"/>
+                                <td class="no-border no-pad" colspan="3">GenMedex Bldg.</td>
+                                <td class="no-border no-pad" colspan="4">St. Elizabeth Hospital</td>
                             </tr>
                             <tr>
-                                <td class="no-border" colspan="1" width="10%"/>
-                                <td class="no-border" colspan="1" width="20%"><span>GenMedex Bldg.</span></td>
-                                <td class="no-border" colspan="2" width="30%"/>
-                                <td class="no-border" colspan="1" width="40%"><span>St. Elizabeth Hospital</span></td>
+                                <td class="no-border no-pad" colspan="1"/>
+                                <td class="no-border no-pad" colspan="3">Santiago Blvd. GSC</td>
+                                <td class="no-border no-pad" colspan="4">General Santos Doctors Hospital</td>
                             </tr>
                             <tr>
-                                <td class="no-border" colspan="1" width="10%"/>
-                                <td class="no-border" colspan="1" width="20%"><span>Santiago Blvd. GSC</span></td>
-                                <td class="no-border" colspan="2" width="30%"/>
-                                <td class="no-border" colspan="1" width="40%"><span>General Santos Doctors Hospital</span></td>
+                                <td class="no-border no-pad" colspan="1"/>
+                                <td class="no-border no-pad" colspan="3">9:00 AM - 12:00 NN</td>
+                                <td class="no-border no-pad" colspan="4">SUN No: 09228232825</td>
                             </tr>
                             <tr>
-                                <td class="no-border" colspan="1" width="10%"/>
-                                <td class="no-border" colspan="1" width="20%"><span>9:00 AM - 12:00 NN</span></td>
-                                <td class="no-border" colspan="2" width="30%"/>
-                                <td class="no-border" colspan="1" width="40%"><span>SUN No: 09228232825</span></td>
+                                <td class="no-border no-pad" colspan="1"/>
+                                <td class="no-border no-pad" colspan="3">Tel No: 554-7750</td>
+                                <td class="no-border no-pad" colspan="4"/>
                             </tr>
                             <tr>
-                                <td class="no-border" colspan="1" width="10%"/>
-                                <td class="no-border" colspan="1" width="20%"><span>Tel No: 554-7750</span></td>
-                                <td class="no-border" colspan="3" width="70%"/>
+                                <td class="no-border" style="border-bottom: 3px solid black" colspan="8"/>
                             </tr>
                             <tr>
-                                <td class="no-border" style="border-bottom: 3px solid black" colspan="5" width="100%"/>
+                                <td class="no-border" style="padding-top: 1rem !important;" colspan="8"><span t-field="doc.transaction_date"/></td>
                             </tr>
                             <tr>
-                                <td class="no-border right" style="padding-top: 2em;" colspan="4"><span t-field="doc.transaction_date"/></td>
-                                <td class="no-border" style="padding-top: 2em;" colspan="1"/>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="1">Patient: </td>
-                                <td class="no-border border-bottom" colspan="2"><span t-field="doc.patient_name"/></td>
-                                <td class="no-border" colspan="1">Age/Sex</td>
+                                <td class="no-border" colspan="2">Patient: </td>
+                                <td class="no-border border-bottom" colspan="4"><span t-field="doc.patient_name"/></td>
+                                <td class="no-border border-bottom" colspan="1">Age/Sex:</td>
                                 <td class="no-border border-bottom" colspan="1"><span t-field="doc.age"/>/<span t-field="doc.gender"/></td>
                             </tr>
                             <tr>
-                                <td class="no-border" colspan="1">Address</td>
-                                <td class="no-border border-bottom" colspan="3"><span t-field="doc.street"/> <span t-field="doc.street2"/> <span t-field="city"/></td>
+                                <td class="no-border" colspan="2">Address</td>
+                                <td class="no-border border-bottom" colspan="6"><span t-field="doc.street"/> <span t-field="doc.street2"/> <span t-field="doc.city"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center strong upcase" style="padding-top: 1rem !important;" colspan="8"><h3>laboratory result</h3></td>
+                            </tr>
+                            <tr>
                                 <td class="no-border" colspan="1"/>
-                            </tr>
-                        </table>
-                        <table class="table-condensed table" colspan="6" width="100%">
-                            <tr>
-                                <td class="no-border center strong upcase" style="padding-top: 2rem;" colspan="6" width="100%"><h3>laboratory requests</h3></td>
-                            </tr>
-                            <tr>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">CBC</td>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">URINALYSIS</td>
                                 <td class="no-border border-bottom" colspan="1"/>
-                                <td class="no-border" colspan="1">STOOL EXAM</td>
+                                <td class="no-border" colspan="2">STOOL EXAM</td>
                             </tr>
                             <tr>
-                                <td class="no-border center strong upcase" style="padding-top: 2em;" colspan="6" width="100%"><h4>blood chemistry</h4></td>
+                                <td class="no-border center strong upcase" style="padding-top: 1rem !important;" colspan="8"><h4>blood chemistry</h4></td>
                             </tr>
                             <tr>
+                                <td class="no-border" colspan="1"/>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">FBS</td>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">Serum Na</td>
                                 <td class="no-border border-bottom" colspan="1"/>
-                                <td class="no-border" colspan="1">SGPT</td>
+                                <td class="no-border" colspan="2">SGPT</td>
                             </tr>
                             <tr>
+                                <td class="no-border" colspan="1"/>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">BUN</td>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">Serum K</td>
                                 <td class="no-border border-bottom" colspan="1"/>
-                                <td class="no-border" colspan="1">SGOT</td>
+                                <td class="no-border" colspan="2">SGOT</td>
                             </tr>
                             <tr>
+                                <td class="no-border" colspan="1"/>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">Creatinine</td>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">Serum Cl</td>
                                 <td class="no-border border-bottom" colspan="1"/>
-                                <td class="no-border" colspan="1">LDL</td>
+                                <td class="no-border" colspan="2">LDL</td>
                             </tr>
                             <tr>
+                                <td class="no-border" colspan="1"/>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">Uric Acid</td>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">Serum Ca</td>
                                 <td class="no-border border-bottom" colspan="1"/>
-                                <td class="no-border" colspan="1">Alk Phos</td>
+                                <td class="no-border" colspan="2">Alk Phos</td>
                             </tr>
                             <tr>
+                                <td class="no-border" colspan="1"/>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">Total Cholesterol</td>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">Serum Mg</td>
                                 <td class="no-border border-bottom" colspan="1"/>
-                                <td class="no-border" colspan="1">Triglycerides</td>
+                                <td class="no-border" colspan="2">Triglycerides</td>
                             </tr>
                             <tr>
+                                <td class="no-border" colspan="1"/>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">HDL</td>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">BT</td>
                                 <td class="no-border border-bottom" colspan="1"/>
-                                <td class="no-border" colspan="1">Albumin</td>
+                                <td class="no-border" colspan="2">Albumin</td>
                             </tr>
                             <tr>
+                                <td class="no-border" colspan="1"/>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">Globulin</td>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="1">HBSaG</td>
                                 <td class="no-border border-bottom" colspan="1"/>
-                                <td class="no-border" colspan="1">PTPA</td>
+                                <td class="no-border" colspan="2">PTPA</td>
                             </tr>
                             <tr>
-                                <td class="no-border right" colspan="2">Others</td>
-                                <td class="no-border border-bottom" colspan="3"/>
+                                <td class="no-border" colspan="8"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border right" colspan="1">Others: </td>
+                                <td class="no-border border-bottom" colspan="6"/>
                                 <td class="no-border" colspan="1"/>
                             </tr>
                             <tr>
-                                <td class="no-border center strong upcase" style="padding-top: 2em;" colspan="6" width="100%"><h4>blood chemistry</h4></td>
+                                <td class="no-border center strong upcase" style="padding-top: 1rem !important;" colspan="8"><h4>blood chemistry</h4></td>
                             </tr>
                             <tr>
+                                <td class="no-border" colspan="1"/>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="2">Cervical Spine Series</td>
                                 <td class="no-border border-bottom" colspan="1"/>
-                                <td class="no-border" colspan="2">BariumEnema</td>
+                                <td class="no-border" colspan="3">BariumEnema</td>
                             </tr>
                             <tr>
+                                <td class="no-border" colspan="1"/>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="2">Lumbosacral Spine Series</td>
                                 <td class="no-border border-bottom" colspan="1"/>
-                                <td class="no-border" colspan="2">UGI Series</td>
+                                <td class="no-border" colspan="3">UGI Series</td>
                             </tr>
                             <tr>
+                                <td class="no-border" colspan="1"/>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="2">Thoracolumbar Spine Series</td>
                                 <td class="no-border border-bottom" colspan="1"/>
-                                <td class="no-border" colspan="2">Complete Abdomen</td>
+                                <td class="no-border" colspan="3">Complete Abdomen</td>
                             </tr>
                             <tr>
+                                <td class="no-border" colspan="1"/>
                                 <td class="no-border border-bottom" colspan="1"/>
                                 <td class="no-border" colspan="2">Chest X-Ray</td>
                                 <td class="no-border border-bottom" colspan="1"/>
-                                <td class="no-border" colspan="2">KUB-IVP</td>
+                                <td class="no-border" colspan="3">KUB-IVP</td>
                             </tr>
                             <tr>
-                                <td class="no-border right" colspan="2">Others</td>
-                                <td class="no-border border-bottom" colspan="3"/>
+                                <td class="no-border" colspan="8"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border right" colspan="1">Others: </td>
+                                <td class="no-border border-bottom" colspan="6"/>
                                 <td class="no-border" colspan="1"/>
                             </tr>
                             <tr>
-                                <td class="no-border" colspan="3" style="border-bottom: 2px solid black;padding-top: 3em;"/>
-                                <td class="no-border" colspan="3"/>
+                                <td class="no-border" colspan="3" style="border-bottom: 2px solid black;padding-top: 3em !important;"/>
+                                <td class="no-border" colspan="5"/>
                             </tr>
                             <tr>
-                                <td class="no-border strong upcase" colspan="3"><span><h3> <span t-field="doc.physician_id.name"/></h3></span></td>
-                                <td class="no-border" colspan="3"/>
+                                <td class="no-border center strong upcase" colspan="3"><span t-field="doc.physician_id.name"/></td>
+                                <td class="no-border" colspan="5"/>
                             </tr>
                             <tr>
                                 <td class="no-border" colspan="1"><span>License No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-field="doc.physician_id.license_no"/></td>
-                                <td class="no-border" colspan="3"/>
+                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_license(doc.physician_id)"/></td>
+                                <td class="no-border" colspan="5"/>
                             </tr>
                             <tr>
                                 <td class="no-border" colspan="1"><span>PTR No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-field="doc.physician_id.ptr_no"/></td>
-                                <td class="no-border" colspan="3"/>
+                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_ptr(doc.physician_id)"/></td>
+                                <td class="no-border" colspan="5"/>
                             </tr>
                             <tr>
                                 <td class="no-border" colspan="1"><span>S2 No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-field="doc.physician_id.s2_no"/></td>
-                                <td class="no-border" colspan="3"/>
+                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_s2(doc.physician_id)"/></td>
+                                <td class="no-border" colspan="5"/>
                             </tr>
                         </table>
                     </div>

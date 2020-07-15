@@ -5,7 +5,7 @@
         <!-- NAME & FILE_NAME should be the same -->
         <report
                 id="action_prescription_template"
-                model="appointment.timesheet"
+                model="clinic.booking"
                 report_type="qweb-pdf"
                 string="Prescription"
                 name="clinic_reports.prescription_template"
@@ -138,28 +138,24 @@
                             </tr>
                             <tr>
                                 <td class="no-border upcase" colspan="1">address</td>
-                                <td class="no-border upcase" style="padding-top: 2em;" colspan="7"><span t-field="doc.street"/> <span t-field="doc.street2"/> <span t-field="doc.city"/></td>
+                                <td class="no-border upcase" style="padding-top: 2em !important;" colspan="7"><span t-field="doc.street"/> <span t-field="doc.street2"/> <span t-field="doc.city"/></td>
                             </tr>
                             <tr t-foreach="doc.prescribe_med_ids" t-as="pres">
 
-                                <tr>
-                                    <td class="no-border" colspan="8" style="paddting-top:2em;"/>
-                                </tr>
-                                <tr>
-                                    <td class="no-border" colspan="1"/>
-                                    <td class="no-border strong" colspan="1"><span t-esc="pres.product_id.name"/></td>
-                                    <td class="no-border strong" colspan="6" style="padding-left:2em;">500mg</td>
-                                </tr>
-                                <tr>
-                                    <td class="no-border" colspan="1"/>
-                                    <td class="no-border strong" colspan="1"><span t-esc="pres.generic_ids.name"/></td>
-                                    <td class="no-border strong" colspan="6" style="padding-left:2em;">#90</td>
-                                </tr>
-                                <tr>
-                                    <td class="no-border" colspan="1"/>
-                                    <td class="no-border strong" colspan="1">SIG.</td>
-                                    <td class="no-border strong" colspan="6" style="padding-left:2em;"><span t-esc="pres.prescription_ids.name"/></td>
-                                </tr>
+                                <td class="no-border" colspan="8" style="padding-top:2em;">
+
+                                    <br/>
+                                    <span class="no-border strong" t-esc="pres.product_id.name"/>
+<!--                                    <td class="no-border strong" colspan="6" style="padding-left:2em;">500mg</td>-->
+
+                                    <br/>
+                                    <span class="no-border strong" t-esc="pres.generic_ids.name"/>
+<!--                                    <td class="no-border strong" colspan="6" style="padding-left:2em;">#90</td>-->
+
+                                    <br/>
+                                    <span class="no-border strong">SIG.</span>
+                                    <span class="no-border strong" style="padding-left:2em;" t-esc="pres.prescription_ids.name"/>
+                                </td>
 
                             </tr>
                             <tr>
@@ -168,22 +164,22 @@
                             </tr>
                             <tr>
                                 <td class="no-border" colspan="5"/>
-                                <td class="no-border strong upcase" colspan="3"><span><h3><span t-field="doc.physician_id.name"/></h3></span></td>
+                                <td class="no-border center strong upcase" colspan="3"><span><h3><span t-field="doc.physician_id.name"/></h3></span></td>
                             </tr>
                             <tr>
                                 <td class="no-border" colspan="5"/>
                                 <td class="no-border" colspan="1"><span>License No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-field="doc.physician_id.license_no"/></td>
+                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_license(doc.physician_id)"/></td>
                             </tr>
                             <tr>
                                 <td class="no-border" colspan="5"/>
                                 <td class="no-border" colspan="1"><span>PTR No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-field="doc.physician_id.ptr_no"/></td>
+                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_ptr(doc.physician_id)"/></td>
                             </tr>
                             <tr>
                                 <td class="no-border" colspan="5"/>
                                 <td class="no-border" colspan="1"><span>S2 No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-field="doc.physician_id.s2_no"/></td>
+                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_s2(doc.physician_id)"/></td>
                             </tr>
                         </table>
                     </div>

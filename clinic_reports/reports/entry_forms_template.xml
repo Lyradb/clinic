@@ -80,53 +80,100 @@
                         </style>
                         <table class="table-condensed table">
                             <tr>
-                                <td class="no-border strong center upcase" colspan="4" style="padding:3em 0em !important">entry form</td>
+                                <td class="no-border center strong" colspan="5" width="100%"><h1>Natividad M. Torre MD</h1></td>
                             </tr>
                             <tr>
-                                <td class="no-border upcase" colspan="4">date: <span t-field="doc.booking_date"/></td>
+                                <td class="no-border center strong upcase" colspan="5" width="100%"><h4>Internal Medicine</h4></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center strong upcase" colspan="5" width="100%"><h4>kidney disease and hypertension</h4></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1" width="10%"/>
+                                <td class="no-border upcase no-pad" colspan="1" width="20%">Clinic Hours</td>
+                                <td class="no-border no-pad" colspan="2" width="30%"/>
+                                <td class="no-border upcase no-pad" colspan="1" width="40%">hospital affiliations</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1" width="10%"/>
+                                <td class="no-border no-pad" colspan="1" width="20%">Mon - Sat Except Wed</td>
+                                <td class="no-border no-pad" colspan="2" width="30%"/>
+                                <td class="no-border no-pad" colspan="1" width="40%">Mindanao Medical Center</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1" width="10%"/>
+                                <td class="no-border no-pad" colspan="1" width="20%">GenMedex Bldg.</td>
+                                <td class="no-border no-pad" colspan="2" width="30%"/>
+                                <td class="no-border no-pad" colspan="1" width="40%">St. Elizabeth Hospital</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1" width="10%"/>
+                                <td class="no-border no-pad" colspan="1" width="20%">Santiago Blvd. GSC</td>
+                                <td class="no-border no-pad" colspan="2" width="30%"/>
+                                <td class="no-border no-pad" colspan="1" width="40%">General Santos Doctors Hospital</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1" width="10%"/>
+                                <td class="no-border no-pad" colspan="1" width="20%">9:00 AM - 12:00 NN</td>
+                                <td class="no-border no-pad" colspan="2" width="30%"/>
+                                <td class="no-border no-pad" colspan="1" width="40%">SUN No: 09228232825</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1" width="10%"/>
+                                <td class="no-border no-pad" colspan="1" width="20%">Tel No: 554-7750</td>
+                                <td class="no-border no-pad" colspan="3" width="70%"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" style="border-bottom: 3px solid black" colspan="5" width="100%"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border strong center upcase" colspan="5" style="padding:3em 0em !important"><h2>entry form</h2></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border upcase" colspan="5">date: <span t-field="doc.booking_date"/></td>
                             </tr>
                             <tr>
                                 <td class="no-border upcase" colspan="1">patient</td>
-                                <td class="no-border border-bottom" colspan="3"><span t-field="doc.patient_name"/></td>
+                                <td class="no-border border-bottom" colspan="4"><span t-field="doc.patient_name"/></td>
                             </tr>
                             <tr>
                                 <td class="no-border upcase" colspan="1">address</td>
-                                <td class="no-border border-bottom" colspan="3"><span t-field="street"/> <span t-field="doc.street2"/> <span t-field="doc.city"/></td>
+                                <td class="no-border border-bottom" colspan="4"><span t-field="doc.street"/> <span t-field="doc.street2"/> <span t-field="doc.city"/></td>
                             </tr>
                             <tr>
                                 <td class="no-border upcase" colspan="1">occupation</td>
-                                <td class="no-border border-bottom" colspan="3"><span t-field="doc.occupation_id"/></td>
+                                <td class="no-border border-bottom" colspan="4"><span t-field="doc.occupation_id"/></td>
                             </tr>
                             <tr>
                                 <td class="no-border upcase" colspan="1">age/sex</td>
                                 <td class="no-border border-bottom" colspan="1"><span t-field="doc.age"/> / <span t-field="doc.gender"/></td>
                                 <td class="no-border upcase" colspan="1">contact / email</td>
-                                <td class="no-border border-bottom" colspan="1"><span t-field="doc.phone"/> / <span t-field="doc.email"/></td>
+                                <td class="no-border border-bottom" colspan="2"><span t-field="doc.phone"/> / <span t-field="doc.email"/></td>
                             </tr>
                             <tr>
-                                <td class="no-border upcase strong center" colspan="4" style="padding:2em 0em !important;">vital stats</td>
+                                <td class="no-border upcase strong center" colspan="5" style="padding:2em 0em !important;">vital stats</td>
                             </tr>
                             <tr>
-                                <td class="no-border upcase" colspan="1">height:</td>
+                                <td class="no-border upcase" colspan="2">height:</td>
                                 <td class="no-border border-bottom center" colspan="1"><span t-field="doc.height"/></td>
                                 <td class="no-border upcase" colspan="1">weight:</td>
                                 <td class="no-border border-bottom center" colspan="1"><span t-field="doc.weight"/></td>
                             </tr>
                             <tr>
-                                <td class="no-border upcase" colspan="1">heart rate:</td>
+                                <td class="no-border upcase" colspan="2">heart rate:</td>
                                 <td class="no-border border-bottom center" colspan="1"><span t-field="doc.heart_rate"/></td>
                                 <td class="no-border upcase" colspan="1">temperature:</td>
                                 <td class="no-border border-bottom center" colspan="1"><span t-field="doc.temp"/></td>
                             </tr>
                             <tr>
-                                <td class="no-border upcase" colspan="2">blood pressure:</td>
-                                <td class="no-border border-bottom right" colspan="1"><span t-field="doc.bp"/></td>
+                                <td class="no-border upcase" colspan="3">blood pressure:</td>
+                                <td class="no-border border-bottom right" colspan="2"><span t-field="doc.bp"/></td>
                             </tr>
                             <tr>
-                                <td class="no-border upcase strong center" colspan="4" style="padding:2em 0em !important">chief complaint</td>
+                                <td class="no-border upcase strong center" colspan="5" style="padding:2em 0em !important">chief complaint</td>
                             </tr>
                             <tr>
-                                <td colspan="4" style="word-wrap:break-word"><p><span t-field="doc.chief_complaint"/></p></td>
+                                <td colspan="5" style="word-wrap:break-word"><p><span t-field="doc.chief_complaint"/></p></td>
                             </tr>
                         </table>
                     </div>

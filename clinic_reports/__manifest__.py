@@ -27,15 +27,15 @@
         # 'security/ir.model.access.csv',
         'reports/paper_sizes.xml',
         # 'reports/daily_billout_info_template.xml',
-        # 'reports/entry_forms_template.xml',
+        'reports/entry_forms_template.xml',
         'reports/item_stock_card_template.xml',
-        # 'reports/lab_request_template.xml',
+        'reports/lab_request_template.xml',
         'reports/lab_results_template.xml',
         'reports/medical_certificate_template.xml',
         'reports/medical_record_template.xml',
         'reports/medicines_inventory_template.xml',
         'reports/prescription_template.xml',
-        # 'reports/referral_letter_template.xml'
+        'reports/referral_letter_template.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

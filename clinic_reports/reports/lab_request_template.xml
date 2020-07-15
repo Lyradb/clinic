@@ -4,23 +4,420 @@
        <!-- QWeb Reports -->
        <!-- NAME & FILE_NAME should be the same -->
                <report
-                   id="UNIQUE_REPORT_ID"
-                   model="MODEL_WHERE_THE_REPORT_WILL_BE_PRINTED"
+                   id="action_lab_request"
+                   model="clinic.booking"
                    report_type="qweb-pdf"
-                   string="LABEL"
-                   name="NAME"
-                   file="FILE_NAME"
+                   string="Laboratory Requests"
+                   name="clinic_reports.lab_request_template"
+                   file="clinic_reports.lab_request_template"
+                   paperformat="clinic_reports.custom_letter_margin10_paperformat"
+                   menu="True"
                />
-        <template id="UNIQUE_ID">
+        <template id="clinic_reports.lab_request_template">
             <t t-call="web.html_container">
-                <t t-call="web.internal_layout">
+                <t t-foreach="docs" t-as="doc">
+<!--                <t t-call="report.internal_layout">-->
                 <!-- <t t-call="report.external_layout"> -->
+                    <style>
+                        .table-condensed{
+                        border-collapse:collapse;
+                        }
+                        table{
+                        empty-cells:show;
+                        }
+                        .border{
+                        border: 1px solid #a2bed0 !important;
+                        }
+                        .blue-top{
+                        border-top: 3px solid #19618d !important;
+                        }
+                        tr{
+                        min-height:2em;
+                        }
+                        td{
+                        padding: 5px 8px 5px !important;
+                        }
+                        .no-pad{
+                        padding: 0px 0px 0px !important;
+                        }
+                        span{
+                        color: #414547;
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 1.08333333rem;
+                        font-weight: 400;
+                        line-height: 1.5;
+                        text-align: left;
+                        margin: 0px 0px 0px !important;
+                        }
+                        .center{
+                        text-align: center;
+                        }
+                        .right{
+                        text-align: right;
+                        }
+                        .top{
+                        vertical-align: top;
+                        }
+                        .middle{
+                        vertical-align: middle;
+                        }
+                        .bottom{
+                        vertical-align: bottom;
+                        }
+                        .strong{
+                        font-weight:bold;
+                        }
+                        .upcase{
+                        text-transform: uppercase;
+                        }
+                        .border-top{
+                        border-top:1px solid black;
+                        }
+                        .border-bottom{
+                        border-bottom:1px solid black;
+                        }
+                        div.in_td {
+                            display: inline-block;
+                            margin: 0;
+                        }
+                    </style>
                     <div class="page">
-                        <h2>TITLE FOR YOUR REPORT</h2>
-                        <!--
-                        Build your report here!
-                        Do it in awesome way ;)
-                        -->
+                        <table class="table-condensed table" colspan="8" width="100%">
+                            <tr>
+                                <td class="no-border center strong" colspan="8"><h1>Natividad M. Torre MD</h1></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center strong upcase" colspan="8"><h4>Internal Medicine <br/> kidney disease and hypertension</h4></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border  no-pad" colspan="1"/>
+                                <td class="no-border upcase no-pad" colspan="4">Clinic Hours</td>
+                                <td class="no-border upcase no-pad" colspan="3">hospital affiliations</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border  no-pad" colspan="1"/>
+                                <td class="no-borde  no-padr" colspan="4">Mon - Sat Except Wed</td>
+                                <td class="no-border no-pad" colspan="3">Mindanao Medical Center</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1"/>
+                                <td class="no-border no-pad" colspan="4">GenMedex Bldg.</td>
+                                <td class="no-border no-pad" colspan="3">St. Elizabeth Hospital</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1"/>
+                                <td class="no-border no-pad" colspan="4">Santiago Blvd. GSC</td>
+                                <td class="no-border no-pad" colspan="3">General Santos Doctors Hospital</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1"/>
+                                <td class="no-border no-pad" colspan="4">9:00 AM - 12:00 NN</td>
+                                <td class="no-border no-pad" colspan="3">SUN No: 09228232825</td>
+                            </tr>
+                            <tr>
+                                <td class="no-border no-pad" colspan="1"/>
+                                <td class="no-border no-pad" colspan="4">Tel No: 554-7750</td>
+                                <td class="no-border no-pad" colspan="3"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" style="border-bottom: 3px solid black" colspan="8"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" style="padding-top: 1rem !important;" colspan="8"><span t-field="doc.transaction_date"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">Patient: </td>
+                                <td class="no-border border-bottom" colspan="4"><span t-field="doc.patient_name"/></td>
+                                <td class="no-border border-bottom" colspan="1">Age/Sex:</td>
+                                <td class="no-border border-bottom" colspan="1"><span t-field="doc.age"/>/<span t-field="doc.gender"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">Address</td>
+                                <td class="no-border border-bottom" colspan="6"><span t-field="doc.street"/> <span t-field="doc.street2"/> <span t-field="doc.city"/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center strong upcase" style="padding-top: 1rem !important;" colspan="8"><h3>laboratory requests</h3></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1"/>
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>CBC</span>
+                                   </div>
+                                </td>
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>URINALYSIS</span>
+                                   </div>
+                                </td>
+                                <td class="no-border" colspan="3">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>STOOL EXAM</span>
+                                   </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border center strong upcase" style="padding-top: 1rem !important;" colspan="8"><h4>blood chemistry</h4></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>FBS</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Serum Na</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>SGPT</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>BUN</span>
+                                   </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Serum K</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>SGOT</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Creatinine</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Serum Cl</span>
+                                   </div>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>LDL</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Uric Acid</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Serum Ca</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Alk Phos</span>
+                                   </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>PTPA</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Serum Mg</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Triglycerides</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>HDL</span>
+                                   </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>BT</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Albumin</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Globulin</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>HBSaG</span>
+                                   </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2"/>
+                                <td class="no-border" colspan="6">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Total Cholesterol</span>
+                                   </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="8"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border right" colspan="1">Others: </td>
+                                <td class="no-border border-bottom" colspan="6"/>
+                                <td class="no-border" colspan="1"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border center strong upcase" style="padding-top: 1rem !important;" colspan="8"><h4>x-ray examination request</h4></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>UGI Series</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Lumbosacral Spine Series</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Barium Enema</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Cervical Spine Series</span>
+                                   </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>KUB-IVP</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Thoracolumbar Spine Series</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Chest X-ray</span>
+                                   </div>
+                                </td>
+
+                                <td class="no-border" colspan="2">
+                                    <div class="in_td">
+                                       <input type="checkbox" style="margin-right:15px;"/>
+                                       <span>Complete Abdomen</span>
+                                   </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="8"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border right" colspan="1">Others: </td>
+                                <td class="no-border border-bottom" colspan="6"/>
+                                <td class="no-border" colspan="1"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="3" style="border-bottom: 2px solid black;padding-top: 3em !important;"/>
+                                <td class="no-border" colspan="5"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border center strong upcase" colspan="3"><span t-field="doc.physician_id.name"/></td>
+                                <td class="no-border" colspan="5"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1"><span>License No.</span></td>
+                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_license(doc.physician_id)"/></td>
+                                <td class="no-border" colspan="5"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1"><span>PTR No.</span></td>
+                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_ptr(doc.physician_id)"/></td>
+                                <td class="no-border" colspan="5"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" colspan="1"><span>S2 No.</span></td>
+                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_s2(doc.physician_id)"/></td>
+                                <td class="no-border" colspan="5"/>
+                            </tr>
+                        </table>
                     </div>
                 </t>
             </t>

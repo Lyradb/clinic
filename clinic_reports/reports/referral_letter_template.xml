@@ -143,37 +143,40 @@
                                 <td class="no-border" colspan="3"/>
                             </tr>
                             <tr>
-                                <td class="no-border" colspan="5"><p>This is to certify that Mr/Ms/Mrs <strong><span t-field="doc.patient_name"/>
-                                </strong> age/sex <strong><span t-field="doc.age"/>/<span t-field="doc.gender"/></strong> of <strong><span t-field="doc.street"/>
-                                    <span t-field="doc.street2"/> <span t-field="doc.city"/></strong>
-                                was seen and examined on <strong><span t-field="doc.result_date"/></strong> and was diagnosed to have <strong><span t-field="doc.findings"/></strong>
-                                I therefore recommend <strong><span t-field="doc.recommendation"/></strong> <br/>This certificate is being issued upon the request of the above mentioned name for whatever purpose it may serve.</p></td>
+                                <td class="no-border" colspan="5"><p>This is to certify that Mr/Ms/Mrs <span  class="strong" t-field="doc.patient_name"/>
+                                 age/sex <span  class="strong" t-field="doc.age"/>/<span  class="strong" t-field="doc.gender"/> of <span  class="strong" t-field="doc.street"/>
+                                    <span  class="strong" t-field="doc.street2"/> <span  class="strong" t-field="doc.city"/>
+                                    was seen and examined on <span class="strong" t-field="doc.booking_date"/> and was diagnosed to have:</p>
+                                    <t t-if="doc.findings == '&lt;p&gt;&lt;br&gt;&lt;/p&gt;'"><p class="center"><strong>None</strong></p></t><t t-else=""><span class="strong center" t-raw="doc.findings"/></t>
+                                    <p>I therefore recommend:</p>
+                                    <t t-if="doc.recommendation == '&lt;p&gt;&lt;br&gt;&lt;/p&gt;'"><p class="center"><strong>None</strong></p></t><t t-else=""><span  class="strong center" t-raw="doc.recommendation"/></t>
+                                    <p>This certificate is being issued upon the request of the above mentioned name for whatever purpose it may serve.</p></td>
                             </tr>
                             <tr>
-                                <td class="no-border" colspan="2" style="padding-top:6em !important"><p>Respectfully yours,</p></td>
+                                <td class="no-border" colspan="2" style="padding-top:4em !important"><p>Respectfully yours,</p></td>
                                 <td class="no-border" colspan="3"/>
                             </tr>
                             <tr>
-                                <td class="no-border" colspan="3" style="border-bottom: 2px solid black;padding-top: 6em !important;"/>
+                                <td class="no-border" colspan="3" style="border-bottom: 2px solid black;padding-top: 4em !important;"/>
                                 <td class="no-border" colspan="2"/>
                             </tr>
                             <tr>
-                                <td class="no-border strong upcase" colspan="3"><h3> <span t-field="doc.physician_id.name"/></h3></td>
+                                <td class="no-border center strong upcase" colspan="3"><h3> <span t-field="doc.physician_id.name"/></h3></td>
                                 <td class="no-border" colspan="2"/>
                             </tr>
                             <tr>
                                 <td class="no-border" colspan="1">License No.</td>
-                                <td class="no-border border-bottom" colspan="1"><span t-field="doc.physician_id.license_no"/></td>
+                                <td class="no-border border-bottom" colspan="1"><span t-esc="doc.get_license(doc.physician_id)"/></td>
                                 <td class="no-border" colspan="3"/>
                             </tr>
                             <tr>
                                 <td class="no-border" colspan="1">PTR No.</td>
-                                <td class="no-border border-bottom" colspan="1"><span t-field="doc.physician_id.ptr_no"/></td>
+                                <td class="no-border border-bottom" colspan="1"><span t-esc="doc.get_ptr(doc.physician_id)"/></td>
                                 <td class="no-border" colspan="3"/>
                             </tr>
                             <tr>
                                 <td class="no-border" colspan="1">S2 No.</td>
-                                <td class="no-border border-bottom" colspan="1"><span t-field="doc.physician_id.s2_no"/></td>
+                                <td class="no-border border-bottom" colspan="1"><span t-esc="doc.get_s2(doc.physician_id)"/></td>
                                 <td class="no-border" colspan="3"/>
                             </tr>
                         </table>
