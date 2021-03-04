@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- QWeb Reports -->
+       <!-- NAME & FILE_NAME should be the same -->
+        <!-- <delete id="action_sales_summary_template" model="ir.actions.report.xml"/> -->
+        <report
+            id="action_sales_summary_template"
+            model="cashier.recon"
+            report_type="qweb-pdf"
+            string="Summary of Out-Patient"
+            name="clinic_reports.sales_summary_template"
+            file="clinic_reports.sales_summary_template"
+            paperformat="clinic_reports.custom_letter_margin10_paperformat"
+            menu="True"
+        />
+        <template id="clinic_reports.sales_summary_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <style>
+                        .table-condensed{
+                        border-collapse:collapse;
+                        }
+                        table{
+                        empty-cells:show;
+                        }
+                        .border{
+                        border: 1px solid #a2bed0 !important;
+                        }
+                        .blue-top{
+                        border-top: 3px solid #19618d !important;
+                        }
+                        tr{
+                        min-height:1em;
+                        }
+                        td{
+                        padding: 5px 8px 5px !important;
+                        font-size: small;
+                        }
+                        h3{
+                        padding: 5px 8px 5px !important;
+                        }
+                        .no-pad{
+                        padding: 0px 0px 0px !important;
+                        }
+                        span{
+                        color: #414547;
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 1.08333333rem;
+                        font-weight: 400;
+                        line-height: 1.5;
+                        text-align: left;
+                        margin: 0px 0px 0px !important;
+                        }
+                        .center{
+                        text-align: center;
+                        }
+                        .right{
+                        text-align: right;
+                        }
+                        .top{
+                        vertical-align: top;
+                        }
+                        .middle{
+                        vertical-align: middle;
+                        }
+                        .bottom{
+                        vertical-align: bottom;
+                        }
+                        .strong{
+                        font-weight:bold;
+                        }
+                        .upcase{
+                        text-transform: uppercase;
+                        }
+                        .border-top{
+
+                        border-top:1px solid black;
+                        }
+                        .border-bottom{
+                        border-bottom:1px solid black;
+                        font-size:15px !important;
+                        }
+                        p{
+                        font-size:20px !important;
+                        line-height: 2 !important;
+                        }
+                        img {
+                        display: block;
+                        margin-left: 20%;
+                        margin-right: auto;
+                        }
+                        .container {
+                        position: relative;
+                        text-align: center;
+                        }
+                        .centered {
+                        position: absolute;
+                        top: 8%;
+                        left: 30%;
+                        transform: translate(-50%, -50%);
+                        }
+                        th {
+                            border-top: 1px solid black;
+                            border-bottom: 1px solid black;
+                            font-weight:bold;
+                        }
+                        span {
+                            font-size: small;
+                        }
+                    </style>
+                    <div class="container">
+                        <div class="row" width="100%" style="position: relative; text-align: center;">
+                            <span class="strong" style='font-size: x-large;'>Summary of Out-Patient</span>
+                            <br/>
+                            <span class="strong" style='font-size: small;' t-esc="doc.recon_date.strftime('%B %d, %Y')"/>
+                            <br/>
+                            <br/>
+                        </div>
+                    </div>
+                    <div/>
+                    <div class="page">
+                        <table class="table-condensed table" width="100%">
+                            <tr>
+                                <th width="5%"><span style="font-weight:bold;">No.</span></th>
+                                <th style="text-align: center;" width="10%"><span style="font-weight:bold;">Checkup Date</span></th>
+                                <th style="text-align: left;" width="25%"><span style="font-weight:bold;">Patient Name</span></th>
+                                <th style="text-align: right;" width="12%"><span style="font-weight:bold;">PF Due</span></th>
+                                <th style="text-align: right;" width="12%"><span style="font-weight:bold;">Medicines</span></th>
+                                <th style="text-align: right;" width="12%"><span style="font-weight:bold;">Others</span></th>
+                                <th style="text-align: right;" width="12%"><span style="font-weight:bold;">Discount</span></th>
+                                <th style="text-align: right;" width="12%"><span style="font-weight:bold;">Amount Paid</span></th>
+                            </tr>
+                            <t t-set="bill" t-value="0.00"/>
+                            <t t-set="meds" t-value="0.00"/>
+                            <t t-set="others" t-value="0.00"/>
+                            <t t-set="discount" t-value="0.00"/>
+                            <t t-set="paid" t-value="0.00"/>
+                            <t t-set="date" t-value=""/>
+                            <tr t-foreach="doc.billing_ids" t-as="rec">
+                                <td style="text-align: right;" width="5%">
+                                    <span t-esc="rec.priority"/>
+                                </td>
+                                <td style="text-align: center;" width="10%">
+                                   <span t-if="rec.booking_date!=date" t-esc="rec.booking_date.strftime('%d/%m/%Y')"/>
+                                </td>
+                                <td width="25%">
+                                    <span t-esc="rec.patient_id.name"/>
+                                </td>
+                                <td style="text-align: right;" width="12%">
+                                    <span t-esc="'%.2f' % rec.billing_id.pf_due"/>
+                                </td>
+                                <td style="text-align: right;" width="12%">
+                                    <span t-esc="'%.2f' % rec.billing_id.meds_due"/>
+                                </td>
+                                <td style="text-align: right;" width="12%">
+                                    <span t-esc="'%.2f' % rec.billing_id.other_due"/>
+                                </td>
+                                <td style="text-align: right;" width="12%">
+                                    <span t-esc="'%.2f' % rec.billing_id.discount"/>
+                                </td>
+                                <td style="text-align: right;" width="12%">
+                                    <span t-esc="'%.2f' % rec.billing_id.amount_paid"/>
+                                </td>
+                                <t t-set="bill" t-value="bill+rec.billing_id.pf_due"/>
+                                <t t-set="meds" t-value="meds+rec.billing_id.meds_due"/>
+                                <t t-set="others" t-value="others+rec.billing_id.other_due"/>
+                                <t t-set="discount" t-value="discount+rec.billing_id.discount"/>
+                                <t t-set="paid" t-value="paid+rec.billing_id.amount_paid"/>
+                                <t t-set="date" t-value="rec.booking_date"/>
+                            </tr>
+                            <tr>
+                                <td style="border-top: 1px solid black;" width="5%"></td>
+                                <td style="border-top: 1px solid black;" width="10%"></td>
+                                <td style="border-top: 1px solid black; text-align: right;" width="25%">
+                                    <span style="font-weight:bold;">Grand Total >>></span>
+                                </td>
+                                <td style="border-top: 1px solid black; text-align: right;" width="12%">
+                                    <span style="font-weight:bold;" t-esc="'%.2f' % bill"/>
+                                </td>
+                                <td style="border-top: 1px solid black; text-align: right;" width="12%">
+                                    <span style="font-weight:bold;" t-esc="'%.2f' % meds"/>
+                                </td>
+                                <td style="border-top: 1px solid black; text-align: right;" width="12%">
+                                    <span style="font-weight:bold;" t-esc="'%.2f' % others"/>
+                                </td>
+                                <td style="border-top: 1px solid black; text-align: right;" width="12%">
+                                    <span style="font-weight:bold;" t-esc="'%.2f' % discount"/>
+                                </td>
+                                <td style="border-top: 1px solid black; text-align: right;" width="12%">
+                                    <span style="font-weight:bold;" t-esc="'%.2f' % paid"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+
+    </data>
+</odoo>

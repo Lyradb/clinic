@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <!-- NAME & FILE_NAME should be the same -->
+        <!-- <delete id="action_admission_request_template" model="ir.actions.report.xml"/> -->
+        <report
+                id="action_header_template"
+                model="clinic.booking"
+                report_type="qweb-pdf"
+                string="Header Test"
+                name="clinic_reports.header_template"
+                file="clinic_reports.header_template"
+                paperformat="clinic_reports.custom_letter_2X2_paperformat"
+                menu="False"
+        />
+        <template id="clinic_reports.header_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <!--                <t t-call="report.internal_layout">-->
+                    <!-- <t t-call="report.external_layout"> -->
+                    <style>
+                        .table-condensed{
+                        border-collapse:collapse;
+                        }
+                        table{
+                        empty-cells:show;
+                        }
+                        .border{
+                        border: 1px solid #a2bed0 !important;
+                        }
+                        .blue-top{
+                        border-top: 3px solid #19618d !important;
+                        }
+                        .no-pad{
+                        padding: 0px 0px 0px !important;
+                        }
+                        span{
+                        color: #414547;
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 1.08333333rem;
+                        font-weight: 400;
+                        line-height: 1.5;
+                        text-align: left;
+                        margin: 0px 0px 0px !important;
+                        }
+                        .center{
+                        text-align: center;
+                        }
+                        .right{
+                        text-align: right;
+                        }
+                        .top{
+                        vertical-align: top;
+                        }
+                        .middle{
+                        vertical-align: middle;
+                        }
+                        .bottom{
+                        vertical-align: bottom;
+                        }
+                        .strong{
+                        font-weight:bold;
+                        }
+                        .italic{
+                            font-size: italic;
+                        }
+                        .upcase{
+                        text-transform: uppercase;
+                        }
+                        .border-top{
+                        border-top:1px solid black;
+                        font-size:15px !important;
+                        }
+                        .border-bottom{
+                        border-bottom:1px solid black;
+                        }
+                        img {
+                        display: block;
+                        margin-left: 20%;
+                        margin-right: auto;
+                        }
+                        .container {
+                        position: relative;
+                        text-align: center;
+                        
+                        }
+                        .container2 {
+                            display: table;
+                            overflow: hidden;
+                            display: table-cell; 
+                            vertical-align: middle;
+                        }
+                        .centered {
+                        position: absolute;
+                        top: 8%;
+                        left: 40%;
+                        transform: translate(-50%, -50%);
+                        }
+                    </style>
+                    <div class="container">
+                        <div class="row" width="100%" style="position: relative; text-align: center;">
+                            <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="width:10%; font-size: medium:" alt="Logo"/> 
+                            <div class="container centered strong">
+                                <span class="strong" style='font-size: small;' t-field="doc.company_id.name"/>
+                                <div style='font-size: x-small;'>
+                                    Internal Medicine
+                                </div>
+                                <div style='font-size: x-small;'>
+                                    Kidney Disease and Hypertension
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div/>
+                    <div class="container">
+                        <table class="table-condensed table" width="100%">
+                            <tr class="center" style="vertical-align: text-top; margin: auto; width: 80em;">
+                                <td width="50%">
+                                    <div style='font-size: xx-small;'>
+                                        <b>CLINIC HOURS:</b><br/>
+                                        Mon - Fri Except Wed<br/>
+                                        GenMedex Bldg.<br/>
+                                        Santiago Blvd. GSC<br/>
+                                        9:00 AM - 12:00 NN<br/>
+                                    </div>
+                                </td>
+                                <td width="50%">
+                                    <div style='font-size: xx-small;'>
+                                    <b>HOSPITAL AFFILIATIONS:</b><br/>
+                                    Mindanao Medical Center<br/>
+                                    St. Elizabeth Hospital<br/>
+                                    General Santos Doctors Hospital<br/>
+                                    SARMED Hospital<br/>
+                                    SUN No.: 09228232825
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table-condensed table" width="100%">
+                            <tr>
+                                <td style="font-size: xx-small; padding: 0px 0px 0px !important;">
+                                    <p style="font-size: xx-small;"><br/></p>
+                                </td>
+                            </tr>
+                            <tr style="vertical-align: text-top; margin: auto; width: 80em;">
+                                <td class="no-border" style="border-bottom: 3px double black" colspan="10" width="100%"/>
+                            </tr>
+                            <!-- <tr>
+                                <td>
+                                    <p style="font-size: small; padding: 5px 8px 5px 8 px;"><span style="font-size: small;" t-raw="doc.admission_req"/></p>
+                                </td>
+                            </tr> -->
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+
+    </data>
+</odoo>

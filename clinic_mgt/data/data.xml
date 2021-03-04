@@ -1,11 +1,35 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
-    <data noupdate="0">
+    <data noupdate="1">
+
+        <record id="clinic_user_limit" model="ir.config_parameter">
+            <field name="key">user.limit_count</field>
+            <field name="value">5</field>
+        </record>
+
+        <record id="auth_session_timeout.inactive_session_time_out_delay" model="ir.config_parameter">
+            <field name="key">inactive_session_time_out_delay</field>
+            <field name="value">48800</field>
+        </record>
 
         <record id="seq_clinic_booking" model="ir.sequence">
-            <field name="name">clinic.booking</field>
+            <field name="name">Clinic Booking</field>
             <field name="code">clinic.booking</field>
             <field name="prefix">BKG/%(year)s/%(month)s/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_clinic_referral" model="ir.sequence">
+            <field name="name">Clinic Referral</field>
+            <field name="code">clinic.referral</field>
+            <field name="prefix">REF/%(year)s/%(month)s/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_clinic_admission" model="ir.sequence">
+            <field name="name">Clinic Admission</field>
+            <field name="code">clinic.admission</field>
+            <field name="prefix">ADM/%(year)s/%(month)s/</field>
             <field name="padding">4</field>
         </record>
 
@@ -414,8 +438,252 @@
             <field name="type">service</field>
             <field name="active">True</field>
             <field name="categ_id" ref='clinic_mgt.product_category_3'/>
+        </record>      
 
+        <record id="product_clinic_phic" model="product.product">
+            <field name="name">PHILHEALTH</field>
+            <field name="purchase_ok" eval='0'/>
+            <field name="type">service</field>
+            <field name="active">True</field>
+            <field name="categ_id" ref='clinic_mgt.product_category_3'/>
         </record>
 
+        <record id="bus_bus_clinic_booking" model="base.automation">
+            <field name="name">Clinic Booking: Refresh</field>
+            <field name="model_id" ref="model_clinic_booking"/>
+            <field name="trigger">on_create_or_write</field>
+            <field name="state">code</field>
+            <field name="active">True</field>
+            <field name="code">model.env['bus.bus'].sendone('auto_refresh', model._name)</field>
+        </record>
+
+        <record id="res_users_physician_check" model="base.automation">
+            <field name="name">Users: Set Physician</field>
+            <field name="model_id" ref="model_res_users"/>
+            <field name="trigger">on_create_or_write</field>
+            <field name="state">code</field>
+            <field name="active">True</field>
+            <field name="code">model._onchange_physician(record.id)</field>
+        </record>
+
+        <record id="sales_order_update_amount" model="base.automation">
+            <field name="name">Sales Order: Update Amount</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="trigger">on_create_or_write</field>
+            <field name="state">code</field>
+            <field name="active">True</field>
+            <field name="code">if record.clinic_booking_id and record.state not in ('draft','done','cancel'):
+            model.env['clinic.booking']._update_amount_due(record.clinic_booking_id.id, record.amount_total)</field>
+        </record>
+
+        <!-- <record id="cashier_cashcount_add" model="base.automation">
+            <field name="name">Cashier Reconcillation: Add Cashcount</field>
+            <field name="model_id" ref="model_cashier_cashcount"/>
+            <field name="trigger">on_create</field>
+            <field name="state">code</field>
+            <field name="active">True</field>
+            <field name="code">if not record.cc_ids:
+            model.env['cashier.cashcount.denom']._generate_cashcount(record.id)</field>
+        </record> -->
+        
+        <record id="clinic_mgt_check_server" model="base.automation">
+            <field name="name">Clinic Management: Check Server Status</field>
+            <field name="model_id" ref="model_clinic_booking"/>
+            <field name="trigger">on_create_or_write</field>
+            <field name="state">code</field>
+            <field name="active">True</field>
+            <field name="code">if record.state not in ('draft','confirm','opd'):
+            model.env['clinic.booking']._check_server()</field>
+        </record>
+        
+        <record id="clinic_mgt_check_billout" model="base.automation">
+            <field name="name">Clinic Management: Billout - Assign Reconcillation</field>
+            <field name="model_id" ref="model_clinic_booking"/>
+            <field name="trigger">on_create_or_write</field>
+            <field name="state">code</field>
+            <field name="active">True</field>
+            <field name="code">if record.state=='bo' and not record.recon_id:
+            model.env['clinic.booking']._assign_recon(record.id)</field>
+        </record>
+
+        <record id="clinic_mgt_server" model="ir.config_parameter">
+            <field name="key">clinic_mgt.server</field>
+            <field name="value">trial</field>
+        </record>
+
+        <record id="clinic_mgt_start_demo" model="ir.config_parameter">
+            <field name="key">clinic_mgt.start_demo</field>
+            <field name="value" eval="DateTime.now().date().strftime('%Y-%m-%d %H:%M:%S')"/>
+        </record>
+
+        <record id="clinic_mgt_server" model="ir.config_parameter">
+            <field name="key">clinic_mgt.server</field>
+            <field name="value">trial</field>
+        </record>
+
+        <record id="clinic_mgt_msg_activate" model="ir.config_parameter">
+            <field name="key">clinic_mgt.msg_activate</field>
+            <field name="value">Invalid Server. Please call +639071007337 to activate the server.</field>
+        </record>
+
+        <record id="clinic_mgt_msg_activate_demo" model="ir.config_parameter">
+            <field name="key">clinic_mgt.msg_activate_demo</field>
+            <field name="value">Your trial has ended. Please call +639071007337 to activate the server.</field>
+        </record>
+
+        <record id="clinic_mgt_msg_reactivate" model="ir.config_parameter">
+            <field name="key">clinic_mgt.msg_reactivate</field>
+            <field name="value">Invalid Server. Please call +639071007337 to reactivate the server.</field>
+        </record>
+
+        <record id="webcam_js" model="ir.config_parameter">
+            <field name="key">web_widget_image_webcam.flash_fallback_mode</field>
+            <field name="value">1</field>
+        </record>
+
+        <record id="base.PHP" model="res.currency">
+            <field name="active" eval="True"/>
+            <field name="symbol">₱</field>
+            <field name="position">before</field>
+        </record>
+
+        <record id="config_booking_remarks_follow_up" model="clinic.booking.remarks">
+            <field name="name">Follow-Up</field>
+            <field name="color" eval="1"/>
+        </record>
+
+        <record id="config_booking_remarks_for_follow_up" model="clinic.booking.remarks">
+            <field name="name">For Follow-up</field>
+            <field name="color" eval="2"/>
+        </record>
+
+        <record id="config_booking_remarks_med_cert" model="clinic.booking.remarks">
+            <field name="name">Medical Certificate</field>
+            <field name="color" eval="3"/>
+        </record>
+
+        <record id="config_booking_remarks_admission" model="clinic.booking.remarks">
+            <field name="name">For Admission</field>
+            <field name="color" eval="4"/>
+        </record>
+
+        <record id="config_booking_remarks_referral" model="clinic.booking.remarks">
+            <field name="name">Referral</field>
+            <field name="color" eval="5"/>
+        </record>
+
+        <record id="config_booking_remarks_lab_req" model="clinic.booking.remarks">
+            <field name="name">Laboratory Request</field>
+            <field name="color" eval="6"/>
+        </record>
+
+        <record id="config_booking_remarks_free_checkup" model="clinic.booking.remarks">
+            <field name="name">Free Checkup</field>
+            <field name="color" eval="7"/>
+        </record>
+
+        <record id="config_booking_remarks_disc" model="clinic.booking.remarks">
+            <field name="name">Discounted</field>
+            <field name="color" eval="8"/>
+        </record>
+
+        <record id="config_booking_remarks_medcert_only" model="clinic.booking.remarks">
+            <field name="name">Medical Certificate Only</field>
+            <field name="color" eval="9"/>
+        </record>
+
+        <record id="config_booking_remarks_others" model="clinic.booking.remarks">
+            <field name="name">Other Charges</field>
+            <field name="color" eval="9"/>
+        </record>
+
+        <record id="partner_md_naty" model="res.partner">
+            <field name="name">NATIVIDAD M. TORRE, MD.</field>
+        </record>
+
+        <record id="user_md_naty" model="res.users">
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="name">NATIVIDAD M. TORRE, MD.</field>
+            <field name="login">NATY</field>
+            <field name="password">naty1234</field>
+            <field name="email">natytorre@gmail.com</field>
+            <field name="active" eval="True"/>
+            <field name="currency_id" ref="base.PHP"/>
+            <field name="partner_id" ref='clinic_mgt.partner_md_naty'/>
+            <!-- <field name="logo"  type="base64" file="clinic_mgt/static/description/kidneyLogo.jpg"/> -->
+            <field name="goup_ids" eval="[(6, 0, [ref('clinic_mgt.group_md_appointment_admin')])]"/>
+        </record>
+
+        <record id="clinic_mgt_default_physician" model="ir.config_parameter">
+            <field name="key">clinic_mgt.physician_id</field>
+            <field name="value" ref="clinic_mgt.user_md_naty"/>
+        </record>
+
+        <record id="group_md_appointment_admin" model="res.groups">
+            <field name="users" eval="[(4, ref('clinic_mgt.user_md_naty'))]"/>
+        </record>
+        
+        <record id="base.group_system" model="res.groups">
+            <field name="users" eval="[(4, ref('clinic_mgt.user_md_naty'))]"/>
+        </record>
+        
+        <record id="base.main_company" model="res.company">
+            <field name="logo" type="base64" file="clinic_mgt/static/description/kidneyLogo.jpg"/>
+        </record>
+
+        <!-- Denomination -->
+        <record id="config_denom_1000" model="config.denomination">
+            <field name="denomination">1000.00</field>
+        </record>
+
+        <record id="config_denom_500" model="config.denomination">
+            <field name="denomination">500.00</field>
+        </record>
+
+        <record id="config_denom_200" model="config.denomination">
+            <field name="denomination">200.00</field>
+        </record>
+
+        <record id="config_denom_100" model="config.denomination">
+            <field name="denomination">100.00</field>
+        </record>
+
+        <record id="config_denom_50" model="config.denomination">
+            <field name="denomination">50.00</field>
+        </record>
+
+        <record id="config_denom_20" model="config.denomination">
+            <field name="denomination">20.00</field>
+        </record>
+
+        <record id="config_denom_10" model="config.denomination">
+            <field name="denomination">10.00</field>
+        </record>
+
+        <record id="config_denom_5" model="config.denomination">
+            <field name="denomination">5.00</field>
+        </record>
+
+        <record id="config_denom_1" model="config.denomination">
+            <field name="denomination">1.00</field>
+        </record>
+
+        <record id="config_denom_25c" model="config.denomination">
+            <field name="denomination">0.25</field>
+        </record>
+
+        <record id="config_denom_10c" model="config.denomination">
+            <field name="denomination">0.10</field>
+        </record>
+
+        <record id="config_denom_5c" model="config.denomination">
+            <field name="denomination">0.05</field>
+        </record>
+
+        <record id="config_denom_1c" model="config.denomination">
+            <field name="denomination">0.01</field>
+        </record>
+        
     </data>
 </odoo>

@@ -3,7 +3,7 @@
     <data>
 
         <record id="custom_letter_margin10_paperformat" model="report.paperformat">
-            <field name="name">short length - </field>
+            <field name="name">Custom Letter</field>
             <field name="default" eval="True"/>
             <field name="format">custom</field>
             <field name="orientation">Portrait</field>
@@ -14,6 +14,118 @@
             <field name="margin_left">10</field>
             <field name="margin_right">10</field>
             <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="custom_letter_2X2_no_margin_paperformat" model="report.paperformat">
+            <field name="name">Custom Letter half-size</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="orientation">Portrait</field>
+            <field name="page_height">216</field>
+            <field name="page_width">139</field>
+            <field name="margin_top">3</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="custom_letter_2X2_margin_bottom_paperformat" model="report.paperformat">
+            <field name="name">Custom Letter half-size</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="orientation">Portrait</field>
+            <field name="page_height">216</field>
+            <field name="page_width">139</field>
+            <field name="margin_top">3</field>
+            <field name="margin_bottom">30</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="custom_letter_2X2_paperformat" model="report.paperformat">
+            <field name="name">Custom Letter half-size</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="orientation">Portrait</field>
+            <field name="page_height">216</field>
+            <field name="page_width">139</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">25</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">3</field>
+            <field name="dpi">90</field>
+        </record>
+<!-- 
+        <record id="custom_letter_2X2_margin_header_paperformat" model="report.paperformat">
+            <field name="name">Custom Header half-size</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="orientation">Portrait</field>
+            <field name="page_height">216</field>
+            <field name="page_width">139</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record> -->
+
+        <record id="custom_letter_4x4_paperformat" model="report.paperformat">
+            <field name="name">Custom Letter 1/4 size</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="orientation">Portrait</field>
+            <field name="page_height">139</field>
+            <field name="page_width">108</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="custom_letter_4x4_margin_bottom_paperformat" model="report.paperformat">
+            <field name="name">Custom Letter 1/4 size</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="orientation">Portrait</field>
+            <field name="page_height">139</field>
+            <field name="page_width">108</field>
+            <field name="margin_top">3</field>
+            <field name="margin_bottom">25</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="custom_letter_bottom35_paperformat" model="report.paperformat">
+            <field name="name">Custom Letter</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="orientation">Portrait</field>
+            <field name="page_height">279</field>
+            <field name="page_width">216</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">35</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="True"/>
             <field name="header_spacing">40</field>
             <field name="dpi">90</field>
         </record>

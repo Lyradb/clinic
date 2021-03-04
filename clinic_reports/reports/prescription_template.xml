@@ -10,14 +10,12 @@
                 string="Prescription"
                 name="clinic_reports.prescription_template"
                 file="clinic_reports.prescription_template"
-                paperformat="clinic_reports.custom_letter_margin10_paperformat"
+                paperformat="clinic_reports.custom_letter_2X2_no_margin_paperformat"
                 menu="True"
         />
         <template id="clinic_reports.prescription_template">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="doc">
-                    <!--                <t t-call="report.internal_layout">-->
-                    <!-- <t t-call="report.external_layout"> -->
                     <style>
                         .table-condensed{
                         border-collapse:collapse;
@@ -30,12 +28,6 @@
                         }
                         .blue-top{
                         border-top: 3px solid #19618d !important;
-                        }
-                        tr{
-                        min-height:2em;
-                        }
-                        td{
-                        padding: 5px 8px 5px !important;
                         }
                         .no-pad{
                         padding: 0px 0px 0px !important;
@@ -67,122 +59,197 @@
                         .strong{
                         font-weight:bold;
                         }
+                        .italic{
+                            font-style: italic;
+                        }
                         .upcase{
                         text-transform: uppercase;
                         }
                         .border-top{
                         border-top:1px solid black;
+                        font-size:15px !important;
                         }
                         .border-bottom{
                         border-bottom:1px solid black;
                         }
+                        img {
+                        display: block;
+                        margin-left: 20%;
+                        margin-right: auto;
+                        }
+                        .container {
+                        position: relative;
+                        text-align: center;
+                        
+                        }
+                        .container2 {
+                            display: table;
+                            overflow: hidden;
+                            display: table-cell; 
+                            vertical-align: middle;
+                        }
+                        .centered {
+                        position: absolute;
+                        top: 8%;
+                        left: 30%;
+                        transform: translate(-50%, -50%);
+                        }
                     </style>
+                    <div class="container">
+                        <div class="row" width="100%" style="position: relative; text-align: center;">
+                            <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="width:10%; font-size: medium:" alt="Logo"/> 
+                            <div class="container centered strong">
+                                <span class="strong" style='font-size: large;' t-field="doc.company_id.name"/>
+                                <div style='font-size: small;'>
+                                    Internal Medicine
+                                </div>
+                                <div style='font-size: small;'>
+                                    Kidney Disease and Hypertension
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div/>
                     <div class="page">
-                        <table class="table-condensed table">
-                            <tr>
-                                <td class="no-border center strong" colspan="8" width="100%"><h1>Natividad M. Torre MD</h1></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border center strong upcase" colspan="8" width="100%"><h4>Internal Medicine</h4></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border center strong upcase" colspan="8" width="100%"><h4>kidney disease and hypertension</h4></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="1" width="10%"/>
-                                <td class="no-border upcase" colspan="2" width="20%"><span>Clinic Hours</span></td>
-                                <td class="no-border" colspan="2" width="30%"/>
-                                <td class="no-border upcase" colspan="3" width="40%">hospital affiliations</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1" width="10%"/>
-                                <td class="no-border no-pad" colspan="2" width="20%">Mon - Sat Except Wed</td>
-                                <td class="no-border no-pad" colspan="2" width="30%"/>
-                                <td class="no-border no-pad" colspan="3" width="40%">Mindanao Medical Center</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1" width="10%"/>
-                                <td class="no-border no-pad" colspan="2" width="20%">GenMedex Bldg.</td>
-                                <td class="no-border no-pad" colspan="2" width="30%"/>
-                                <td class="no-border no-pad" colspan="3" width="40%">St. Elizabeth Hospital</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1" width="10%"/>
-                                <td class="no-border no-pad" colspan="2" width="20%">Santiago Blvd. GSC</td>
-                                <td class="no-border no-pad" colspan="2" width="30%"/>
-                                <td class="no-border no-pad" colspan="3" width="40%">General Santos Doctors Hospital</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1" width="10%"/>
-                                <td class="no-border no-pad" colspan="2" width="20%">9:00 AM - 12:00 NN</td>
-                                <td class="no-border no-pad" colspan="2" width="30%"/>
-                                <td class="no-border no-pad" colspan="3" width="40%">SUN No: 09228232825</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1" width="10%"/>
-                                <td class="no-border no-pad" colspan="2" width="20%">Tel No: 554-7750</td>
-                                <td class="no-border no-pad" colspan="5" width="70%"/>
-                            </tr>
-                            <tr>
-                                <td class="no-border" style="border-bottom: 3px solid black" colspan="8" width="100%"/>
-                            </tr>
-                            <tr>
-                                <td class="no-border upcase" style="padding-top: 2em;" colspan="1">patient</td>
-                                <td class="no-border upcase" style="padding-top: 2em;" colspan="7"><span t-field="doc.patient_name"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border upcase" colspan="1">Age/Sex</td>
-                                <td class="no-border upcase" colspan="5"><span t-field="doc.age"/>/<span t-field="doc.gender"/></td>
-                                <td class="no-border upcase" colspan="1">Date</td>
-                                <td class="no-border upcase" colspan="1"><span t-field="doc.transaction_date"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border upcase" colspan="1">address</td>
-                                <td class="no-border upcase" style="padding-top: 2em !important;" colspan="7"><span t-field="doc.street"/> <span t-field="doc.street2"/> <span t-field="doc.city"/></td>
-                            </tr>
-                            <tr t-foreach="doc.prescribe_med_ids" t-as="pres">
-
-                                <td class="no-border" colspan="8" style="padding-top:2em;">
-
-                                    <br/>
-                                    <span class="no-border strong" t-esc="pres.product_id.name"/>
-<!--                                    <td class="no-border strong" colspan="6" style="padding-left:2em;">500mg</td>-->
-
-                                    <br/>
-                                    <span class="no-border strong" t-esc="pres.generic_ids.name"/>
-<!--                                    <td class="no-border strong" colspan="6" style="padding-left:2em;">#90</td>-->
-
-                                    <br/>
-                                    <span class="no-border strong">SIG.</span>
-                                    <span class="no-border strong" style="padding-left:2em;" t-esc="pres.prescription_ids.name"/>
+                        <table class="table-condensed table" width="100%">
+                            <tr class="center" style="vertical-align: text-top; margin: auto; width: 80em;">
+                                <td width="50%">
+                                    <div style='font-size: small;'>
+                                        <b>CLINIC HOURS:</b><br/>
+                                        Mon - Fri Except Wed<br/>
+                                        GenMedex Bldg.<br/>
+                                        Santiago Blvd. GSC<br/>
+                                        9:00 AM - 12:00 NN<br/>
+                                    </div>
                                 </td>
-
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="5"/>
-                                <td class="no-border" colspan="3" style="border-bottom: 2px solid black;padding-top: 20em !important;"/>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="5"/>
-                                <td class="no-border center strong upcase" colspan="3"><span><h3><span t-field="doc.physician_id.name"/></h3></span></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="5"/>
-                                <td class="no-border" colspan="1"><span>License No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_license(doc.physician_id)"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="5"/>
-                                <td class="no-border" colspan="1"><span>PTR No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_ptr(doc.physician_id)"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="5"/>
-                                <td class="no-border" colspan="1"><span>S2 No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_s2(doc.physician_id)"/></td>
+                                <td width="50%">
+                                    <div style='font-size: small;'>
+                                    <b>HOSPITAL AFFILIATIONS:</b><br/>
+                                    Mindanao Medical Center<br/>
+                                    St. Elizabeth Hospital<br/>
+                                    General Santos Doctors Hospital<br/>
+                                    SARMED Hospital<br/>
+                                    SUN No.: 09228232825
+                                    </div>
+                                </td>
                             </tr>
                         </table>
+                        <table class="table-condensed table" width="100%">
+                            <tr>
+                                <td style="font-size: xx-small; padding: 0px 0px 0px !important;">
+                                    <p style="font-size: xx-small;"><br/></p>
+                                </td>
+                            </tr>
+                            <tr style="vertical-align: text-top; margin: auto; width: 80em;">
+                                <td class="no-border" style="border-bottom: 3px double black" colspan="10" width="100%"/>
+                            </tr>
+                            <tr>
+                                <td class="no-border" style="font-style: italic; font-size: medium; padding-top: 2em; padding: 5px 8px 1px !important;" colspan="1">Patient: <span style="font-size: medium;" class="strong" t-field="doc.patient_name"/></td>
+                            </tr>
+                        </table>
+                        <table class="table-condensed table" width="100%">
+                            <tr>
+                                <td  style="font-style: italic; font-size: medium; padding: 0px 8px 1px !important;" class="no-border " colspan="1">Age/Sex: <span style="font-size: medium;" t-field="doc.age"/> / <span style="font-size: medium;" t-field="doc.gender"/></td>
+                                <td style="font-style: italic; font-size: medium; text-align: right; padding: 0px 8px 1px !important;" colspan="1">Date: <span style="font-size: medium;" class="strong" t-esc="doc.booking_date.strftime('%b. %d, %Y')"/></td>
+                            </tr>
+                        </table>
+                        <table class="table-condensed table" width="100%">
+                            <tr>
+                                <td style="font-style: italic; font-size: medium; padding: 0px 8px 3px !important;" class="no-border">Address: <span style="font-size: medium;" t-field="doc.street"/><t t-if="doc.street2">, <span style="font-size: medium;" t-field="doc.street2"/></t><t t-if="doc.city">, <span style="font-size: medium;" t-field="doc.city"/></t></td>
+                            </tr>
+                        </table>
+                        <t t-set="ctr" t-value="8"/>
+                        <table class="table-condensed table" width="100%">
+                            <t t-foreach="doc.prescribe_med_ids" t-as="pres">
+                                <tr style="padding: 0px 8px 0px !important;" class="no-border">
+                                    <td style="padding: 0px 8px 0px !important; width: 100%;">
+                                        <p><br/><span style="font-size: medium;" class="no-border strong" t-esc="pres.product_id.name"/>
+                                            <span style="font-size: medium;">          #</span><span style="font-size: medium;" class="no-border strong" t-esc="pres.quantity"/></p>
+                                    </td>
+                                    <t t-set="ctr" t-value="ctr+1"/>
+                                </tr>
+                                <tr  style="padding: 0px 8px 0px !important;" t-if="pres.product_id.generic_names">
+                                    <td style="padding: 0px 8px 0px !important;" colspan="4">
+                                        <div>
+                                            <p style="font-size: medium;">(<span class="no-border" style="font-style: italic; font-size: medium;" t-esc="pres.product_id.generic_names"/>)</p>
+                                        </div>
+                                        <t t-set="ctr" t-value="ctr+1"/>
+                                    </td>
+                                </tr>
+                                <tr style="padding: 0px 8px 0px !important;">
+                                    <td style="padding: 0px 8px 5px !important;" class="italic">
+                                        <p><span style="font-size: medium;" class="no-border">SIG.:</span><span t-if="pres.prescription"  class="no-border" style="padding-left:2em; font-size: medium;" t-esc="pres.prescription"/></p>
+                                    </td>
+                                    <t t-set="ctr" t-value="ctr+1"/>
+                                </tr>
+                                <!-- <tr style="padding: 0px 8px 0px !important;" t-if="doc.follow_up_date and ctr>30" class="no-border" colspan="10" width="100%">
+                                    <td class="no-border" style="font-size: medium; padding: 0px 8px 5px !important;" colspan="8">
+                                        <span style="font-size: medium;" class="no-border italic">Follow-up Date:</span>
+                                        <span class="no-border strong" style="padding-left:2em; font-size: medium;" t-esc="doc.follow_up_date.strftime('%B %d, %Y')"/>
+                                    </td>
+                                </tr> -->
+                            </t>
+                            <tr>
+                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]" t-as="i">
+                                    <table class="table-condensed table" width="100%">
+                                        <tr t-if="i>=ctr">
+                                            <td style="font-size: medium;">
+                                                <p style="font-size: medium;"><span style="font-size: medium;"/><br/></p>
+                                            </td>
+                                            <t t-set="ctr" t-value="ctr+1"/>
+                                        </tr>
+                                    </table>
+                                </t>
+                            </tr>
+                            <tr t-if="doc.follow_up_date" class="no-border" colspan="10" width="100%">
+                                <td class="no-border" style="padding: 0px 8px 5px !important;" colspan="8">
+                                    <span style="padding: 0px 8px 5px !important; font-size: medium;" class="no-border italic">Follow-up Date:</span>
+                                    <span class="no-border strong" style="padding-left:2em; font-size: medium;" t-esc="doc.follow_up_date.strftime('%B %d, %Y')"/> 
+                                </td>
+                            </tr>
+                            <table class="table-condensed table" width="100%">
+                                <tr>
+                                    <td width="60%">
+                                        <p><br/></p>
+                                    </td>
+                                    <td style="border-top: 1px solid black;" class="no-border">
+                                        <div class="no-border">
+                                            <p t-if="doc.physician_id">
+                                            <span style="font-size: medium;" class="strong" t-field="doc.physician_id.name"/><br/>
+                                            <span style="font-size: medium;">Licence No: </span><span style="font-size: medium;" class="strong" t-esc="doc.get_license(doc.physician_id.id,doc.booking_date)"/><br/>
+                                            <span style="font-size: medium;">PTR No.: </span><span style="font-size: medium;" class="strong" t-esc="doc.get_ptr(doc.physician_id.id,doc.booking_date)"/><br/>
+                                            <span style="font-size: medium;">S2 No.: </span><span style="font-size: medium;" class="strong" t-esc="doc.get_s2(doc.physician_id.id,doc.booking_date)"/></p>
+                                        </div>
+                                        <t t-set="ctr" t-value="8"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </table>
                     </div>
+                    <!-- <div class="footer">
+                        <table class="table-condensed table" width="100%">
+                            <tr>
+                                <td  t-if="doc.follow_up_date" width="30%" class="no-pad" style="padding: 0px 8px 5px !important;" colspan="8">
+                                    <p style="padding: 0px 8px 5px !important; font-size: small;" class="no-border italic">Follow-up Date: <span style="padding-left:2em; font-size: small;" class="no-pad strong" t-esc="doc.follow_up_date.strftime('%B %d, %Y')"/></p>
+                                </td>
+                                <td t-else="" width="30%" class="no-pad">
+                                    <p class="no-border"><br/></p>
+                                </td>
+                                <td width="30%" class="no-pad">
+                                    <p class="no-border"><br/></p>
+                                </td>
+                                <td width="40" style="border-top: 1px solid black; padding: 0px 8px 0px !important;" class="no-border">
+                                    <div class="contaier" style="padding: 0px 8px 0px !important;">
+                                        <p t-if="doc.physician_id" class="no-pad">
+                                        <span style="font-size: medium;" class="no-pad strong" t-field="doc.physician_id.name"/><br/>
+                                        <span style="font-size: small;" class="no-pad">Licence No: </span><span class="no-pad strong" style="font-size: small;" t-esc="doc.get_license(doc.physician_id.id,doc.booking_date)"/><br/>
+                                        <span style="font-size: small;" class="no-pad">PTR No.: </span><span class="no-pad strong" style="font-size: small;" t-esc="doc.get_ptr(doc.physician_id.id,doc.booking_date)"/><br/>
+                                        <span style="font-size: small;" class="no-pad">S2 No.: </span><span class="no-pad strong" style="font-size: small;" t-esc="doc.get_s2(doc.physician_id.id,doc.booking_date)"/></p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div> -->
                 </t>
             </t>
         </template>

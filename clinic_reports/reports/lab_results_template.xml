@@ -11,7 +11,7 @@
                    name="clinic_reports.lab_result_template"
                    file="clinic_reports.lab_result_template"
                    paperformat="clinic_reports.custom_letter_margin10_paperformat"
-                   menu="True"
+                   menu="False"
                />
         <template id="clinic_reports.lab_result_template">
             <t t-call="web.html_container">
@@ -92,7 +92,7 @@
                             </tr>
                             <tr>
                                 <td class="no-border  no-pad" colspan="1"/>
-                                <td class="no-borde  no-padr" colspan="3">Mon - Sat Except Wed</td>
+                                <td class="no-borde  no-padr" colspan="3">Mon - Fri Except Wed</td>
                                 <td class="no-border no-pad" colspan="4">Mindanao Medical Center</td>
                             </tr>
                             <tr>
@@ -266,17 +266,17 @@
                             </tr>
                             <tr>
                                 <td class="no-border" colspan="1"><span>License No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_license(doc.physician_id)"/></td>
+                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_license(doc.physician_id.id,doc.booking_date)"/></td>
                                 <td class="no-border" colspan="5"/>
                             </tr>
                             <tr>
                                 <td class="no-border" colspan="1"><span>PTR No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_ptr(doc.physician_id)"/></td>
+                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_ptr(doc.physician_id.id,doc.booking_date)"/></td>
                                 <td class="no-border" colspan="5"/>
                             </tr>
                             <tr>
                                 <td class="no-border" colspan="1"><span>S2 No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_s2(doc.physician_id)"/></td>
+                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_s2(doc.physician_id.id,doc.booking_date)"/></td>
                                 <td class="no-border" colspan="5"/>
                             </tr>
                         </table>

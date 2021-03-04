@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- QWeb Reports -->
+       <!-- NAME & FILE_NAME should be the same -->
+        <!-- <delete id="action_referral_letter_booking" model="ir.actions.report.xml"/> -->
+        <report
+            id="action_referral_letter_booking"
+            model="clinic.booking"
+            report_type="qweb-pdf"
+            string="Referral Letter"
+            name="clinic_reports.referral_letter_template_booking"
+            file="clinic_reports.referral_letter_template_booking"
+            paperformat="clinic_reports.custom_letter_margin10_paperformat"
+            menu="True"
+        />
+        <template id="clinic_reports.referral_letter_template_booking">
+            <t t-call="web.html_container">
+                <t t-foreach="docs.referral_id" t-as="doc">
+                    <style>
+                        .table-condensed{
+                        border-collapse:collapse;
+                        }
+                        table{
+                        empty-cells:show;
+                        }
+                        .border{
+                        border: 1px solid #a2bed0 !important;
+                        }
+                        .blue-top{
+                        border-top: 3px solid #19618d !important;
+                        }
+                        tr{
+                        min-height:1em;
+                        }
+                        td{
+                        padding: 5px 8px 5px !important;
+                        }
+                        h3{
+                        padding: 5px 8px 5px !important;
+                        }
+                        .no-pad{
+                        padding: 0px 0px 0px !important;
+                        }
+                        span{
+                        color: #414547;
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 1.08333333rem;
+                        font-weight: 400;
+                        line-height: 1.5;
+                        text-align: left;
+                        margin: 0px 0px 0px !important;
+                        }
+                        .center{
+                        text-align: center;
+                        }
+                        .right{
+                        text-align: right;
+                        }
+                        .top{
+                        vertical-align: top;
+                        }
+                        .middle{
+                        vertical-align: middle;
+                        }
+                        .bottom{
+                        vertical-align: bottom;
+                        }
+                        .strong{
+                        font-weight:bold;
+                        }
+                        .upcase{
+                        text-transform: uppercase;
+                        }
+                        .border-top{
+
+                        border-top:1px solid black;
+                        }
+                        .border-bottom{
+                        border-bottom:1px solid black;
+                        font-size:15px !important;
+                        }
+                        p{
+                        font-size:20px !important;
+                        line-height: 2 !important;
+                        }
+                        img {
+                        display: block;
+                        margin-left: 20%;
+                        margin-right: auto;
+                        }
+                        .container {
+                        position: relative;
+                        text-align: center;
+                        }
+                        .centered {
+                        position: absolute;
+                        top: 8%;
+                        left: 40%;
+                        transform: translate(-50%, -50%);
+                        }
+                    </style>
+                    <div class="container">
+                        <div class="row" width="100%" style="position: relative; text-align: center;">
+                            <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="width:10%;" alt="Logo"/>
+                            <div class="container centered strong">
+                                <span class="strong" style='font-size: large;' t-field="doc.company_id.name"/>
+                                <div style='font-size: medium;'>
+                                    Internal Medicine
+                                </div>
+                                <div style='font-size: small;'>
+                                    Kidney Disease and Hypertension
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div/>
+                    <div class="page">
+                        <table class="table-condensed table" width="100%">
+                            <tr class="center" style="vertical-align: text-top; margin: auto; width: 80em;">
+                                <td width="50%">
+                                    <div style='font-size: small;'>
+                                        <b>CLINIC HOURS:</b><br/>
+                                        Mon - Fri Except Wed<br/>
+                                        GenMedex Bldg.<br/>
+                                        Santiago Blvd. GSC<br/>
+                                        9:00 AM - 12:00 NN<br/>
+                                    </div>
+                                </td>
+                                <td width="50%">
+                                    <div style='font-size: small;'>
+                                    <b>HOSPITAL AFFILIATIONS:</b><br/>
+                                    Mindanao Medical Center<br/>
+                                    St. Elizabeth Hospital<br/>
+                                    General Santos Doctors Hospital<br/>
+                                    SARMED Hospital<br/>
+                                    SUN No.: 09228232825
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" style="border-bottom: 3px double black" colspan="5" width="100%"/>
+                            </tr>
+                            <tr>
+                                <p><td class="no-border" style="padding-top: 2em !important;" colspan="2"><span t-esc="doc.transaction_date.strftime('%B %d, %Y')"/>
+                                <br/>
+                                <br/>
+                                <b><span  class="strong" t-field="doc.referral_partner_id.name"/><br/><span t-field="doc.referral_partner_id.street"/><t t-if="doc.referral_partner_id.street2"><br/><span t-field="doc.referral_partner_id.street2"/></t><t t-if="doc.referral_partner_id.city"><br/><span t-field="doc.referral_partner_id.city"/></t></b>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                Dear <span  class="strong" t-field="doc.referral_partner_id.name"/>,
+                                <br/>
+                                <br/>
+                                Greetings!
+                                <br/>
+                                <br/>
+                                <p style="padding: 5px 0px 5px;">Respectfully referring Mr/Ms/Mrs  <span  class="strong" t-field="doc.patient_id.name"/>
+                                <br/>age/sex <span  class="strong" t-field="doc.booking_id.age"/> years old /<span  class="strong" t-esc="doc.booking_id.gender.upper()"/> of <span  class="strong" t-field="doc.booking_id.street"/><t t-if="doc.booking_id.street2">, <span  class="strong" t-field="doc.booking_id.street2"/></t> <t t-if="doc.booking_id.city">, <span  class="strong" t-field="doc.booking_id.city"/></t>
+                                <br/>for further evaluation of
+                                    <t t-if="doc.referral_evaluation == '&lt;p&gt;&lt;br&gt;&lt;/p&gt;'"><strong>None</strong></t><t t-else=""><span style="font-style: strong;" t-raw="doc.referral_evaluation"/></t>.
+                                </p>
+                                </td></p>
+                            </tr>
+                            <!-- <tr>
+                                <td>
+                                    <br/>
+                                </td>
+                            </tr> -->
+                        </table>
+                        <table class="table-condensed table" width="100%">
+                            <tr>
+                                <td width="45%">
+                                    <div>
+                                        <p style="padding: 5px 0px 5px;"><b>Current Meds:</b><br/><span t-esc="doc.current_meds"/>
+                                        </p>
+                                    </div>
+                                </td>
+                                <td width="10%">
+                                    <br/>
+                                </td>
+                                <td  width="45%">
+                                        <div>
+                                            <p style="padding: 5px 0px 5px;"><b>Other Problems:</b><br/><span t-raw="doc.referral_other_probs"/>
+                                            </p>
+                                        </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table-condensed table" width="100%">
+                            <tr>
+                                <td>
+                                    <br/>
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                                <td>
+                                    <br/>
+                                </td>
+                            </tr> -->
+                            <tr>
+                                <td t-if="doc.referral_remarks != '&lt;p&gt;&lt;br&gt;&lt;/p&gt;'">
+                                    <p>Remarks: <span t-raw="doc.referral_remarks"/></p>
+                                </td>
+                                <td t-elses=""><br/></td>
+                            </tr>
+                            <tr>
+                                <td class="no-border" style="padding-bottom:4em !important;"><p>Thank you very much,</p></td>
+                            </tr>
+                        </table>
+                        <table class="table-condensed table" width="100%">
+                            <tr class="no-border" width="100%">
+                                <td style="border-top: 1px solid black;" class="no-border">
+                                    <div class="no-border">
+                                        <p t-if="doc.booking_id.physician_id">
+                                        <span class="strong" t-esc="doc.booking_id.physician_id.name.upper()"/><br/>
+                                        <span>Licence No: </span><span  class="strong" t-esc="doc.get_license(doc.booking_id.physician_id.id,doc.referral_date)"/><br/>
+                                        <span>PTR No.: </span><span class="strong" t-esc="doc.get_ptr(doc.booking_id.physician_id.id,doc.referral_date)"/><br/>
+                                        <span>S2 No.: </span><span class="strong" t-esc="doc.get_s2(doc.booking_id.physician_id.id,doc.referral_date)"/></p>
+                                    </div>
+                                </td>
+                                <td width="70%">
+                                    <p><br/></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="footer">
+                        <p style="text-align: right;">
+                            <span>Date Printed: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %r')"/></span>
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+
+    </data>
+</odoo>

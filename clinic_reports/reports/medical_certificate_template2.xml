@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- QWeb Reports -->
+       <!-- NAME & FILE_NAME should be the same -->
+        <!-- <delete id="action_medical_certificate" model="ir.actions.report.xml"/> -->
+        <report
+            id="action_medical_certificate2"
+            model="clinic.booking"
+            report_type="qweb-pdf"
+            string="Medical Certificate"
+            name="clinic_reports.medical_certificate_template2"
+            file="clinic_reports.medical_certificate_template2"
+            paperformat="clinic_reports.custom_letter_margin10_paperformat"
+            menu="True"
+        />
+        <template id="clinic_reports.medical_certificate_template2">
+            <t t-call="web.html_container">
+<!--                <t t-call="report.internal_layout">-->
+                <t t-foreach="docs" t-as="doc">
+                <!-- <t t-call="report.external_layout"> -->
+                    <style>
+                        .table-condensed{
+                        border-collapse:collapse;
+                        }
+                        table{
+                        empty-cells:show;
+                        }
+                        .border{
+                        border: 1px solid #a2bed0 !important;
+                        }
+                        .blue-top{
+                        border-top: 3px solid #19618d !important;
+                        }
+                        tr{
+                        min-height:2em;
+                        }
+                        td{
+                        padding: 5px 8px 5px !important;
+                        }
+                        .no-pad{
+                        padding: 0px 0px 0px !important;
+                        }
+                        span{
+                        color: #414547;
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 1.08333333rem;
+                        font-weight: 400;
+                        line-height: 1.5;
+                        text-align: left;
+                        margin: 0px 0px 0px !important;
+                        }
+                        .center{
+                        text-align: center;
+                        }
+                        .right{
+                        text-align: right;
+                        }
+                        .top{
+                        vertical-align: top;
+                        }
+                        .middle{
+                        vertical-align: middle;
+                        }
+                        .bottom{
+                        vertical-align: bottom;
+                        }
+                        .strong{
+                        font-weight:bold;
+                        }
+                        .upcase{
+                        text-transform: uppercase;
+                        }
+                        .border-top{
+                        border-top:1px solid black;
+                        font-size:15px !important;
+                        }
+                        .border-bottom{
+                        border-bottom:1px solid black;
+                        }
+                        img {
+                        display: block;
+                        margin-left: 20%;
+                        margin-right: auto;
+                        }
+                        .container {
+                        position: relative;
+                        text-align: center;
+                        
+                        }
+                        .container2 {
+                            display: table;
+                            overflow: hidden;
+                            display: table-cell; 
+                            vertical-align: middle;
+                        }
+                        .centered {
+                        position: absolute;
+                        top: 8%;
+                        left: 40%;
+                        transform: translate(-50%, -50%);
+                        }
+                    </style>
+                    <div class="container">
+                        <div class="row" width="100%" style="position: relative; text-align: center;">
+                            <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="width:8%;" alt="Logo"/>
+                            <!-- <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 45px; width:10%;" alt="Logo"/> -->
+                            <div class="container centered strong">
+                                <span class="strong" style='font-size: large;' t-field="doc.company_id.name"/>
+                                <div style='font-size: medium;'>
+                                    Internal Medicine
+                                </div>
+                                <div style='font-size: small;'>
+                                    Kidney Disease and Hypertension
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page">
+                        <table class="table-condensed table" width="100%">
+                            <tr class="center" style="vertical-align: text-top; margin: auto; width: 80em;">
+                                <td width="50%">
+                                    <div style='font-size: small;'>
+                                        <b>CLINIC HOURS:</b><br/>
+                                        Mon - Fri Except Wed<br/>
+                                        GenMedex Bldg.<br/>
+                                        Santiago Blvd. GSC<br/>
+                                        9:00 AM - 12:00 NN<br/>
+                                    </div>
+                                </td>
+                                <td width="50%">
+                                    <div style='font-size: small;'>
+                                    <b>HOSPITAL AFFILIATIONS:</b><br/>
+                                    Mindanao Medical Center<br/>
+                                    St. Elizabeth Hospital<br/>
+                                    General Santos Doctors Hospital<br/>
+                                    SARMED Hospital<br/>
+                                    SUN No.: 09228232825
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table-condensed table"  width="100%">
+                            <tr>
+                                <td class="no-border" style="border-bottom: 3px double black" colspan="5" width="100%"/>
+                            </tr>
+                        </table>
+                        <p style="margin-bottom: 0in; line-height: 100%"><br/>January 30, 2021</p>
+                        <p style="margin-bottom: 0in; line-height: 100%"><br/></p>
+                        <p align="center" style="margin-bottom: 0in; line-height: 100%"><font size="5" style="font-size: 18pt"><b>M E D I C A L   C  E R T I F I C A T E</b></font></p>
+                        <p style="margin-bottom: 0in; line-height: 100%"><br/></p>
+                        <p style="margin-bottom: 0in; line-height: 100%">To whom it may concern,</p>
+                        <p style="margin-bottom: 0in; line-height: 100%"><br/></p>
+                        <p style="margin-bottom: 0in; line-height: 100%">This is to certify that Mr/Ms/Mrs <span t-if="doc.patient_name" class="strong" t-field="doc.patient_name"/><t t-else="">_____________________________________________________________</t></p>
+                        <p style="margin-bottom: 0in; line-height: 100%">age/sex 
+                        <t t-if="doc.age or doc.gender"><span class="strong" t-field="doc.age"/>/<span class="strong" t-field="doc.gender"/></t><t t-else="">_______________</t> of <t t-if="doc.street"><span  class="strong" t-field="doc.street"/>
+                                    <span class="strong" t-field="doc.street2"/> <span class="strong" t-field="doc.city"/></t><t t-else="">________________________________________________________________</t></p>
+                        <span t-raw="med_cert_report"/>
+                        <!-- <p style="margin-bottom: 0in; line-height: 100%">was seen and examined on <t t-if="doc.last_checkup or doc.booking_date"><span t-if="doc.last_checkup" class="strong" t-esc="doc.last_checkup.strftime('%B %d, %Y')"/><span t-else="" class="strong" t-esc="doc.booking_date.strftime('%B %d, %Y')"/></t>
+                        <t t-else=''>________________</t> and was diagnosed to have <t t-if="doc.diagnosis=='&lt;p&gt;&lt;br&gt;&lt;/p&gt;'">____________________________</t><t t-else=''><span class="strong" t-raw='doc.diagnosis'/></t></p>
+                        <p t-if="doc.diagnosis=='&lt;p&gt;&lt;br&gt;&lt;/p&gt;'" style="margin-bottom: 0in; line-height: 100%">________________________________________________________________________________________</p>
+                        <p style="margin-bottom: 0in; line-height: 100%">I therefore recommend <t t-if="doc.recommendation == '&lt;p&gt;&lt;br&gt;&lt;/p&gt;'">______________________________________________________________________</t><span t-else="" class="strong center" t-raw="doc.recommendation"/></p>
+                        <p t-if="doc.recommendation == '&lt;p&gt;&lt;br&gt;&lt;/p&gt;'" style="margin-bottom: 0in; line-height: 100%">________________________________________________________________________________________</p> -->
+                        <p style="margin-bottom: 0in; line-height: 100%">This certificate is being issued upon the request of above mentioned named for whatever purpose it may serve.</p>
+                        <p style="margin-bottom: 0in; line-height: 100%"><br/></p>
+                        <p style="margin-bottom: 0in; line-height: 100%"><br/></p>
+                        <p style="margin-bottom: 0in; line-height: 100%">Respectfully yours;</p>
+                        <p style="margin-bottom: 0in; line-height: 100%"><br/></p>
+                        <p style="margin-bottom: 0in; line-height: 100%"><br/></p>
+                        <p style="margin-bottom: 0in; line-height: 100%">__________________________________</p>
+                        <p style="margin-bottom: 0in; line-height: 100%"><b>NATIVIDAD M. TORRE, MD.</b></p>
+                        <p style="margin-bottom: 0in; line-height: 100%; padding-to: 0in; padding-bottom: 0in;">License No. <span t-esc="doc.get_license(doc.physician_id.id,doc.booking_date)"/><br/>
+                        PTR No. <span t-esc="doc.get_ptr(doc.physician_id.id,doc.booking_date)"/><br/>
+                        S2 No. <span t-esc="doc.get_s2(doc.physician_id.id,doc.booking_date)"/></p>
+                    </div>
+                    <div class="footer">
+                        <p style="text-align: right;"> Date Printed: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %r')"/></p>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+
+    </data>
+</odoo>

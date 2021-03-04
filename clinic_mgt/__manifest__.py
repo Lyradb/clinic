@@ -3,7 +3,7 @@
     'name': "Clinic Management",
 
     'summary': """
-        Clinic Management Systems""",
+        Clinic Management Systems for Odoo 12""",
 
     'description': """
         Long description of module's purpose
@@ -19,29 +19,20 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base_setup','mail','contacts', 'portal','sale','account'],
+    'depends': ['base_setup','mail','contacts', 'portal', 'sale_management', 'board', #'jasper_reports',
+                'account', 'field_image_preview', 'auth_session_timeout', 'smile_web_auto_refresh'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',
         'views/views.xml',
+        'views/billing_views.xml',
         'data/data.xml',
-        # 'reports/templates/paper_sizes.xml',
-        #'reports/templates/entry_forms_template.xml',
-        #'reports/templates/refferal_forms_template.xml',
-        #'reports/templates/item_stock_card_template.xml',
-        #'reports/templates/medicines_inventory_template.xml',
-        #'reports/templates/medical_record_template.xml',
-        #'reports/templates/daily_billout_template.xml',
-        #'reports/templates/lab_results_template.xml',
-        #'reports/templates/prescription_template.xml',
-        #'reports/templates/medical_certificate_template.xml',
+        'data/ribbon_data.xml',
+        'views/base_view.xml',
+        'views/cashier_recon_view.xml',
     ],
-    
-    # 'qweb': ['static/src/xml/many2many_checkboxes.xml', ],
-    
-    # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],

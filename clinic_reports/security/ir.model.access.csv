@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_clinic_reports_clinic_reports,clinic_reports.clinic_reports,model_clinic_reports_clinic_reports,,1,0,0,0
+access_clinic_booking_laboratory_request_user,clinic.booking.laboratory.request,model_clinic_booking_laboratory_request,clinic_mgt.group_md_appointment_user,1,1,1,0
+access_clinic_booking_config_blood_chem_request_user,clinic.booking.config.blood.chem.request,model_clinic_booking_config_blood_chem_request,clinic_mgt.group_md_appointment_user,1,1,1,0
+access_clinic_booking_config_xray_exam_request_user,clinic.booking.config.xray.exam.request,model_clinic_booking_config_xray_exam_request,clinic_mgt.group_md_appointment_user,1,1,1,0

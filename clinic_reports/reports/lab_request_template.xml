@@ -3,21 +3,20 @@
     <data>
        <!-- QWeb Reports -->
        <!-- NAME & FILE_NAME should be the same -->
-               <report
-                   id="action_lab_request"
-                   model="clinic.booking"
-                   report_type="qweb-pdf"
-                   string="Laboratory Requests"
-                   name="clinic_reports.lab_request_template"
-                   file="clinic_reports.lab_request_template"
-                   paperformat="clinic_reports.custom_letter_margin10_paperformat"
-                   menu="True"
-               />
+        <!-- <delete id="action_lab_request" model="ir.actions.report.xml"/> -->
+        <report
+            id="action_lab_request"
+            model="clinic.booking"
+            report_type="qweb-pdf"
+            string="Laboratory Requests (Combined)"
+            name="clinic_reports.lab_request_template"
+            file="clinic_reports.lab_request_template"
+            paperformat="clinic_reports.custom_letter_2X2_no_margin_paperformat"
+            menu="True"
+        />
         <template id="clinic_reports.lab_request_template">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="doc">
-<!--                <t t-call="report.internal_layout">-->
-                <!-- <t t-call="report.external_layout"> -->
                     <style>
                         .table-condensed{
                         border-collapse:collapse;
@@ -30,12 +29,6 @@
                         }
                         .blue-top{
                         border-top: 3px solid #19618d !important;
-                        }
-                        tr{
-                        min-height:2em;
-                        }
-                        td{
-                        padding: 5px 8px 5px !important;
                         }
                         .no-pad{
                         padding: 0px 0px 0px !important;
@@ -72,353 +65,295 @@
                         }
                         .border-top{
                         border-top:1px solid black;
+                        font-size:15px !important;
                         }
                         .border-bottom{
                         border-bottom:1px solid black;
                         }
-                        div.in_td {
-                            display: inline-block;
-                            margin: 0;
+                        img {
+                        display: block;
+                        margin-left: 20%;
+                        margin-right: auto;
+                        }
+                        .container {
+                        position: relative;
+                        text-align: center;
+                        
+                        }
+                        .centered {
+                        position: absolute;
+                        top: 8%;
+                        left: 30%;
+                        transform: translate(-25%, -75%);
+                        }
+                        .row::after {
+                            content: "";
+                            clear: both;
+                            display: table;
                         }
                     </style>
+                    <div class="container">
+                        <div class="row" width="100%" style="position: relative; text-align: center;">
+                            <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="width:10%; font-size: medium:" alt="Logo"/> 
+                            <div class="container centered strong">
+                                <span class="strong" style='font-size: large;' t-field="doc.company_id.name"/>
+                                <div style='font-size: small;'>
+                                    Internal Medicine
+                                </div>
+                                <div style='font-size: small;'>
+                                    Kidney Disease and Hypertension
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div/>
                     <div class="page">
-                        <table class="table-condensed table" colspan="8" width="100%">
-                            <tr>
-                                <td class="no-border center strong" colspan="8"><h1>Natividad M. Torre MD</h1></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border center strong upcase" colspan="8"><h4>Internal Medicine <br/> kidney disease and hypertension</h4></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border  no-pad" colspan="1"/>
-                                <td class="no-border upcase no-pad" colspan="4">Clinic Hours</td>
-                                <td class="no-border upcase no-pad" colspan="3">hospital affiliations</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border  no-pad" colspan="1"/>
-                                <td class="no-borde  no-padr" colspan="4">Mon - Sat Except Wed</td>
-                                <td class="no-border no-pad" colspan="3">Mindanao Medical Center</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1"/>
-                                <td class="no-border no-pad" colspan="4">GenMedex Bldg.</td>
-                                <td class="no-border no-pad" colspan="3">St. Elizabeth Hospital</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1"/>
-                                <td class="no-border no-pad" colspan="4">Santiago Blvd. GSC</td>
-                                <td class="no-border no-pad" colspan="3">General Santos Doctors Hospital</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1"/>
-                                <td class="no-border no-pad" colspan="4">9:00 AM - 12:00 NN</td>
-                                <td class="no-border no-pad" colspan="3">SUN No: 09228232825</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1"/>
-                                <td class="no-border no-pad" colspan="4">Tel No: 554-7750</td>
-                                <td class="no-border no-pad" colspan="3"/>
-                            </tr>
-                            <tr>
-                                <td class="no-border" style="border-bottom: 3px solid black" colspan="8"/>
-                            </tr>
-                            <tr>
-                                <td class="no-border" style="padding-top: 1rem !important;" colspan="8"><span t-field="doc.transaction_date"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="2">Patient: </td>
-                                <td class="no-border border-bottom" colspan="4"><span t-field="doc.patient_name"/></td>
-                                <td class="no-border border-bottom" colspan="1">Age/Sex:</td>
-                                <td class="no-border border-bottom" colspan="1"><span t-field="doc.age"/>/<span t-field="doc.gender"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="2">Address</td>
-                                <td class="no-border border-bottom" colspan="6"><span t-field="doc.street"/> <span t-field="doc.street2"/> <span t-field="doc.city"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border center strong upcase" style="padding-top: 1rem !important;" colspan="8"><h3>laboratory requests</h3></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="1"/>
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>CBC</span>
-                                   </div>
+                        <table class="table-condensed table" width="100%">
+                            <tr class="center" style="vertical-align: text-top; margin: auto; width: 80em;">
+                                <td width="50%">
+                                    <div style='font-size: small;'>
+                                        <b>CLINIC HOURS:</b><br/>
+                                        Mon - Fri Except Wed<br/>
+                                        GenMedex Bldg.<br/>
+                                        Santiago Blvd. GSC<br/>
+                                        9:00 AM - 12:00 NN<br/>
+                                    </div>
                                 </td>
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>URINALYSIS</span>
-                                   </div>
-                                </td>
-                                <td class="no-border" colspan="3">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>STOOL EXAM</span>
-                                   </div>
+                                <td width="50%">
+                                    <div style='font-size: small;'>
+                                    <b>HOSPITAL AFFILIATIONS:</b><br/>
+                                    Mindanao Medical Center<br/>
+                                    St. Elizabeth Hospital<br/>
+                                    General Santos Doctors Hospital<br/>
+                                    SARMED Hospital<br/>
+                                    SUN No.: 09228232825
+                                    </div>
                                 </td>
                             </tr>
+                        </table>
+                        <table class="table-condensed table" width="100%">
                             <tr>
-                                <td class="no-border center strong upcase" style="padding-top: 1rem !important;" colspan="8"><h4>blood chemistry</h4></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>FBS</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Serum Na</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>SGPT</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>BUN</span>
-                                   </div>
+                                <td style="font-size: medium; padding: 0px 0px 0px !important;">
+                                    <p style="font-size: medium;"><br/></p>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Serum K</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>SGOT</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Creatinine</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Serum Cl</span>
-                                   </div>
-                                </td>
+                            <tr style="vertical-align: text-top; margin: auto; width: 80em;">
+                                <td class="no-border" style="border-bottom: 3px double black" colspan="10" width="100%"/>
                             </tr>
                             <tr>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>LDL</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Uric Acid</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Serum Ca</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Alk Phos</span>
-                                   </div>
+                                <td class="no-border" style="font-style: italic; font-size: medium; padding-top: 2em; padding: 5px 8px 1px !important;" colspan="1">Patient: <span style="font-size: medium;" class="strong" t-field="doc.patient_name"/></td>
+                            </tr>
+                        </table>
+                        <table class="table-condensed table" width="100%">
+                            <tr>
+                                <td  style="font-style: italic; font-size: medium; padding: 0px 8px 1px !important;" class="no-border " colspan="1">Age/Sex: <span style="font-size: medium;" t-field="doc.age"/> / <span style="font-size: medium;" t-field="doc.gender"/></td>
+                                <td style="font-style: italic; font-size: medium; text-align: right; padding: 0px 8px 1px !important;" colspan="1">Date: <span t-if="doc.lab_request_date" style="font-size: medium;" class="strong" t-esc="doc.lab_request_date.strftime('%b. %d, %Y')"/><span t-else="" style="font-size: medium;" class="strong" t-esc="doc.booking_date.strftime('%b. %d, %Y')"/></td>
+                            </tr>
+                        </table>
+                        <table class="table-condensed table" width="100%">
+                            <tr>
+                                <td style="font-style: italic; font-size: medium; padding: 0px 8px 3px !important;" class="no-border">Address: <span style="font-size: medium;" t-field="doc.street"/><t t-if="doc.street2">, <span style="font-size: medium;" t-field="doc.street2"/></t><t t-if="doc.city">, <span style="font-size: medium;" t-field="doc.city"/></t></td>
+                            </tr>
+                            <tr style="padding-top: 2em;">
+                                <td class="no-border center strong upcase" style="padding-top: 1rem !important;" colspan="8"><span style="font-size: medium;"><b>LABORATORY</b></span></td>
+                            </tr>
+                        </table>
+                        <table stype="border-collapse: collapse;" class="table-condensed table" width="100%">
+                                <tr style="padding-top: 2em;">
+                                    <t t-foreach="doc.lab_req_ids" t-as="lab_reqs">
+                                        <t t-set="found" t-value="0"/>
+                                        <t t-foreach="doc.lab_request_ids" t-as="lab_req">
+                                            <t t-if="lab_reqs.name==lab_req.name">
+                                                <td class="no-border" colspan="1"><input type="checkbox" checked="1" style="text-align:right; vertical-align: middle;"/></td>
+                                                <td colspan="2" class="no-border" style="text-align:left;">
+                                                    <span style="font-size: medium;" t-field="lab_req.name"/>
+                                                </td>
+                                                <t t-set="found" t-value="1"/>
+                                            </t>
+                                        </t>
+                                        <t t-if="found==0">
+                                            <td class="no-border" colspan="1"><input type="checkbox" value="0" style="text-align:right; vertical-align: middle;"/></td>
+                                            <td colspan="2" class="no-border" style="text-align:left;">
+                                                <span style="font-size: medium;" t-field="lab_reqs.name"/>
+                                            </td>
+                                        </t>
+                                    </t>
+                                </tr>
+                            <tr>
+                                <td class="no-border center strong upcase" style="padding-top: 1rem !important;" colspan="8"><span style="font-size: medium;"><b>X-RAY EXAMINATION</b></span></td>
+                            </tr>
+                        </table>
+                        <table stype="border-collapse: collapse;" class="table-condensed table" width="100%">
+                                <tr class="center" style="vertical-align: text-top; margin: auto; width: 80em;">
+                                    <td width="66%">
+                                        <table class="table-condensed table" width="100%">
+                                            <tr style="padding-top: 2em;" t-foreach="doc.lab_xray_ids.filtered(lambda r: r.group==1)" t-as="lab_reqs">
+                                                <t t-if="lab_reqs.selected==1">
+                                                    <td class="no-border" colspan="1"><input type="checkbox" checked="True" style="text-align:right; vertical-align: middle;"/></td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td class="no-border" colspan="1"><input type="checkbox" value="0" style="text-align:right; vertical-align: middle;"/></td>
+                                                </t>
+                                                <td colspan="2" class="no-border" style="text-align:left;">
+                                                    <span style="font-size: medium;" t-field="lab_reqs.name"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="33%">
+                                        <table class="table-condensed table" width="100%">
+                                            <tr style="padding-top: 2em;" t-foreach="doc.lab_xray_ids.filtered(lambda r: r.group==2)" t-as="lab_reqs">
+                                                <t t-if="lab_reqs.selected==1">
+                                                    <td class="no-border" colspan="1"><input type="checkbox" checked="True" style="text-align:right; vertical-align: middle;"/></td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td class="no-border" colspan="1"><input type="checkbox" value="0" style="text-align:right; vertical-align: middle;"/></td>
+                                                </t>
+                                                <td colspan="2" class="no-border" style="text-align:left;">
+                                                    <span style="font-size: medium;" t-field="lab_reqs.name"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <!-- <td width="33%">
+                                        <table class="table-condensed table" width="100%">
+                                            <tr style="padding-top: 2em;" t-foreach="doc.lab_xray_ids.filtered(lambda r: r.group==3)" t-as="lab_reqs">
+                                                <t t-if="lab_reqs.selected==1">
+                                                    <td class="no-border" colspan="1"><input type="checkbox" checked="True" style="text-align:right; vertical-align: middle;"/></td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td class="no-border" colspan="1"><input type="checkbox" value="0" style="text-align:right; vertical-align: middle;"/></td>
+                                                </t>
+                                                <td colspan="2" class="no-border" style="text-align:left;">
+                                                    <span style="font-size: medium;" t-field="lab_reqs.name"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td> -->
+                                </tr>
+                            <tr t-if="doc.xray_exam_others">
+                                <td class="no-border" colspan="1"><span style="font-size: medium;">Others:</span></td>
+                                <td colspan="8" class="no-border" style="text-align:left;">
+                                        <span style="font-size: medium;" t-field="doc.xray_exam_others"/>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>PTPA</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Serum Mg</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Triglycerides</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>HDL</span>
-                                   </div>
+                            <tr t-else="">
+                                <td>
+                                    <p><br/></p>
                                 </td>
                             </tr>
+                        </table>
+                        <table class="table-condensed table" width="100%">
                             <tr>
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>BT</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Albumin</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Globulin</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>HBSaG</span>
-                                   </div>
-                                </td>
+                                <td class="no-border center strong upcase" style="padding-top: 1rem !important;" colspan="8"><span style="font-size: medium;"><b>Blood Chemistry</b></span></td>
                             </tr>
+                        </table>
+                        <table stype="border-collapse: collapse;" class="table-condensed table" width="100%">
                             <tr>
-                                <td class="no-border" colspan="2"/>
-                                <td class="no-border" colspan="6">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Total Cholesterol</span>
-                                   </div>
+                                <td width="33%">
+                                    <table class="table-condensed table" width="100%">
+                                        <tr style="padding-top: 2em;" t-foreach="doc.lab_bloodchem_ids.filtered(lambda r: r.group==1)" t-as="lab_reqs">
+                                            <t t-if="lab_reqs.selected==1">
+                                                <td class="no-border" colspan="1"><input type="checkbox" checked="True" style="text-align:right; vertical-align: middle;"/></td>
+                                            </t>
+                                            <t t-else="">
+                                                <td class="no-border" colspan="1"><input type="checkbox" value="0" style="text-align:right; vertical-align: middle;"/></td>
+                                            </t>
+                                            <td colspan="2" class="no-border" style="text-align:left;">
+                                                <span style="font-size: medium;" t-field="lab_reqs.name"/>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="8"/>
-                            </tr>
-                            <tr>
-                                <td class="no-border right" colspan="1">Others: </td>
-                                <td class="no-border border-bottom" colspan="6"/>
-                                <td class="no-border" colspan="1"/>
-                            </tr>
-                            <tr>
-                                <td class="no-border center strong upcase" style="padding-top: 1rem !important;" colspan="8"><h4>x-ray examination request</h4></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>UGI Series</span>
-                                   </div>
+                                <td width="33%">
+                                    <table class="table-condensed table" width="100%">
+                                        <tr style="padding-top: 2em;" t-foreach="doc.lab_bloodchem_ids.filtered(lambda r: r.group==2)" t-as="lab_reqs">
+                                            <t t-if="lab_reqs.selected==1">
+                                                <td class="no-border" colspan="1"><input type="checkbox" checked="True" style="text-align:right; vertical-align: middle;"/></td>
+                                            </t>
+                                            <t t-else="">
+                                                <td class="no-border" colspan="1"><input type="checkbox" value="0" style="text-align:right; vertical-align: middle;"/></td>
+                                            </t>
+                                            <td colspan="2" class="no-border" style="text-align:left;">
+                                                <span style="font-size: medium;" t-field="lab_reqs.name"/>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Lumbosacral Spine Series</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Barium Enema</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Cervical Spine Series</span>
-                                   </div>
+                                <td width="33%">
+                                    <table class="table-condensed table" width="100%">
+                                        <tr style="padding-top: 2em;" t-foreach="doc.lab_bloodchem_ids.filtered(lambda r: r.group==3)" t-as="lab_reqs">
+                                            <t t-if="lab_reqs.selected==1">
+                                                <td class="no-border" colspan="1"><input type="checkbox" checked="True" style="text-align:right; vertical-align: middle;"/></td>
+                                            </t>
+                                            <t t-else="">
+                                                <td class="no-border" colspan="1"><input type="checkbox" value="0" style="text-align:right; vertical-align: middle;"/></td>
+                                            </t>
+                                            <td colspan="2" class="no-border" style="text-align:left;">
+                                                <span style="font-size: medium;" t-field="lab_reqs.name"/>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>KUB-IVP</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Thoracolumbar Spine Series</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Chest X-ray</span>
-                                   </div>
-                                </td>
-
-                                <td class="no-border" colspan="2">
-                                    <div class="in_td">
-                                       <input type="checkbox" style="margin-right:15px;"/>
-                                       <span>Complete Abdomen</span>
-                                   </div>
+                            <tr t-if="doc.blood_chem_views">
+                                <td class="no-border" colspan="1"><span style="font-size: medium;">Views: </span></td>
+                                <td colspan="4" class="no-border" style="text-align:left;">
+                                        <span style="font-size: medium;" t-field="doc.blood_chem_views"/>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="no-border" colspan="8"/>
+                            <tr t-else="">
+                                <td>
+                                    <p><br/></p>
+                                </td>
                             </tr>
-                            <tr>
-                                <td class="no-border right" colspan="1">Others: </td>
-                                <td class="no-border border-bottom" colspan="6"/>
-                                <td class="no-border" colspan="1"/>
+                            <tr t-if="doc.blood_chem_others">
+                                <td class="no-border" colspan="1"><span style="font-size: medium;">Others: </span></td>
+                                <td colspan="4" class="no-border" style="text-align:left;">
+                                        <span style="font-size: medium;" t-field="doc.blood_chem_others"/>
+                                </td>
                             </tr>
-                            <tr>
-                                <td class="no-border" colspan="3" style="border-bottom: 2px solid black;padding-top: 3em !important;"/>
-                                <td class="no-border" colspan="5"/>
+                            <tr t-else="">
+                                <td>
+                                    <p><br/></p>
+                                </td>
                             </tr>
+                        </table>
+                        <table class="table-condensed table" width="100%">
                             <tr>
-                                <td class="no-border center strong upcase" colspan="3"><span t-field="doc.physician_id.name"/></td>
-                                <td class="no-border" colspan="5"/>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="1"><span>License No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_license(doc.physician_id)"/></td>
-                                <td class="no-border" colspan="5"/>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="1"><span>PTR No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_ptr(doc.physician_id)"/></td>
-                                <td class="no-border" colspan="5"/>
-                            </tr>
-                            <tr>
-                                <td class="no-border" colspan="1"><span>S2 No.</span></td>
-                                <td class="no-border border-bottom" colspan="2"><span t-esc="doc.get_s2(doc.physician_id)"/></td>
-                                <td class="no-border" colspan="5"/>
+                                <td width="60%">
+                                    <p><br/></p>
+                                </td>
+                                <td  style="border-top: 1px solid black;" class="no-border">
+                                    <div class="no-border">
+                                        <p t-if="doc.physician_id">
+                                        <span class="strong" style="font-size: medium;" t-field="doc.physician_id.name"/><br/>
+                                        <span style="font-size: medium;">Licence No: </span><span style="font-size: medium;" class="strong" t-esc="doc.get_license(doc.physician_id.id,doc.booking_date)"/><br/>
+                                        <span style="font-size: medium;">PTR No.: </span><span style="font-size: medium;" class="strong" t-esc="doc.get_ptr(doc.physician_id.id,doc.booking_date)"/><br/>
+                                        <span style="font-size: medium;">S2 No.: </span><span style="font-size: medium;" class="strong" t-esc="doc.get_s2(doc.physician_id.id,doc.booking_date)"/></p>
+                                    </div>
+                                </td>
                             </tr>
                         </table>
                     </div>
+                    <!-- <div class="footer">
+                        <table class="table-condensed table" width="100%">
+                            <tr>
+                                <td width="60%" class="no-pad">
+                                    <p class="no-border"><br/></p>
+                                </td>
+                                <td width="40" style="border-top: 1px solid black; padding: 0px 8px 0px !important;" class="no-border">
+                                    <div class="contaier" style="padding: 0px 8px 0px !important;">
+                                        <p t-if="doc.physician_id" class="no-pad">
+                                        <span style="font-size: medium;" class="no-pad strong" t-field="doc.physician_id.name"/><br/>
+                                        <span style="font-size: small;" class="no-pad">Licence No: </span><span class="no-pad strong" style="font-size: small;" t-esc="doc.get_license(doc.physician_id.id,doc.booking_date)"/><br/>
+                                        <span style="font-size: small;" class="no-pad">PTR No.: </span><span class="no-pad strong" style="font-size: small;" t-esc="doc.get_ptr(doc.physician_id.id,doc.booking_date)"/><br/>
+                                        <span style="font-size: small;" class="no-pad">S2 No.: </span><span class="no-pad strong" style="font-size: small;" t-esc="doc.get_s2(doc.physician_id.id,doc.booking_date)"/></p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div> -->
                 </t>
             </t>
         </template>

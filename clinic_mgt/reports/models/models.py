@@ -20,9 +20,9 @@ from odoo import models, fields, api
 class Users(models.Model):
     _inherit = 'res.users'
 
-    license_no = fields.Char(default = lambda self:self.env['config.md.license'].search('user_id','=',self.env.user.id))
-    ptr_no = fields.Char(default = lambda self:self.env['config.md.license'].search('user_id','=',self.env.user.id))
-    s2_no = fields.Char(default = lambda self:self.env['config.md.license'].search('user_id','=',self.env.user.id))
+    license_no = fields.Char(default = lambda self:self.env['config.md.license'].search(['user_id','=',self.id]))
+    ptr_no = fields.Char(default = lambda self:self.env['config.md.license'].search(['user_id','=',self.id]))
+    s2_no = fields.Char(default = lambda self:self.env['config.md.license'].search(['user_id','=',self.id]))
 
 
 #

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <!-- NAME & FILE_NAME should be the same -->
+        <!-- <delete id="action_prescription_template_4x4" model="ir.actions.report.xml"/> -->
+        <report
+                id="action_prescription_template_4x4"
+                model="clinic.booking"
+                report_type="qweb-pdf"
+                string="Prescription (1/4 size)"
+                name="clinic_reports.prescription_template_4x4"
+                file="clinic_reports.prescription_template_4x4"
+                paperformat="clinic_reports.custom_letter_4x4_paperformat"
+                menu="True"
+        />
+        <template id="clinic_reports.prescription_template_4x4">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <style>
+                        .table-condensed{
+                        border-collapse:collapse;
+                        }
+                        table{
+                        empty-cells:show;
+                        padding: 3px 3px 3px !important;"
+                        }
+                        .border{
+                        border: 1px solid #a2bed0 !important;
+                        }
+                        .blue-top{
+                        border-top: 3px solid #19618d !important;
+                        }
+                        .no-pad{
+                        padding: 0px 0px 0px !important;
+                        }
+                        span{
+                        color: #414547;
+                        font-family: Arial, Helvetica, sans-serif;
+                        style='font-size: x-small;'
+                        font-weight: 400;
+                        line-height: 1.5;
+                        text-align: left;
+                        margin: 0px 0px 0px !important;
+                        }
+                        .center{
+                        text-align: center;
+                        }
+                        .right{
+                        text-align: right;
+                        }
+                        .top{
+                        vertical-align: top;
+                        }
+                        .middle{
+                        vertical-align: middle;
+                        }
+                        .bottom{
+                        vertical-align: bottom;
+                        }
+                        .strong{
+                        font-weight:bold;
+                        }
+                        .italic{
+                            font-style: italic;
+                        }
+                        .upcase{
+                        text-transform: uppercase;
+                        }
+                        .border-top{
+                        border-top:1px solid black;
+                        font-size:15px !important;
+                        }
+                        .border-bottom{
+                        border-bottom:1px solid black;
+                        }
+                        img {
+                        display: block;
+                        margin-left: 10%;
+                        margin-right: auto;
+                        }
+                        .container {
+                        position: relative;
+                        text-align: center;
+                        
+                        }
+                        .container2 {
+                            display: table;
+                            overflow: hidden;
+                            display: table-cell; 
+                            vertical-align: middle;
+                        }
+                        .centered {
+                        position: absolute;
+                        top: 8%;
+                        left: 30%;
+                        transform: translate(-50%, -50%);
+                        }
+                    </style>
+                    <t t-foreach="doc.prescribe_med_ids" t-as="pres">
+                        <div class="page">
+                            <table class="table-condensed table" width="100%">
+                                <tr>
+                                    <td>
+                                        <div class="container">
+                                            <div class="row" width="100%" style="position: relative; text-align: center;">
+                                                <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="width:10%;" alt="Logo"/> 
+                                                <div class="container centered strong">
+                                                    <span class="strong" style='font-size: large;' t-field="doc.company_id.name"/>
+                                                    <div style='font-size: small;'>
+                                                        Internal Medicine
+                                                    </div>
+                                                    <div style='font-size: small;'>
+                                                        Kidney Disease and Hypertension
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="table-condensed table" width="100%">
+                                <tr>
+                                    <td style="font-size: xx-small; padding: 0px 0px 0px !important;">
+                                        <p style="font-size: xx-small;"><br/></p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="table-condensed table" width="100%">
+                                <tr class="center" style="vertical-align: text-top; margin: auto; width: 80em;">
+                                    <td width="50%">
+                                        <div style='font-size: x-small;'>
+                                            <b>CLINIC HOURS:</b><br/>
+                                            Mon - Fri Except Wed<br/>
+                                            GenMedex Bldg.<br/>
+                                            Santiago Blvd. GSC<br/>
+                                            9:00 AM - 12:00 NN<br/>
+                                        </div>
+                                    </td>
+                                    <td width="50%">
+                                        <div style='font-size: x-small;'>
+                                        <b>HOSPITAL AFFILIATIONS:</b><br/>
+                                        Mindanao Medical Center<br/>
+                                        St. Elizabeth Hospital<br/>
+                                        General Santos Doctors Hospital<br/>
+                                        SARMED Hospital<br/>
+                                        SUN No.: 09228232825
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="table-condensed table" width="100%">
+                                <tr style="vertical-align: text-top; margin: auto; width: 80em;">
+                                    <td class="no-border" style="border-bottom: 3px double black" colspan="10" width="100%"/>
+                                </tr>
+                            </table>
+                            <table class="table-condensed table" width="100%">
+                                <tr>
+                                    <td class="no-border" style="padding-top: 2em; padding: 5px 8px 0px !important;" colspan="1">
+                                    <p style="font-size: medium;">Patient: <span style="font-size: medium;" class="strong" t-field="doc.patient_name"/></p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="table-condensed table" width="100%">
+                                <tr>
+                                    <td style="padding: 0px 8px 0px !important;" class="no-border " colspan="1">
+                                    <p style="font-size: medium;">Age/Sex: <span style="font-size: medium;" t-field="doc.age"/> / <span style="font-size: medium;" t-field="doc.gender"/></p></td>
+                                    <td style="text-align: right; padding: 5px 8px 5px !important;" colspan="1"><p style="font-size: medium;">Date: <span style="font-size: medium;" class="strong" t-esc="doc.booking_date.strftime('%b. %d, %Y')"/></p></td>
+                                </tr>
+                            </table>
+                            <table class="table-condensed table" width="100%">
+                                <tr>
+                                    <td  style="font-size: medium; padding: 0px 8px 0px !important;" class="no-border"><p style="font-size: medium;">Address: <span style="font-size: medium;" t-field="doc.street"/><t t-if="doc.street2">, <span style="font-size: medium;" t-field="doc.street2"/></t><t t-if="doc.city">, <span t-field="doc.city"/></t></p></td>
+                                </tr>
+                            </table>
+                            <table class="table-condensed table" width="100%">
+                                <tr class="no-border">
+                                    <td style="width: 80%;">
+                                        <p style="font-size: medium; padding: 0px 8px 0px !important;"><br/><span style="font-size: medium;" class="no-border strong" t-esc="pres.product_id.name"/>
+                                            <span style="font-size: medium;">          #</span><span style="font-size: medium;" class="no-border strong" t-esc="pres.quantity"/></p>
+                                    </td>
+                                </tr>
+                                <tr t-if="pres.product_id.generic_names">
+                                    <td colspan="4">
+                                            <p style="font-size: medium; padding: 0px 8px 0px !important;">(<span class="no-border" style="font-style: medium;" t-esc="pres.product_id.generic_names"/>)</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="italic">
+                                            <p style="font-size: medium; padding: 0px 8px 0px !important;"><span class="no-border">SIG.:</span><span t-if="pres.prescription"  class="no-border" style="padding-left:2em;" t-esc="pres.prescription"/></p>
+                                    </td>
+                                </tr>
+                                <tr class="no-border">
+                                    <td style="padding: 5px 8px 5px !important;"><br/></td>
+                                </tr>
+                                <tr class="no-border" colspan="10" width="100%">
+                                    <td t-if="doc.follow_up_date" class="no-border" style="padding: 5px 8px 5px !important;" colspan="8">
+                                            <p style="font-style: italic;" t-if="doc.follow_up_date"><span style="font-size: medium;" class="no-border italic">Follow-up Date:</span>
+                                            <span t-if="doc.follow_up_date" class="no-border strong" style="padding-left:2em; font-size: medium;" t-esc="doc.follow_up_date.strftime('%B %d, %Y')"/></p>
+                                            <p t-else=""><span><br/></span></p>
+                                    </td>
+                                </tr>
+                                <tr class="no-border">
+                                    <td style="padding: 5px 8px 5px !important;"><br/><br/><br/><br/><br/></td>
+                                </tr>
+                                <table class="table-condensed table" width="100%">
+                                    <tr class="no-border" width="100%">
+                                        <td width="50%">
+                                            <p sstyle="padding: 5px 8px 5px !important;"><br/></p>
+                                        </td>
+                                        <td  style="border-top: 1px solid black;" class="no-border">
+                                            <div class="no-border">
+                                                <p t-if="doc.physician_id">
+                                                <span class="strong" style="font-size: medium;" t-field="doc.physician_id.name"/><br/>
+                                                <span style="font-size: x-small;">Licence No: </span><span style="font-size: x-small;" class="strong" t-esc="doc.get_license(doc.physician_id.id,doc.booking_date)"/><br/>
+                                                <span style="font-size: x-small;">PTR No.: </span><span style="font-size: x-small;" class="strong" t-esc="doc.get_ptr(doc.physician_id.id,doc.booking_date)"/><br/>
+                                                <span style="font-size: x-small;">S2 No.: </span><span style="font-size: x-small;" class="strong" t-esc="doc.get_s2(doc.physician_id.id,doc.booking_date)"/></p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- <tr class="no-border">
+                                    <td style="paddings: 5px 8px 5px !important;"><br/><br/></td>
+                                </tr> -->
+                            </table>
+                            <p style="page-break-after:always;"/>
+                        </div>
+                        <!-- <div class="footer">
+                            <table class="table-condensed table" width="100%">
+                                <tr class="no-border" width="100%">
+                                    <td t-if="doc.follow_up_date" width="50%" class="no-border">
+                                    </td>
+                                    <td t-else="" width="50%">
+                                        <p><br/></p>
+                                    </td>
+                                    <td  style="border-top: 1px solid black;" class="no-border">
+                                        <div class="no-border">
+                                            <p t-if="doc.physician_id">
+                                            <span class="strong" style="font-size: medium;" t-field="doc.physician_id.name"/><br/>
+                                            <span style="font-size: x-small;">Licence No: </span><span style="font-size: x-small;" class="strong" t-esc="doc.get_license(doc.physician_id.id,doc.booking_date)"/><br/>
+                                            <span style="font-size: x-small;">PTR No.: </span><span style="font-size: x-small;" class="strong" t-esc="doc.get_ptr(doc.physician_id.id,doc.booking_date)"/><br/>
+                                            <span style="font-size: x-small;">S2 No.: </span><span style="font-size: x-small;" class="strong" t-esc="doc.get_s2(doc.physician_id.id,doc.booking_date)"/></p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div> -->
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+
+    </data>
+</odoo>

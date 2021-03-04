@@ -1,8 +1,25 @@
 <odoo>
   <data>
 
+    <!-- Inherit Form view -->
+    <record id="clinic_booking_res_users_form_inherit" model="ir.ui.view">
+        <field name="name">res.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="auth_signup.res_users_view_form"/>
+        <field name="arch" type="xml">
+            <button name="action_reset_password" position="after">
+                <button name="action_default_physician" attrs="{'invisible':['|',('default_physician','=',True),('is_physician','!=',True)]}"
+                        string="Set As Default Physician" type="object"
+                            class="oe_read_only"
+                        confirm="Please confirm, Set as Default Physician?"/>
+                <field name='is_physician' invisible="1"/>
+                <field name='default_physician' invisible="1"/>
+            </button>
+        </field>
+    </record>
+    
     <!-- product.prescription form view -->
-    <record id="config_product_prescription_view_form" model="ir.ui.view">
+    <!-- <record id="config_product_prescription_view_form" model="ir.ui.view">
         <field name="name">product.prescription.view.form</field>
         <field name="model">product.prescription</field>
         <field name="arch" type="xml">
@@ -19,9 +36,20 @@
                 </sheet>
             </form>
         </field>
-    </record>
+    </record> -->
 
     <!-- config.product.generic form view -->
+    <record id="config_product_generic_view_tree" model="ir.ui.view">
+        <field name="name">config.product.generic.tree</field>
+        <field name="model">config.product.generic</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
     <record id="config_product_generic_view_form" model="ir.ui.view">
         <field name="name">config.product.generic.view.form</field>
         <field name="model">config.product.generic</field>
@@ -40,19 +68,208 @@
             </form>
         </field>
     </record>
+
+    <record id="config_product_generic_action_form" model="ir.actions.act_window">
+        <field name="name">Generic Name</field>
+        <field name="res_model">config.product.generic</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+            </p>
+            <p>
+                <!-- More details about what a user can do -->
+            </p>
+        </field>
+    </record>
+
+    
+
+    <!-- product.prescription form view -->
+    <record id="product_prescription_view_tree" model="ir.ui.view">
+        <field name="name">product.prescription.tree</field>
+        <field name="model">product.prescription</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_prescription_view_form" model="ir.ui.view">
+        <field name="name">product.prescription.view.form</field>
+        <field name="model">product.prescription</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <div class="oe_right oe_button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_prescription_action_form" model="ir.actions.act_window">
+        <field name="name">Prescription</field>
+        <field name="res_model">product.prescription</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+            </p>
+            <p>
+                <!-- More details about what a user can do -->
+            </p>
+        </field>
+    </record>
+
+    <!-- <delete id="meds_product_product_view_tree_inherit" model="ir.ui.view"/> -->
+    <record id="meds_product_product_view_tree_inherit" model="ir.ui.view">
+        <field name="name">product.product.tree.meds</field>
+        <field name="model">product.product</field>
+        <field name="arch" type="xml">
+            <tree string="Products">
+                <field name="name"/>
+                <field name="generic_ids" widget="many2many_tags"/>
+                <field name="function_ids" widget="many2many_tags"/>
+                <field name="attribute_value_ids" widget="many2many_tags" groups="product.group_product_variant"/>
+                <field name="lst_price"/>
+                <field name="taxes_id" widget="many2many_tags"/>
+                <field name="supplier_taxes_id" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
   
-    <record id="generic_product_product_view_form_inherit" model="ir.ui.view">
-        <field name="name">product.product.form.generic</field>
+    <!-- <delete id="meds_product_product_view_form_inherit" model="ir.ui.view"/> -->
+    <record id="meds_product_product_view_form_inherit" model="ir.ui.view">
+        <field name="name">product.product.form.meds</field>
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <!-- <field name="mode">primary</field> -->
         <field name="arch" type="xml">
             <field name="type" position="before">
-                <field name="generic_ids" widget="many2many_tags"/>
+                <field name="generic_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="function_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
             </field>
         </field>
     </record>
 
-    <!-- Laboratory Request Start -->booking
+    <record id="meds_product_product_view_action" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                    Click to "create" your first product.
+            </p>
+            <p>
+                <!-- More details about what a user can do -->
+            </p>
+        </field>
+    </record>
+  
+    <!-- <delete id="meds_product_template_only_form_view_inherit" model="ir.ui.view"/> -->
+    <record id="meds_product_template_only_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.meds</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <field name="type" position="before">
+                <field name="generic_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="function_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="meds_product_product_view_action_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="meds_product_product_view_tree_inherit"/>
+        <field name="act_window_id" ref="meds_product_product_view_action"/>
+    </record>
+
+    <record id="meds_product_product_view_action_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="meds_product_product_view_form_inherit"/>
+        <field name="act_window_id" ref="meds_product_product_view_action"/>
+    </record>
+
+    <!-- clinic.findings form view -->
+    <record id="clinic_findings_view_form" model="ir.ui.view">
+        <field name="name">clinic.findings.view.form</field>
+        <field name="model">clinic.findings</field>
+        <field name="arch" type="xml">
+            <form string="Findings">
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="patient_id" default_focus="1" placeholder="Name"/>
+                        </h1>
+                        <div class="o_row">
+                            <field name="remarks_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <ul style="list-style-type: none;">
+                                <li>
+                                    <field name="booking_date"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <group>
+                        <group string="Significant Findings">
+                            <field name="findings" nolabel="1" widget="html"/>
+                        </group>
+                        <group string="Prescription" style="width:100%">
+                            <field name="prescribe_med_ids" nolabel="1">
+                                <tree string="Medicines"  editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="generic_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    <field name="function_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    <field name="quantity"/>
+                                    <!-- <field name="price_unit"/> -->
+                                    <field name="prescription_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="follow_up_date"/>
+                            </group>
+                            <group>
+                                <field name="physician_id" widget='selection' attrs="{'invisible':[('physician_id','=',False)]}"/>
+                            </group>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="clinic_findings_view_tree" model="ir.ui.view">
+        <field name="name">clinic.findings.tree</field>
+        <field name="model">clinic.findings</field>
+        <field name="arch" type="xml">
+            <tree string="Findings">
+                <field name="booking_date"/>
+                <field name="findings" widget="html"/>
+                <field name="physician_id"/>
+                <!-- <field name="pf" groups="group_md_appointment_admin"/> -->
+                <field name="follow_up_date"/>
+                <field name="current_meds"/>
+                <!-- <field name="pf_currency_id" invisible="1" groups="group_md_appointment_admin"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <!-- Laboratory Request Start -->
         <record id="config_laboratory_request_view_form" model="ir.ui.view">
             <field name="name">config.laboratory.request.view.form</field>
             <field name="model">config.laboratory.request</field>
@@ -116,6 +333,7 @@
                             </button>
                         </div>
                         <group>
+                            <field name="group"/>
                             <field name="name"/>
                         </group>
                     </sheet>
@@ -133,6 +351,7 @@
             <field name="model">config.blood.chem.request</field>
             <field name="arch" type="xml">
                 <tree string="">
+                    <field name="group"/>
                     <field name="name"/>
                     <field name="active"/>
                 </tree>
@@ -167,6 +386,7 @@
                             </button>
                         </div>
                         <group>
+                            <field name="group"/>
                             <field name="name"/>
                         </group>
                     </sheet>
@@ -183,7 +403,8 @@
             <field name="name">config.lab.test.cbc.tree</field>
             <field name="model">config.lab.test.cbc</field>
             <field name="arch" type="xml">
-                <tree string="">
+                <tree string="Lab Test">
+                    <field name="group"/>
                     <field name="name"/>
                     <field name="active"/>
                 </tree>
@@ -218,6 +439,7 @@
                             </button>
                         </div>
                         <group>
+                            <field name="group"/>
                             <field name="name"/>
                         </group>
                     </sheet>
@@ -235,6 +457,7 @@
             <field name="model">config.lab.test.urinalysis</field>
             <field name="arch" type="xml">
                 <tree string="">
+                    <field name="group"/>
                     <field name="name"/>
                     <field name="active"/>
                 </tree>
@@ -269,6 +492,7 @@
                             </button>
                         </div>
                         <group>
+                            <field name="group"/>
                             <field name="name"/>
                         </group>
                     </sheet>
@@ -286,6 +510,7 @@
             <field name="model">config.xray.exam.request</field>
             <field name="arch" type="xml">
                 <tree string="">
+                    <field name="group"/>
                     <field name="name"/>
                     <field name="active"/>
                 </tree>
@@ -321,10 +546,11 @@
                         </div>
                         <group>
                             <group>
+                                <field name="user_id" widget='selection'/>
                                 <field name="effectivity_date"/>
-                                <field name="license_no"/>
                             </group>
                             <group>
+                                <field name="license_no"/>
                                 <field name="ptr_no"/>
                                 <field name="s2_no"/>
                             </group>
@@ -344,16 +570,18 @@
             <field name="model">config.md.license</field>
             <field name="arch" type="xml">
                 <tree string="">
+                    <field name="user_id"/>
                     <field name="effectivity_date"/>
                     <field name="license_no"/>
                     <field name="ptr_no"/>
                     <field name="s2_no"/>
+                    <field name="active"/>
                 </tree>
             </field>
         </record>
 
         <record id="config_md_license_action" model="ir.actions.act_window">
-            <field name="name">Professional License</field>
+            <field name="name">Professional Licenses</field>
             <field name="res_model">config.md.license</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
@@ -381,6 +609,7 @@
                         </div>
                         <group>
                             <group>
+                                <field name="user_id" widget='selection'/>
                                 <field name="effectivity_date"/>
                                 <field name="pf"/>
                                 <field name="pf_currency_id" invisible="1"/>
@@ -402,6 +631,7 @@
             <field name="model">config.md.pf</field>
             <field name="arch" type="xml">
                 <tree string="">
+                    <field name="user_id"/>
                     <field name="effectivity_date"/>
                     <field name="pf"/>
                     <field name="pf_currency_id" invisible="1"/>
@@ -424,16 +654,77 @@
         </record>
         <!-- MD PF End -->
 
-        <!--Res partner Start-->=
+        <!--Res partner Start-->    
+        <record id="res_partner_clinic_search" model="ir.ui.view">
+            <field name="name">res.partner.search</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <filter name="type_person" position="after">
+                   <filter string="Physicians" name="type_physician" domain="[('is_physician','=',True)]"/>
+                </filter>
+                <filter name="type_company" position="after">
+                   <filter string="Hospitals" name="type_hospital" domain="[('is_hospital','=',True)]"/>
+                </filter>
+            </field>
+        </record>
+
         <record id="res_partner_view_form_inherit_clinic" model="ir.ui.view">
             <field name="name">res.partner.view.form.inherit</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
+
+                <field name="parent_id" position="after">
+                    <div class="oe_edit_only oe_inline" attrs="{'invisible':[('company_type','=','person')]}">
+                        <label for="is_hospital" string="Hospital?" class="oe_inline"/>
+                            <field name="is_hospital" class="oe_inline"/>
+                    </div>
+                </field>
+
                 <field name="type" position="before">
                     <field name="gender" attrs="{'invisible':[('company_type','!=','person')]}"/>
                     <field name="birthdate" attrs="{'invisible':[('company_type','!=','person')]}"/>
+                    <field name="civil_status" attrs="{'invisible':[('company_type','!=','person')]}"/>
+                    <field name="religion_id" attrs="{'invisible':[('company_type','!=','person')]}"/>
+                    <field name="height" attrs="{'invisible':[('company_type','!=','person')]}" groups="base.group_no_one"/>
+                    <field name="weight" attrs="{'invisible':[('company_type','!=','person')]}"/>
+                    <label for="bmi" string="BMI" groups="base.group_no_one"/>
+                    <div groups="base.group_no_one">
+                        <field name="bmi" readonly="1" class="oe_inline"/>
+                        <b>--></b>
+                        <field name="bmi_state" readonly="1" class="oe_inline"/>
+                    </div>
                 </field>
+                
+                <xpath expr="//sheet/notebook" position="inside">
+                   <page string="Patient History" name='patient_history' 
+                   groups='clinic_mgt.group_md_appointment_user' attrs="{'invisible':[('company_type','=','company')]}">
+                       <group string="Appointments">
+                           <field name="appointment_ids" readonly='True' nolabel="1">
+                                <tree string="Appointments">
+                                    <field name="transaction_date"/>
+                                    <field name="booking_date"/>
+                                    <field name="remarks_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    <field name="chief_complaint" widget="html"/>
+                                    <field name="state"/>
+                                </tree>
+                           </field>
+                       </group>
+                       <group string="Findings/Medications">
+                           <field name="finding_ids"
+                           widget='one2many_list'
+                           readonly='True' nolabel="1"/>
+                       </group>
+                       <group string="Admission" groups="base.groups_no_one">
+                           <field name="admission_ids"
+                           widget='one2many_list'
+                           readonly='True' nolabel="1"/>
+                       </group>
+                   </page>
+                    
+                </xpath>
+
             </field>
         </record>
 
@@ -442,11 +733,18 @@
             <field name="name">clinic.booking.view.search</field>
             <field name="model">clinic.booking</field>
             <field name="arch" type="xml">
-                <search string="Search Description">
+                <search string="Booking">
+                    <field name="patient_name" string="Patient" filter_domain="[('patient_name','ilike',self)]"/>
+                    <field name="physician_name" string="Physician" filter_domain="[('physician_name','ilike',self)]"/>
+                    <separator/>
                     <filter name="filter_booking_date" date="booking_date" string="Consultation Date" default_period="today"/>
+                    <separator/>
+                    <filter name="filter_assigned_to_me" string="Assigned To Me (Physician)" domain="[('physician_id', '=', uid)]" groups="clinic_mgt.group_md_appointment_admin"/>
                     <separator/>
                     <group expand="0" string="Group By">
                         <filter name="group_by_state" string="Status" domain="[]" context="{'group_by':'group_state'}"/>
+                        <filter name="group_by_booking_date" string="Consultation Date" domain="[]" context="{'group_by':'booking_date'}"/>
+                        <filter name="group_by_physician" string="Physician" domain="[]" context="{'group_by':'physician_id'}"/>
                     </group>
                 </search>
             </field>
@@ -457,10 +755,21 @@
             <field name="name">clinic.booking.view.calendar</field>
             <field name="model">clinic.booking</field>
             <field name="arch" type="xml">
-                <calendar string="Clinic Booking" date_start="booking_date" mode="week"
+                <calendar string="Clinic Booking" date_start="booking_date" mode="month"
                     event_open_popup="True" quick_add="False" color="patient_id">
-                        <field name="patient_id"/>
-                        <!-- <field name="employee_id"/> -->
+                    <field name="sequence" class="oe_inline"/> <field name="patient_id" class="oe_inline"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!-- clinic.booking calendar view -->
+        <record id="clinic_booking_opd_view_calendar" model="ir.ui.view">
+            <field name="name">clinic.booking.view.calendar</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <calendar string="Clinic Booking" date_start="booking_date" mode="month"
+                    event_open_popup="True" quick_add="False" color="patient_id">
+                    <field name="priority" class="oe_inline"/> <field name="patient_id" class="oe_inline"/>
                 </calendar>
             </field>
         </record>
@@ -476,6 +785,462 @@
                 <field name="booking_date"/>
                 <field name="image_medium"/>
                 <field name="image_small"/>
+                <field name="display_name"/>
+                <field name="remarks_ids"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="o_kanban_record_has_image_fill oe_kanban_global_click o_res_partner_kanban">
+                            <div class="o_kanban_image_fill_left" t-attf-style="background-image:url('#{kanban_image('res.partner', 'image_small', record.patient_id.raw_value)}')">
+                                    <h1 style="color: #17a2b8 !important;">
+                                        <field name="transaction_date" invisible="1" readonly="1"/>
+                                    </h1>
+                            </div>
+                            <div  class="oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading"><field name="patient_id"/></strong>
+                                <div class="o_kanban_tags_section oe_kanban_partner_categories">
+                                    <span class="oe_kanban_list_many2many">
+                                        <field name="remarks_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    </span>
+                                </div>
+                                <ul>
+                                    <li><field name="booking_date"/></li>
+                                    <li t-if="record.state.raw_value=='opd' or record.state.raw_value=='bo' or record.state.raw_value=='paid' or record.state.raw_value=='done'" class="float-right mb4 badge"><div class="col-12" style="background-color: #FFA500; border-radius: 5px;"><h1><field name="priority"/></h1></div></li>
+                                    <li class="float-right mb4 badge"><div class="col-12" style="background-color: #2dca45; border-radius: 5px;"><h1><field name="sequence"/></h1></div></li>
+                                </ul>
+                                <div class="oe_kanban_partner_links"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+                    
+                </kanban>
+            </field>
+        </record>
+
+        <record id="clinic_booking_view_pivot" model="ir.ui.view">
+            <field name="name">clinic.booking.view.pivot</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <pivot string="Booking">
+                    <field name="state"  type="col"/>
+                    <field name="pf"  type="measure"/>
+                    <field name="other_due"  type="measure"/>
+                    <field name="meds_due"  type="measure"/>
+                    <field name="booking_date" type="row"/>       
+                </pivot>
+            </field>
+        </record>
+
+        <record id="clinic_booking_view_graph" model="ir.ui.view">
+            <field name="name">clinic.booking.view.graph</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <graph string="Booking">
+                    <field name="state"  type="col"/>
+                    <field name="pf"  type="measure"/>
+                    <field name="other_due"  type="measure"/>
+                    <field name="meds_due"  type="measure"/>
+                    <field name="booking_date" type="row"/>          
+                </graph>
+            </field>
+        </record>
+
+        <record id="clinic_booking_view_form" model="ir.ui.view">
+            <field name="name">clinic.booking.form</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <form string="Clinic Booking">
+                    <header>
+                        <button name="action_same_meds_last" class="oe_highlight oe_edit_only"
+                        type="object" string="Same Meds From Last Visit"
+                        help="Please Confirm, Same Medication from last visit?"
+                        attrs="{'invisible':['|',('state','!=','opd'),('med_cert_only','=',True)]}"
+                        groups="clinic_mgt.group_md_appointment_admin"/>
+
+                        <button name="action_confirm" class="oe_highlight oe_read_only"
+                        type="object" string="Confirm" states='draft'
+                        confirm="Do you want to confirm?"/>
+
+                        <button name="action_opd" class="oe_highlight oe_read_only"
+                        type="object" string="Out-Patient" states='confirm'/>
+
+                        <button name="action_transfer_booking" class="oe_read_only"
+                        attrs="{'invisible':['|',('transfer_to_id','!=',False),('state','not in',['draft','confirm'])]}"
+                        type="object" string="Transfer Booking"/>
+
+                        <!-- <button name="action_bill_out" class="oe_highlight oe_read_only" 
+                        type="object" string="Bill-Out" states='opd'
+                        confirm="Bill-out now?"
+                        groups="clinic_mgt.group_md_appointment_admin"/> -->
+
+                        <button name="action_free" class="oe_highlight oe_read_only" 
+                        type="object" string="Free Checkup"
+                        attrs="{'invisible':['|',('order_id','=',False),('state','not in','opd,bo')]}"
+                        confirm="Please confirm, Free Checkup?"
+                        groups="base.group_no_one"/>
+
+                        <button name="action_done" class="oe_highlight oe_read_only" 
+                        type="object" string="Done" states='bo'
+                        confirm="Booking is done?"/>
+                        <!-- attrs="{'invisible':[('invoice_id','=',False)]}"/> -->
+
+                        <button name="action_prev_state"  class="oe_read_only"
+                        type="object" string="Previous Status"
+                        confirm="Set the status to previous state?"
+                        states="confirm,opd"/>
+
+                        <button name="action_void"  class="oe_read_only"
+                        type="object" string="Void"
+                        confirm="Do you want to void this booking?"
+                        states="draft,confirm,opd,bo,free"/>
+
+                        <field name="state" widget="statusbar" 
+                        statusbar_visible="draft,confirm,opd,bo,done,free,transfer,void"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_right oe_button_box oe_read_only">
+                            <button states="bo,done" name="action_check_order" type="object" help="Sales Order - Medicine charge will reflect once the transaction is confirmed."
+                                    class="oe_stat_button" icon="fa-usd" groups="clinic_mgt.group_md_appointment_billing">
+                                <field name="order_id"  widget="statinfo"/>
+                            </button>
+
+                            <button attrs="{'invisible':[('order_id','=',False)]}" name="action_check_invoice" type="object" help="Invoice"
+                                    class="oe_stat_button" icon="fa-pencil-square-o" groups="clinic_mgt.group_md_appointment_billing">
+                                <field name="invoice_id" widget="statinfo"/>
+                            </button>
+
+                            <button name="action_nothing" type="action" help='Priority Number'
+                                    class="oe_stat_button" icon="fa-users">
+                                <field name="sequence" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="patient_id" default_focus="1" placeholder="Name"
+                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                            </h1>
+                            <div class="o_row">
+                                <ul style="list-style-type: none;">
+                                    <li>
+                                        <field name="transaction_date" readonly="1"/>
+                                    </li>
+                                    <li class="oe_read_only" t-if="record.recon_id.raw_value!='False'" groups="clinic_mgt.group_md_appointment_billing">
+                                        <field name="recon_id"/>
+                                    </li>
+                                    <li t-if="record.transfer_to_id.raw_value!='False'">
+                                        <field name="transfer_to_id"/>
+                                    </li>
+                                    <li>
+                                        <field name="remarks_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    </li>
+                                    <li groups='base.groups_no_one'>
+                                         <field name="company_id"
+                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="booking_date"
+                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                <field name="is_followup" attrs="{'readonly':['|',('med_cert_only','=',True),('state','in',['transfer','void','done','free'])]}"/>
+                            </group>
+                            <group>
+                                <field name="physician_id" widget='selection' attrs="{'required':[('state','not in',['draft','void','transfer'])],'readonly':[('state','not in',['draft','confirm','opd'])]}"/>
+                                <field name="med_cert_only" attrs="{'readonly':['|',('is_followup','=',True),('state','in',['confirm','transfer','void','done','free'])]}"/>
+                            </group>
+                            <group/>
+                        </group>
+                        <notebook>
+                            <page string="Patient Information" name='patient_info'>
+                                <group>
+                                    <group>
+                                        <field name="gender"
+                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="birthdate"
+                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="age" readonly='1'/>
+                                        <field name="civil_status"
+                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="occupation_id"
+                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="religion_id"
+                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                    </group>
+                                    <group>
+                                        <label for="street" string="Address"/>
+                                        <div class="o_address_format">
+                                            <field name="street" placeholder="Street..." class="o_address_street"
+                                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                            <field name="street2" placeholder="Street 2..." class="o_address_street"
+                                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                            <field name="city" placeholder="City" class="o_address_city"
+                                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                            <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"
+                                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                            <field name="zip" placeholder="ZIP" class="o_address_zip"
+                                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                            <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
+                                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        </div>
+                                         <field name="phone" widget="phone"
+                                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="mobile" widget="phone"
+                                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <!-- <field name="email" widget="email" context="{'gravatar_image': True}"
+                                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/> -->
+                                        <!-- <field name="website" widget="url" placeholder="e.g. https://www.odoo.com"
+                                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/> -->
+                                    </group>
+                                </group>
+                                <group attrs="{'invisible':[('med_cert_only','=',True)]}">
+                                    <group string="Vital Stats">
+                                        <field name="height" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"  groups="base.group_no_one"/>
+                                        <field name="weight" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="temp" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <!-- <field name="sugar" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/> -->
+                                        <field name="bp" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="heart_rate" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                    </group>
+                                    <group string="Chief Complaint">
+                                        <field name="chief_complaint" widget="html" nolabel="1"
+                                            attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="History">
+                                <group string="Appointments">
+                                    <field name="appointment_ids" readonly='True' nolabel="1">
+                                            <tree string="Appointments">
+                                                <field name="transaction_date"/>
+                                                <field name="booking_date"/>
+                                                <field name="remarks_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                                <field name="chief_complaint" widget="html"/>
+                                                <field name="state"/>
+                                            </tree>
+                                    </field>
+                                </group>
+                                <group string="Findings/Medications"
+                                    groups="clinic_mgt.group_md_appointment_admin">
+                                    <field name="finding_ids"
+                                    widget='one2many_list'
+                                    readonly='True' nolabel="1"/>
+                                </group>
+                                <group string="Admission" groups="base.groups_no_one">
+                                    <field name="admission_ids"
+                                    widget='one2many_list'
+                                    readonly='True' nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="Test Result" name="test_results" attrs="{'invisible':['|',('state','not in',['confirm','opd','bo','done','free']),('med_cert_only','=',True)]}">
+                                <group string="Laboratory Result">
+                                    <group>
+                                        <field name="lab_result" widget="image" nolabel="1" class="oe_avatar" options="{'preview_image': 'lab_result', 'size': [480, 480]}"
+                                attrs="{'readonly':[('state','in',['transfer','void','draft'])]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="lab_result1" widget="image" nolabel="1" class="oe_avatar" options="{'preview_image': 'lab_result1', 'size': [480, 480]}"
+                                attrs="{'readonly':['|','|','|',('state','=','transfer'),('state','=','void'),('state','=','draft')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="lab_result2" widget="image" nolabel="1" class="oe_avatar" options="{'preview_image': 'lab_result2', 'size': [480, 480]}"
+                                attrs="{'readonly':['|','|','|',('state','=','transfer'),('state','=','void'),('state','=','draft')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="lab_result3" widget="image" nolabel="1" class="oe_avatar" options="{'preview_image': 'lab_result3', 'size': [480, 480]}"
+                                attrs="{'readonly':['|','|','|',('state','=','transfer'),('state','=','void'),('state','=','draft')]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Findings/Medications" name="findings"
+                                attrs="{'invisible':[('state','in',['draft','confirm','opd'])]}">
+                                <group>
+                                    <group>
+                                        <field name="follow_up_date"
+                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="for_admission" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="pf" attrs="{'invisible':[('state','!=','free')], 'readonly':[('state','in','transfer','void','bo','done','free')]}"/>
+                                        <field name="pf_currency_id" invisible="1"/>
+                                    </group>
+                                </group>
+                                <group string="Significant Findings / Remarks">
+                                    <field name="findings" nolabel="1" widget="html"
+                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                </group>
+                                <group string="Prescription">
+                                    <field name="prescribe_med_ids" nolabel="1"
+                                attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}">
+                                         <tree string="Medicines"  editable="bottom">
+                                            <field name="product_id"/>
+                                            <field name="generic_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                            <field name="function_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                            <field name="quantity"/>
+                                            <!-- <field name="price_unit"/> -->
+                                            <field name="prescription_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Admission Request" name="admission_request" 
+                                attrs="{'invisible':[('for_admission','!=',True)]}"> 
+                                <group string="Admission Request">
+                                    <field name="admission_req" nolabel="1" widget="html"
+                                    attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                </group>
+                            </page>
+                            <page string="Test Request" name="test_request"
+                                attrs="{'invisible':['|',('med_cert_only','=',True),('state','in',['draft','confirm'])]}">
+                                <group>
+                                    <field name="lab_request_date" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                </group>
+                                <group string="Laboratory Request">
+                                    <field name="lab_request_ids"
+                                        attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"  
+                                        widget="many2many_checkboxes" nolabel="1"/>
+                                </group>
+                                <group string="X-ray Examination Request" style='width:66%'>
+                                    <group style='width:33%'>
+                                        <field name="grp1_xray_exam_ids"
+                                            attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"  
+                                            widget="many2many_checkboxes" nolabel="1"/>
+                                    </group>
+                                    <group style='width:33%'>
+                                        <field name="grp2_xray_exam_ids"
+                                            attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"  
+                                            widget="many2many_checkboxes" nolabel="1"/>
+                                    </group>
+                                    <group style='width:33%'>
+                                        <field name="grp3_xray_exam_ids"
+                                            attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"  
+                                            widget="many2many_checkboxes" nolabel="1"/>
+                                    </group>
+                                    <group style='width: 100%'>
+                                        <field name="xray_exam_others"
+                                        attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                    </group>
+                                </group>
+                                <group string="Blood Chemistry Request">
+                                    <group style='width:33%'>
+                                        <field name="grp1_blood_chem_ids"
+                                            attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"  
+                                            widget="many2many_checkboxes" nolabel="1"/>
+                                    </group>
+                                    <group style='width:33%'>
+                                        <field name="grp2_blood_chem_ids"
+                                            attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"  
+                                            widget="many2many_checkboxes" nolabel="1"/>
+                                    </group>
+                                    <group style='width:33%'>
+                                        <field name="grp3_blood_chem_ids"
+                                            attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"
+                                            widget="many2many_checkboxes" nolabel="1"/>
+                                    </group>
+                                    <group style='width: 100%'>
+                                        <field name="blood_chem_views"
+                                            attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="blood_chem_others"
+                                            attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Medical Certificate" name="med_cert"
+                                    attrs="{'invisible':[('state','in',['draft','confirm','opd','void','transfer'])]}">
+                                <group>
+                                    <group>
+                                        <field name='date_issued' attrs="{'readonly':[('state','in',['draft','confirm','done','free','transfer'])]}"/>
+                                    </group>
+                                    <group>
+                                        <field name='last_checkup' attrs="{'invisible':[('med_cert_only','=',False)]}"/>
+                                    </group>
+                                    
+                                </group>
+                                <group string="Significant Findings / Remarks">
+                                    <field name="diagnosis" nolabel="1" widget="html"/>
+                                </group>
+                                <group string="Recommendation">
+                                    <field name="recommendation" nolabel="1" widget="html"/>
+                                </group>
+                            </page>
+                            <page string="Billing" states='bo,done'
+                                groups="clinic_mgt.group_md_appointment_billing">
+                                <group class="oe_subtotal_footer oe_left" string="Billing Summary">
+                                    <field name="bill_currency_id" invisible="True"/>
+                                    <field name="pf_due"/>
+                                    <field name="meds_due"/>
+                                    <field name="other_due" attrs="{'readonly':[('state','!=','bo')]}"/>
+                                    <field name="total_due" class="oe_subtotal_footer_separator"/>
+                                    <field name="discount" attrs="{'readonly':[('state','!=','bo')]}"/>
+                                    <field name="amount_due" class="oe_subtotal_footer_separator"/>
+                                    <field name="cash"  attrs="{'required':[('state','=','bo')], 'readonly':[('state','!=','bo')]}"/>
+                                    <field name="amount_paid" class="oe_subtotal_footer_separator"/>
+                                    <field name="balance" class="oe_subtotal_footer_separator" attrs="{'invisible':[('balance','&lt;=',0.0)]}"/>
+                                    <field name="change" class="oe_subtotal_footer_separator" attrs="{'invisible':[('change','&lt;=',0.0)]}"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="clinic_booking_view_tree" model="ir.ui.view">
+            <field name="name">clinic.booking.tree</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence"/>
+                    <field name="transaction_date"/>
+                    <field name="booking_date"/>
+                    <field name="patient_id"/>
+                    <field name="birthdate"/>
+                    <field name="gender"/>
+                    <field name="state"/>
+                    <field name="follow_up_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- <delete id="clinic_booking_action" model="ir.actions.act_window"/> -->
+        <record id="clinic_booking_action" model="ir.actions.act_window">
+            <field name="name">Bookings</field>
+            <field name="res_model">clinic.booking</field>
+            <field name="view_mode">kanban,calendar,tree,pivot,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click "Create" to add your first Booking
+                </p>
+                <p>
+                    You have no booking for today.
+                </p>
+            </field>
+            <!-- <field name="domain">[('company_id','=',user.company_id.id)]</field> -->
+            <field name="context">{'search_default_group_by_state':1,'search_default_filter_booking_date':1}</field>
+        </record>
+
+        <!-- <delete id="clinic_booking_action_form" model="ir.actions.act_window.view"/> -->
+       c
+
+        <record id="clinic_booking_opd_view_kanban" model="ir.ui.view">
+            <field name="name">clinic.booking.view.kanban</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <kanban string="Appointment" quick_add="False" create="false"> 
+                <field name="name"/>
+                <field name="state"/>
+                <field name="booking_date"/>
+                <field name="image_medium"/>
+                <field name="image_small"/>
+                <field name="display_name"/>
+                <field name="remarks_ids"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="o_kanban_record_has_image_fill oe_kanban_global_click o_res_partner_kanban">
@@ -486,10 +1251,16 @@
                             </div>
                             <div  class="oe_kanban_details">
                                 <strong class="o_kanban_record_title oe_partner_heading"><field name="patient_id"/></strong>
-                                <ul>
-                                    <li class="float-right mb4 badge"><div class="col-12" style="background-color: #2dca45; border-radius: 5px;"><h1><field name="sequence"/></h1></div></li>
+                                <div class="o_kanban_tags_section oe_kanban_partner_categories">
+                                    <span class="oe_kanban_list_many2many">
+                                            <field name="remarks_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    </span>
+                                </div>
+                                <ul style="list-style-type: none;">
+                                    <li class="float-right mb4 badge"><div class="col-12" style="background-color: #FFA500; border-radius: 5px;"><h1><field name="priority"/></h1></div></li>
                                     <li><field name="booking_date"/></li>
                                 </ul>
+                                <div class="oe_kanban_partner_links"/>
                             </div>
                         </div>
                     </t>
@@ -499,69 +1270,121 @@
             </field>
         </record>
 
-        <record id="clinic_booking_view_form" model="ir.ui.view">
+        <record id="clinic_booking_opd_view_form" model="ir.ui.view">
             <field name="name">clinic.booking.form</field>
             <field name="model">clinic.booking</field>
             <field name="arch" type="xml">
-                <form string="Clinic Booking">
+                <form string="Clinic Booking" create="false">
                     <header>
+                    
+                        <button name="action_same_meds_last" class="oe_highlight oe_edit_only"
+                        type="object" string="Same Meds From Last Visit"
+                        help="Please Confirm, Same Medication from last visit?"
+                        attrs="{'invisible':['|',('state','!=','opd'),('med_cert_only','=',True)]}"/>
 
                         <button name="action_confirm" class="oe_highlight oe_read_only"
-                        type="object" string="Confirm" states='draft'/>
+                        type="object" string="Confirm" states='draft'
+                        confirm="Do you want to confirm?"/>
 
                         <button name="action_opd" class="oe_highlight oe_read_only"
                         type="object" string="Out-Patient" states='confirm'/>
 
+                        <!-- <button name="action_med_cert_only" class="oe_highlight oe_read_only"
+                        type="object" string="Medical Certifate Only" states='confirm'/> -->
+
+                        <!-- <button name="action_transfer_booking" class="oe_highlight oe_read_only"
+                        attrs="{'invisible':[('transfer_to_id','!=',False)]}"
+                        type="object" string="Transfer Booking" states='draft,confirm'/> -->
+
                         <button name="action_bill_out" class="oe_highlight oe_read_only" 
                         type="object" string="Bill-Out" states='opd'
+                        confirm="Bill-out now?"
                         groups="clinic_mgt.group_md_appointment_admin"/>
 
                         <button name="action_free" class="oe_highlight oe_read_only" 
-                        type="object" string="Free" states='opd'
-                        groups="clinic_mgt.group_md_appointment_admin"/>
+                        type="object" string="Free Checkup" states='opd,bo'
+                        confirm="Please confirm, Free Checkup?"
+                        groups="base.group_no_one"/>
 
                         <button name="action_done" class="oe_highlight oe_read_only" 
                         type="object" string="Done" states='bo'
-                        attrs="{'invisible':[('invoice_id','=',False)]}"/>
+                        confirm="Booking is done?"/>
+                        <!-- attrs="{'invisible':[('invoice_id','=',False)]}"/> -->
 
                         <button name="action_prev_state"  class="oe_read_only"
                         type="object" string="Previous Status"
-                        states="confirm,opd,bo,free,done,transfer"/>
+                        confirm="Set the status to previous state?"
+                        states="confirm,opd,bo,free,done"/>
 
                         <button name="action_void"  class="oe_read_only"
                         type="object" string="Void"
+                        confirm="Do you want to void this booking?"
                         states="draft,confirm,opd,bo,free,transfer"/>
 
                         <field name="state" widget="statusbar" 
                         statusbar_visible="draft,confirm,opd,bo,done,free,transfer,void"/>
                     </header>
                     <sheet>
-                        
                         <div class="oe_right oe_button_box oe_read_only">
-                            <button states="bo,done" name="action_check_invoice" type="object" help="Invoice"
-                                    class="oe_stat_button" icon="fa-file-text">
+                            <button states="opd,bo,free,done" name="action_referral" type="object" 
+                            help="Referral" attrs="{'invisible':[('med_cert_only','=',True)]}"
+                                    class="oe_stat_button" icon="fa-stethoscope">
+                                <field name="referral_id"  widget="statinfo"/>
+                            </button>
+                            <button states="opd,bo,free,done" name="action_admission" type="object" 
+                            help="Admisson" class="oe_stat_button" icon="fa-medkit" groups="base.group_no_one">
+                                <field name="admission_id"  widget="statinfo"/>
+                            </button>
+                            <!-- <button states="opd,bo,free,done" name="action_referral" type="object" help="Sales Order - Medicine charge will reflect once the transaction is confirmed."
+                               s     class="oe_stat_button" icon="fa-usd">
+                                <field name="order_id"  widget="statinfo"/>
+                            </button> -->
+                            <button states="bo,done" name="action_check_order" type="object" help="Sales Order - Medicine charge will reflect once the transaction is confirmed."
+                                    class="oe_stat_button" icon="fa-usd" groups="clinic_mgt.group_md_appointment_billing">
+                                <field name="order_id"  widget="statinfo"/>
+                            </button>
+                            <button attrs="{'invisible':[('order_id','=',False)]}" name="action_check_invoice" type="object" help="Invoice"
+                                    class="oe_stat_button" icon="fa-pencil-square-o" groups="clinic_mgt.group_md_appointment_billing">
                                 <field name="invoice_id" widget="statinfo"/>
                             </button>
                             <button name="action_nothing" type="action" help='Priority Number'
                                     class="oe_stat_button" icon="fa-users">
-                                <field name="sequence" widget="statinfo"/>
+                                <field name="priority" widget="statinfo"/>
                             </button>
                         </div>
                         <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
                         <div class="oe_title">
                             <h1>
-                                <field name="patient_id" default_focus="1" placeholder="Name"/>
+                                <field name="patient_id" default_focus="1" placeholder="Name" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
                             </h1>
                             <div class="o_row">
-                                <field name="transaction_date"/>
-                            </div>
-                            <div class="o_row">
-                                <field name="transfer_to_id"/>
+                                <ul style="list-style-type: none;">
+                                    <li>
+                                        <field name="transaction_date" readonly="1"/>
+                                    </li>
+                                    <li class="oe_read_only" t-if="record.recon_id.raw_value!='False'" groups="clinic_mgt.group_md_appointment_billing">
+                                        <field name="recon_id"/>
+                                    </li>
+                                    <li t-if="record.transfer_to_id.raw_value!='False'">
+                                        <field name="transfer_to_id"/>
+                                    </li>
+                                    <li>
+                                        <field name="remarks_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    </li>
+                                    <li groups='base.groups_no_one'>
+                                        <field name="company_id" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <group>
                             <group>
-                            <field name="booking_date"/>
+                                <field name="booking_date" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                <field name="is_followup" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="physician_id" widget='selection' attrs="{'required':[('state','not in',['draft','void','transfer'])],'readonly':[('state','not in',['draft','confirm','opd'])]}"/>
+                                <field name="med_cert_only" invisible="1"/>
                             </group>
                             <group/>
                         </group>
@@ -569,201 +1392,331 @@
                             <page string="Patient Information" name='patient_info'>
                                 <group>
                                     <group>
-                                        <field name="gender"/>
-                                        <field name="birthdate"/>
-                                        <field name="age"/>
-                                        <field name="civil_status"/>
-                                        <field name="occupation_id"/>
+                                        <field name="gender" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="birthdate" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="age" readonly="1"/>
+                                        <field name="civil_status" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="occupation_id" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="religion_id" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
                                     </group>
                                     <group>
                                         <label for="street" string="Address"/>
                                         <div class="o_address_format">
-                                            <field name="street" placeholder="Street..." class="o_address_street"/>
-                                            <field name="street2" placeholder="Street 2..." class="o_address_street"/>
-                                            <field name="city" placeholder="City" class="o_address_city"/>
-                                            <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"/>
-                                            <field name="zip" placeholder="ZIP" class="o_address_zip"/>
-                                            <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                            <field name="street" placeholder="Street..." class="o_address_street"
+                                         attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                            <field name="street2" placeholder="Street 2..." class="o_address_street"
+                                         attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                            <field name="city" placeholder="City" class="o_address_city"
+                                         attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                            <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"
+                                         attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                            <field name="zip" placeholder="ZIP" class="o_address_zip"
+                                         attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                            <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
+                                         attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
                                         </div>
+                                        <field name="phone" widget="phone" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="mobile" widget="phone" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <!-- <field name="email" widget="email" context="{'gravatar_image': True}" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="website" widget="url" placeholder="e.g. https://www.odoo.com" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/> -->
                                     </group>
                                 </group>
-                                <group string='Vital Statistic'>
-                                    <group>
-                                        <field name="bp"/>
-                                        <field name="heart_rate"/>
-                                        <field name="temp"/>
+                                <group attrs="{'invisible':[('med_cert_only','=',True)]}">
+                                    <group string="Vital Stats">
+                                        <field name="height" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"  groups="base.group_no_one"/>
+                                        <field name="weight" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="temp" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <!-- <field name="sugar" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/> -->
+                                        <field name="bp" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="heart_rate" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
                                     </group>
-                                    <group>
-                                        <field name="height"/>
-                                        <field name="weight"/>
+                                    <group string="Chief Complaint" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}">
+                                        <field name="chief_complaint" widget="html" nolabel="1" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
                                     </group>
                                 </group>
-                                <group string="Chief Complaint">
-                                    <field name="chief_complaint" nolabel="1"/>
-                                </group>
-                                
                             </page>
-                            <page string="Test Request" name="test_request">
+                            <page string="History">
+                                <!-- <group string="Appointments">
+                                    <field name="appointment_ids" readonly='True' nolabel="1">
+                                            <tree string="Appointments">
+                                                <field name="transaction_date"/>
+                                                <field name="remarks_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                                <field name="booking_date"/>
+                                                <field name="chief_complaint"/>
+                                                <field name="state"/>
+                                            </tree>
+                                    </field>
+                                </group> -->
+                                <group string="Findings/Medications">
+                                    <field name="finding_ids"
+                                    widget='one2many_list'
+                                    readonly='True' nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="Test Result" name="test_results" attrs="{'invisible':[('med_cert_only','=',True)]}">
+                                <group string="Laboratory Result">
+                                    <group>
+                                        <field name="lab_result" widget="image" nolabel="1" class="oe_avatar" options="{'preview_image': 'lab_result', 'size': [480, 480]}"
+                                         attrs="{'readonly':['|','|','|',('state','=','transfer'),('state','=','void'),('state','=','draft')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="lab_result1" widget="image" nolabel="1" class="oe_avatar" options="{'preview_image': 'lab_result1', 'size': [480, 480]}"
+                                         attrs="{'readonly':['|','|','|',('state','=','transfer'),('state','=','void'),('state','=','draft')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="lab_result2" widget="image" nolabel="1" class="oe_avatar" options="{'preview_image': 'lab_result2', 'size': [480, 480]}"
+                                         attrs="{'readonly':['|','|','|',('state','=','transfer'),('state','=','void'),('state','=','draft')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="lab_result3" widget="image" nolabel="1" class="oe_avatar" options="{'preview_image': 'lab_result3', 'size': [480, 480]}"
+                                         attrs="{'readonly':['|','|','|',('state','=','transfer'),('state','=','void'),('state','=','draft')]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Findings/Medications" name="findings" 
+                                groups="clinic_mgt.group_md_appointment_admin"
+                                attrs="{'invisible':['|',('med_cert_only','=',True),('state','in',['draft','confirm'])]}">
+                                <group>
+                                    <group>
+                                        <field name="follow_up_date" 
+                                            attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="for_admission" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="pf" attrs="{'invisible':[('state','in',['free','draft','confirm'])], 'readonly':[('state','in','transfer','void','bo','done','free')]}"/>
+                                        <field name="pf_currency_id" invisible="1"/>
+                                    </group>
+                                </group>
+                                <!-- <group>
+                                    <group>
+                                        <label for="is_referral" string="For Referral"/>
+                                        <div>
+                                        <field name="is_referral"
+                                            attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        </div> 
+                                    </group> 
+                                    <group>
+                                        <label for="is_admission" string="For Admission"/>
+                                        <div>
+                                        <field name="is_admission"
+                                            attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        </div> 
+                                    </group> 
+                                </group>  -->
+                                <group string="Significant Findings">
+                                    <field name="findings" nolabel="1" widget="html" 
+                                    attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                </group>
+                                <group string="Prescription">
+                                    <field name="prescribe_med_ids" nolabel="1"
+                                     attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}">
+                                         <tree string="Medicines"  editable="bottom">
+                                            <field name="product_id"/>
+                                            <field name="generic_ids" widget="many2many_tags"/>
+                                            <field name="function_ids" widget="many2many_tags"/>
+                                            <field name="quantity"/>
+                                            <!-- <field name="price_unit"/> -->
+                                            <field name="prescription_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            
+                            <page string="Admission Request" name="admission_request" 
+                                groups="clinic_mgt.group_md_appointment_admin"
+                                attrs="{'invisible':[('for_admission','!=',True)]}">
+                                <group string="Admission Request">
+                                    <field name="admission_req" nolabel="1" widget="html"
+                                    attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                </group>
+                            </page>
+                            <page string="Test Request" name="test_request"
+                                attrs="{'invisible':['|',('med_cert_only','=',True),('state','in',['draft','confirm'])]}">
+                                <group>
+                                    <field name="lab_request_date" attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                </group>
                                 <group string="Laboratory Request">
                                     <field name="lab_request_ids"  
+                                        attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}" 
                                         widget="many2many_checkboxes" nolabel="1"/>
                                 </group>
                                 <group string="X-ray Examination Request" style='width:66%'>
-                                    <group>
-                                        <field name="grp1_xray_exam_ids"  
+                                    <group style='width:33%'>
+                                        <field name="grp1_xray_exam_ids"
+                                        attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"  
                                             widget="many2many_checkboxes" nolabel="1"/>
                                     </group>
-                                    <group>
-                                        <field name="grp2_xray_exam_ids"  
+                                    <group style='width:33%'>
+                                        <field name="grp2_xray_exam_ids"
+                                        attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"  
+                                            widget="many2many_checkboxes" nolabel="1"/>
+                                    </group>
+                                    <group style='width:33%'>
+                                        <field name="grp3_xray_exam_ids"
+                                        attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"  
                                             widget="many2many_checkboxes" nolabel="1"/>
                                     </group>
                                     <group style='width: 100%'>
-                                        <field name="xray_exam_others"/>
+                                        <field name="xray_exam_others" 
+                                        attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
                                     </group>
                                 </group>
                                 <group string="Blood Chemistry Request">
                                     <group style='width:33%'>
-                                        <field name="grp1_blood_chem_ids"  
+                                        <field name="grp1_blood_chem_ids" 
+                                        attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"  
                                             widget="many2many_checkboxes" nolabel="1"/>
                                     </group>
                                     <group style='width:33%'>
-                                        <field name="grp2_blood_chem_ids"  
+                                        <field name="grp2_blood_chem_ids" 
+                                        attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}" 
                                             widget="many2many_checkboxes" nolabel="1"/>
                                     </group>
                                     <group style='width:33%'>
-                                        <field name="grp3_blood_chem_ids"  
+                                        <field name="grp3_blood_chem_ids" 
+                                        attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}" 
                                             widget="many2many_checkboxes" nolabel="1"/>
                                     </group>
-                                <group style='width: 100%'>
-                                    <field name="blood_chem_views"/>
-                                    <field name="blood_chem_others"/>
-                                </group>
-                                </group>
-                            </page>
-                            <page string="Test Result" name="test_results">
-                                <group>
-                                    <field name="result_date"/>
-                                </group>
-                                <group>
-                                    <group string='Complete Blood Count' style="width: 100%">
-                                        <field name="test_cbc_ids" nolabel='1'>
-                                            <tree editable='bottom'>
-                                                <field name="lab_cbc_id" string="Test Name"/>
-                                                <field name="result"/>
-                                                <field name="unit"/>
-                                                <field name="ref_interval"/>
-                                            </tree>
-                                        </field>
-                                    </group>
-                                    <group style="width: 100%">
-                                        <field name="test_cbc_others" string="Others"/>
-                                    </group>
-                                    <group string='Urinalysis' style="width: 100%">
-                                        <field name="test_urinalysis_ids" nolabel='1'>
-                                            <tree editable='bottom'>
-                                                <field name="lab_urinal_id" string="Test Name"/>
-                                                <field name="result"/>
-                                                <field name="unit"/>
-                                                <field name="ref_interval"/>
-                                            </tree>
-                                        </field>
-                                    </group>
-                                    <group style="width: 100%">
-                                        <field name="test_urinalysis_others" string="Others"/>
-                                    </group>
-                                    <group string='Blood Chemistry' style="width: 100%">
-                                        <field name="test_blood_chem_ids" nolabel='1'>
-                                            <tree editable='bottom'>
-                                                <field name="blood_chem_req_id" string="Test Name"/>
-                                                <field name="result"/>
-                                                <field name="unit"/>
-                                                <field name="ref_interval"/>
-                                            </tree>
-                                        </field>
-                                    </group>
-                                    <group style="width: 100%">
-                                        <field name="test_blood_chem_others" string="Others"/>
-                                    </group>
-                                    <group string="X-Ray Examination" style="width: 100%">
-                                        <field name="test_xray_views" string="Xray Views"/>
-                                        <field name="test_xray_others" string="Xray Others"/>
+                                    <group style='width: 100%'>
+                                        <field name="blood_chem_views" 
+                                        attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                        <field name="blood_chem_others"
+                                        attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
                                     </group>
                                 </group>
                             </page>
-                            
-                            <page string="Findings/Medications" name="findings" 
-                                groups="clinic_mgt.group_md_appointment_admin"
-                                attrs="{'invisible':[('state','in',['draft','confirm'])]}">
+                            <!-- <page string="Referral/Admission" attrs="{'invisible':[('is_admission','=',False),('is_referral','=',False)]}">
+                                <group string="Referrals" attrs="{'invisible':[('is_referral','=',False)]}">
+                                    <field name='company_id' groups="base.groups_no_one"/>
+                                    <field name="referral_ids" mode="kanban" nolabel="1" domain="{'company_id':company_id}"
+                                    context="{'default_company_id':company_id,'default_booking_id':active_id}"
+                                        options="{'not_delete': True,'no_create':[('state','!=','opd')]}"
+                                        attrs="{'readonly':[('state','in',['transfer','void','done','free'])]}"/>
+                                </group>
+                            </page> -->
+                            <page string="Medical Certificate" name="med_cert"
+                                attrs="{'invisible':[('state','in',['draft','confirm','void','transfer'])]}">
+                                <group>
+                                    <group>
+                                        <field name='date_issued' attrs="{'readonly':[('state','in',['draft','confirm','done','free','transfer'])]}"/>
+                                    </group>
+                                    <group>
+                                        <field name='last_checkup' attrs="{'invisible':[('med_cert_only','=',False)]}"/>
+                                    </group>
+                                </group>
                                 <group string="Significant Findings / Remarks">
-                                    <field name="findings" nolabel="1" widget="html"/>
+                                    <field name="diagnosis" nolabel="1" widget="html"/>
                                 </group>
                                 <group string="Recommendation">
                                     <field name="recommendation" nolabel="1" widget="html"/>
                                 </group>
-                                <group string="Prescription">
-                                    <field name="prescribe_med_ids" nolabel="1">
-                                         <tree string="Medicines"  editable="top">
-                                            <field name="product_id"/>
-                                            <field name="generic_ids" widget="many2many_tags"/>
-                                            <field name="prescription_ids" widget="many2many_tags"/>
-                                        </tree>
-                                    </field>
-                                </group>
-                                <group>
-                                <field name="physician_id" attrs="{'invisible':[('physician_id','=',False)]}"/>
+                            </page>
+                            <page string="Billing" states='bo,done'
+                                groups="clinic_mgt.group_md_appointment_billing">
+                                <group class="oe_subtotal_footer oe_left" string="Billing Summary">
+                                    <field name="bill_currency_id" invisible="True"/>
+                                    <field name="pf_due"/>
+                                    <field name="meds_due"/>
+                                    <field name="other_due" attrs="{'readonly':[('state','!=','bo')]}"/>
+                                    <field name="total_due" class="oe_subtotal_footer_separator"/>
+                                    <field name="discount" attrs="{'readonly':[('state','!=','bo')]}"/>
+                                    <field name="amount_due" class="oe_subtotal_footer_separator"/>
+                                    <field name="cash"  attrs="{'required':[('state','=','bo')], 'readonly':[('state','!=','bo')]}"/>
+                                    <field name="amount_paid" class="oe_subtotal_footer_separator"/>
+                                    <field name="balance" class="oe_subtotal_footer_separator" attrs="{'invisible':[('balance','&lt;=',0.0)]}"/>
+                                    <field name="change" class="oe_subtotal_footer_separator" attrs="{'invisible':[('change','&lt;=',0.0)]}"/>
                                 </group>
                             </page>
-
-                            <!-- <page string="Billing" name="bill" states="bo,done">
-                                <group>
-                                    <field name="invoice_id"/>
-                                </group>
-                            </page> -->
-
                         </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>
 
-        <record id="clinic_booking_view_tree" model="ir.ui.view">
+        <record id="clinic_booking_opd_view_tree" model="ir.ui.view">
             <field name="name">clinic.booking.tree</field>
             <field name="model">clinic.booking</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree create="false">
+                    <field name="priority"/>
                     <field name="transaction_date"/>
-                    <field name="sequence"/>
+                    <field name="booking_date"/>
                     <field name="patient_id"/>
                     <field name="birthdate"/>
                     <field name="gender"/>
                     <field name="state"/>
+                    <field name="follow_up_date"/>
                 </tree>
             </field>
         </record>
 
-        <record id="clinic_booking_action_form" model="ir.actions.act_window">
-            <field name="name">Booking</field>
+        <!-- <delete id="clinic_booking_opd_action" model="ir.actions.act_window"/> -->
+        <record id="clinic_booking_opd_action" model="ir.actions.act_window">
+            <field name="name">Out-Patient</field>
             <field name="res_model">clinic.booking</field>
-            <field name="view_mode">kanban,calendar,tree,form</field>
+            <field name="view_mode">kanban,calendar,tree,form,graph,pivot</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Click "Create" to add your first Booking
+                    Out-Patient Department.
                 </p>
                 <p>
-                    You have no booking today.
+                    You have no patient today.
                 </p>
             </field>
-            <field name="context">{'search_default_group_by_state':1,'search_default_filter_booking_date':1}</field>
+            <field name="domain">[('state','in',['opd','bo','done','free'])]</field>
+            <field name="context">{'search_default_filter_assigned_to_me':1,'search_default_group_by_state':1,'search_default_filter_booking_date':1}</field>
+        </record>
+
+        <record id="clinic_booking_opd_action_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="clinic_booking_opd_view_kanban"/>
+            <field name="act_window_id" ref="clinic_booking_opd_action"/>
+        </record>
+
+        <record id="clinic_booking_opd_action_calendar" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="clinic_booking_opd_view_calendar"/>
+            <field name="act_window_id" ref="clinic_booking_opd_action"/>
+        </record>
+
+        <record id="clinic_booking_opd_action_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="clinic_booking_opd_view_tree"/>
+            <field name="act_window_id" ref="clinic_booking_opd_action"/>
+        </record>
+
+        <record id="clinic_booking_opd_action_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="4"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="clinic_booking_opd_view_form"/>
+            <field name="act_window_id" ref="clinic_booking_opd_action"/>
         </record>
 
         <!--Res partner End-->
 
-        <!-- config.occupation form view -->
+        <record id="config_occupation_view_tree" model="ir.ui.view">
+            <field name="name">config.occupation.tree</field>
+            <field name="model">config.occupation</field>
+            <field name="arch" type="xml">
+                <tree string="Occupation">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
         <record id="config_occupation_view_form" model="ir.ui.view">
             <field name="name">config.occupation.view.form</field>
             <field name="model">config.occupation</field>
             <field name="arch" type="xml">
-                <form string="">
+                <form string="Occupation">
                     <sheet>
                         <group>
                             <field name="name" string='Occupation'/>
@@ -774,27 +1727,600 @@
             </field>
         </record>
 
+        <record id="config_occupation_action_form" model="ir.actions.act_window">
+            <field name="name">Occupation</field>
+            <field name="res_model">config.occupation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click "Create" to add Occupation.
+                </p>
+                <p>
+                    <!-- More details about what a user can do -->
+                </p>
+            </field>
+        </record>
+
+        <record id="config_religion_view_tree" model="ir.ui.view">
+            <field name="name">config.religion.tree</field>
+            <field name="model">config.religion</field>
+            <field name="arch" type="xml">
+                <tree string="Religion">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="config_religion_view_form" model="ir.ui.view">
+            <field name="name">config.religion.form</field>
+            <field name="model">config.religion</field>
+            <field name="arch" type="xml">
+                <form string="Religion">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" string="Religion"/>
+                            </group>
+                            <group/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="config_religion_action_form" model="ir.actions.act_window">
+            <field name="name">Religion</field>
+            <field name="res_model">config.religion</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click "Create" to add Religion.
+                </p>
+                <p>
+                    <!-- More details about what a user can do -->
+                </p>
+            </field>
+        </record>
+
+        <!-- wizard.clinic.booking.transfer form view -->
+        <record id="wizard_clinic_booking_transfer_view_form" model="ir.ui.view">
+            <field name="name">wizard.clinic.booking.transfer.view.form</field>
+            <field name="model">wizard.clinic.booking.transfer</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <h1>
+                            <field name="booking_id"/>
+                        </h1>
+                        <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="patient_id" default_focus="1" placeholder="Name"/>
+                            </h1>
+                            <div class="o_row">
+                                <field name="booking_date"/>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="new_booking_date"/>
+                            </group>
+                            <group/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name='action_transfer' type="object" string="Transfer" class="oe_highlight"/>
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- clinic.booking search view -->
+        <record id="clinic_referral_view_search" model="ir.ui.view">
+            <field name="name">clinic.referral.view.search</field>
+            <field name="model">clinic.referral</field>
+            <field name="arch" type="xml">
+                <search string="Referral">
+                    <field name="patient_name" string="Patient" filter_domain="[('patient_name','ilike',self)]"/>
+                    <!-- <field name="physician_name" string="Physician" filter_domain="[('physician_name','ilike',self)]"/> -->
+                    <separator/>
+                    <filter name="filter_referral_date" date="referral_date" string="Referral Date" default_period="today"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <!-- <filter name="group_by_state" string="Status" domain="[]" context="{'group_by':'group_state'}"/> -->
+                        <filter name="group_by_referral_date" string="Referral Date" domain="[]" context="{'group_by':'referral_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="clinic_referral_view_kanban" model="ir.ui.view">
+            <field name="name">clinic.referral.view.kanban</field>
+            <field name="model">clinic.referral</field>
+            <field name="arch" type="xml">
+                <kanban string="Referrals"> 
+                <field name="referral_date"/>
+                <field name="referral_partner_id"/>
+                <field name="consultant_partner_id"/>
+                <field name="referral_evaluation"/>
+                <field name="referral_other_probs"/>
+                <field name="referral_remarks"/>
+                <field name="image_medium"/>
+                <field name="image_small"/>
+                <field name="name"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="o_kanban_record_has_image_fill oe_kanban_global_click o_res_partner_kanban">
+                            <div class="o_kanban_image_fill_left" t-attf-style="background-image:url('#{kanban_image('res.partner', 'image_small', record.patient_id.raw_value)}')">
+                                    <h1 style="color: #17a2b8 !important;">
+                                        <field name="transaction_date" invisible="1"/>
+                                    </h1>
+                            </div>
+                            <div  class="oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading"><field name="name"/></strong>
+                                <h1>
+                                    <field name="patient_id"/>
+                                </h1>
+                                <ul style="list-style-type: none;">
+                                    <li><field name="referral_date"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+                    
+                </kanban>
+            </field>
+        </record>
+
+        <record id="clinic_referral_view_calendar" model="ir.ui.view">
+            <field name="name">clinic.referral.view.calendar</field>
+            <field name="model">clinic.referral</field>
+            <field name="arch" type="xml">
+                <calendar string="Referrals" date_start="referral_date" mode="week"
+                    event_open_popup="True" color="patient_id">
+                        <field name="patient_id"/>
+                        <!-- <field name="employee_id"/> -->
+                </calendar>
+            </field>
+        </record>
+
+        <record id="clinic_referral_view_form" model="ir.ui.view">
+            <field name="name">clinic.referral.form</field>
+            <field name="model">clinic.referral</field>
+            <field name="arch" type="xml">
+                <form string="Referral Form">
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="patient_id" attrs="{'readonly':[('patient_read_only','=',True)]}"/>
+                            </h1>
+                            <div class="o_row">
+                                <ul style="list-style-type: none;">
+                                    <li>
+                                        <field name="booking_id"/>
+                                    </li>
+                                    <li>
+                                        <field name="transaction_date"/>
+                                    </li>
+                                    <field name="patient_read_only" invisible="1"/>
+                                </ul>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="referral_date"/>
+                                <field name="booking_id" invisible="1" options="{&quot;no_create&quot;: True}"/>
+                            </group>
+                            <group>
+                            <!-- <field name="consultant_partner_id"/> -->
+                            <field name="referral_partner_id"/>
+                            <label for="street" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Street..." class="o_address_street"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="state_id" class="o_address_state" placeholder="State"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id" placeholder="Country" class="o_address_country"/>
+                            </div>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Evaluation">
+                                <field name="referral_evaluation" widget="html" nolabel="1"/>
+                            </group>
+                            <group string="Other Problems">
+                                <field name="referral_other_probs" widget="html" nolabel="1"/>
+                            </group>
+                            <group string="Remarks">
+                                <field name="referral_remarks" widget="html" nolabel="1"/>
+                            </group>
+                            <group string="Medicines">
+                                <field name="prescribe_med_ids" nolabel="1">
+                                    <tree string="Medicines" limits="10">
+                                        <field name="product_id"/>
+                                        <field name="generic_ids" widget="many2many_tags"/>
+                                        <!-- <field name="function_ids" widget="many2many_tags"/> -->
+                                        <!-- <field name="quantity"/> -->
+                                        <!-- <field name="price_unit"/> -->
+                                        <!-- <field name="prescription_ids" widget="many2many_tags" options="{'color_field': 'color'}"/> -->
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="clinic_referral_view_tree" model="ir.ui.view">
+            <field name="name">clinic.referral.tree</field>
+            <field name="model">clinic.referral</field>
+            <field name="arch" type="xml">
+                <tree string="Referrals">
+                    <field name="transaction_date"/>
+                    <field name="name"/>
+                    <field name="referral_date"/>
+                    <field name="patient_id"/>
+                    <field name="referral_partner_id"/>
+                    <field name="consultant_partner_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="clinic_referral_action" model="ir.actions.act_window">
+            <field name="name">Referrals</field>
+            <field name="res_model">clinic.referral</field>
+            <field name="view_mode">kanban,calendar,tree,form</field>
+            <field name="help" type="html">
+                    <p class="o_view_nocontent_smiling_face">
+                        Click "Create" to add Referral.
+                </p>
+            </field>
+            <field name="context">{'search_default_group_by_referral_date':1}</field>
+        </record>
+
+        <record id="clinic_admission_view_search" model="ir.ui.view">
+            <field name="name">clinic.admission.search</field>
+            <field name="model">clinic.admission</field>
+            <field name="arch" type="xml">
+                <search string="Referral">
+                    <field name="patient_name" string="Patient" filter_domain="[('patient_name','ilike',self)]"/>
+                    <!-- <field name="physician_name" string="Physician" filter_domain="[('physician_name','ilike',self)]"/> -->
+                    <separator/>
+                    <filter name="filter_admission_date" date="admitted_date" string="Admission Date" default_period="month"/>
+                    <separator/>
+                    <!-- <filter name="group_by_admission_date" string="Admission Date" domain="[]" context="{'group_by':'admitted_date'}"/> -->
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_state" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                        <filter name="group_by_admission_date" string="Admission Date" domain="[]" context="{'group_by':'admitted_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="clinic_admission_view_pivot" model="ir.ui.view">
+            <field name="name">clinic.admission.view.pivot</field>
+            <field name="model">clinic.admission</field>
+            <field name="arch" type="xml">
+                <pivot string="Admisson">
+                    <field name="state"  type="col"/>
+                    <field name="pf"  type="measure"/>
+                    <field name="admitted_date" type="row"/>       
+                </pivot>
+            </field>
+        </record>
+
+        <record id="clinic_admission_view_graph" model="ir.ui.view">
+            <field name="name">clinic.admission.view.graph</field>
+            <field name="model">clinic.admission</field>
+            <field name="arch" type="xml">
+                <graph string="Admisson">
+                    <field name="state"  type="col"/>
+                    <field name="pf"  type="measure"/>
+                    <field name="admitted_date" type="row"/>          
+                </graph>
+            </field>
+        </record>
+
+        <record id="clinic_admission_view_calendar" model="ir.ui.view">
+            <field name="name">clinic.admission.view.calendar</field>
+            <field name="model">clinic.admission</field>
+            <field name="arch" type="xml">
+                <calendar string="Admission" date_start="admitted_date" date_stop="discharge_date" mode="week"
+                    event_open_popup="True" quick_add="False" color="patient_id">
+                        <field name="patient_id"/>
+                </calendar>
+            </field>
+        </record>
+        
+        <record id="clinic_admission_view_kanban" model="ir.ui.view">
+            <field name="name">clinic.admission.view.kanban</field>
+            <field name="model">clinic.admission</field>
+            <field name="arch" type="xml">
+                <kanban string="Admission"> 
+                <field name="admitted_date"/>
+                <field name="patient_id"/>
+                <field name="image_medium"/>
+                <field name="image_small"/>
+                <field name="name"/>
+                <field name="transaction_date"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="o_kanban_record_has_image_fill oe_kanban_global_click o_res_partner_kanban">
+                            <div class="o_kanban_image_fill_left" t-attf-style="background-image:url('#{kanban_image('res.partner', 'image_small', record.patient_id.raw_value)}')">
+                                    <h1 style="color: #17a2b8 !important;">
+                                        <field name="transaction_date" invisible="1"/>
+                                    </h1>
+                            </div>
+                            <div  class="oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading"><field name="name"/></strong>
+                                <h1>
+                                    <field name="patient_id"/>
+                                </h1>
+                                <ul style="list-style-type: none;">
+                                    <li><field name="admitted_date"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+                    
+                </kanban>
+            </field>
+        </record>
+        
+        <record id="clinic_admission_view_form" model="ir.ui.view">
+            <field name="name">clinic.admission.view.form</field>
+            <field name="model">clinic.admission</field>
+            <field name="arch" type="xml">
+                <form string="Admission">
+                    <header>
+
+                        <button name="action_confirm" class="oe_highlight oe_read_only"
+                        type="object" string="Confirm" states='draft'
+                        confirm="Do you want to confirm?"/>
+
+                        <!-- <button name="action_discharge" class="oe_highlight oe_read_only"
+                        type="object" string="Discharge" states='confirm'/> -->
+
+                        <field name="state" widget="statusbar" 
+                            statusbar_visible="draft,confirm,discharge,partial,paid,void"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_right oe_button_box oe_read_only">
+                            <button states="confirm,discharge,partial,paid" name="action_check_order" type="object" help="Sales Order - Medicine charge will reflect once the transaction is confirmed."
+                                    class="oe_stat_button" icon="fa-usd" groups="clinic_mgt.group_md_appointment_billing">
+                                <field name="order_id"  widget="statinfo"/>
+                            </button>
+
+                            <button attrs="{'invisible':[('order_id','=',False)]}" name="action_check_invoice" type="object" help="Invoice"
+                                    class="oe_stat_button" icon="fa-pencil-square-o" groups="clinic_mgt.group_md_appointment_billing">
+                                <field name="invoice_id" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="patient_id" default_focus="1" placeholder="Name"
+                                attrs="{'readonly':['|',('booking_id','!=',False),('state','!=','draft')]}"/>
+                            </h1>
+                            <div class="o_row">
+                                <ul style="list-style-type: none;">
+                                    <li>
+                                        <field name="transaction_date" readonly="1"/>
+                                    </li>
+                                    <li>
+                                        <field name="booking_id"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="admitted_date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="discharge_date" attrs="{'readonly':[('state','!=','paid')]}"/>
+                                <field name="days_admitted"/>
+                            </group>
+                            <group>
+                                <field name="hospital_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="physician_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </group>
+                        </group>
+                        <group groups="clinic_mgt.group_md_appointment_billing">
+                            <group class="oe_subtotal_footer oe_left">
+                                <field name="pf_currency_id" invisible="True"/>
+                                <field name="pf" attrs="{'readonly':[('state','=','paid')]}"/>
+                                <field name="phic" attrs="{'readonly':[('state','=','paid')]}"/>
+                                <field name="amount_due" class="oe_subtotal_footer_separator"/>
+                                <field name="amount_paid" attrs="{'readonly':[('state','=','paid')]}"/>
+                                <field name="balance" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="clinic_admission_view_tree" model="ir.ui.view">
+            <field name="name">clinic.admission.tree</field>
+            <field name="model">clinic.admission</field>
+            <field name="arch" type="xml">
+                <tree string="Clinic Admission">
+                    <field name="name"/>
+                    <field name="transaction_date"/>
+                    <field name="admitted_date"/>
+                    <field name="patient_id"/>
+                    <field name="booking_id"/>
+                    <field name="hospital_id"/>
+                    <field name="physician_id"/>
+                    <!-- <field name="pf" groups="group_md_appointment_admin"/>
+                    <field name="balance" groups="group_md_appointment_admin"/> -->
+                    <field name="discharge_date"/>
+                    <field name="state"/>
+                    <!-- <field name="pf_currency_id" invisible="1" groups="group_md_appointment_admin"/> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="clinic_admission_action" model="ir.actions.act_window">
+            <field name="name">Admissions</field>
+            <field name="res_model">clinic.admission</field>
+            <field name="view_mode">kanban,calendar,tree,graph,pivot,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click "Create" to add Admission.
+                </p>
+            </field>
+            <field name="context">{'search_default_filter_admission_date':1,'search_default_group_by_state':1,}</field>
+        </record>
+
+        <!-- ir.config.settings inherit form view -->
+        <record id="clinic_mgt_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.inherit.view.form</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="Clinic" string="Clinic" data-key="clinic_mgt">
+                        <h2>Clinic Management License</h2>
+                        <div class="row mt16 o_settings_container" id="website_settings">
+                            <div class="col-12 col-lg-6 o_setting_box" id="domain_setting">
+                                <div class="o_setting_right_pane">
+                                    <label for="activation_server_key" string="Server Activaiton"/>
+                                    <!-- <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/> -->
+                                    <div class="text-muted">
+                                        Your server key from the developer
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label class="col-lg-3 o_light_label" string="Server Key" for="activation_server_key"/>
+                                            <field name="activation_server_key" attrs="{'required': [('activation_server_key', '!=', False)] }"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2>Default Settings</h2>
+                        <div class="row mt16 o_settings_container" id="website_settings">
+                            <div class="col-12 col-lg-6 o_setting_box" id="domain_setting">
+                                <div class="o_setting_right_pane">
+                                    <label for="physician_id" string="Configurations"/>
+                                    <!-- <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/> -->
+                                    <div class="text-muted">
+                                        Set your Default Settings here.
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label class="col-lg-3 o_light_label" string="Default Physician" for="physician_id"/>
+                                            <field name="physician_id" widget="selection"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="clinic_mgt_settings_action_form" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_id" ref="clinic_mgt_settings_view_form"/>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module':'clinic_mgt'}</field>
+        </record>
+
+         <!--My Dashboard Action-->
+        <record model="ir.actions.act_window" id="open_my_board_clinic_action">
+            <field name="name">My Dashboard</field>
+            <field name="res_model">board.board</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="board.board_my_dash_view"/>
+        </record> 
+
+        <menuitem id="base.menu_board_root"
+        name="Dashboard"
+        groups="base.group_no_one"/>
+
         <menuitem id="menu_clinic_appointment" 
-        name="Appointment" 
+        name="Clinic" 
         web_icon="clinic_mgt,static/description/icon.png"
         sequence="22"
         groups="group_md_appointment_user"/>
 
+        <menuitem 
+            id="menu_board_my_dash"
+            parent="menu_clinic_appointment"
+            action="open_my_board_clinic_action"
+            groups="group_md_appointment_dash"
+            sequence="0"/>
+
         <menuitem id="menu_clinic_appointment_booking" 
-        name="Booking" 
+        name="Bookings" 
         parent="menu_clinic_appointment"
-        action="clinic_booking_action_form"
+        action="clinic_booking_action"
         sequence="1"/>
+
+        <menuitem id="menu_clinic_appointment_booking_opd" 
+        name="Out-Patient" 
+        parent="menu_clinic_appointment"
+        action="clinic_booking_opd_action"
+        sequence="2"
+        groups="group_md_appointment_admin"/>
+
+        <menuitem id="menu_clinic_appointment_booking_ref" 
+        parent="menu_clinic_appointment"
+        action="clinic_referral_action"
+        sequence="4"
+        groups="group_md_appointment_admin"/>
+
+        <menuitem id="menu_clinic_admisson" 
+        parent="menu_clinic_appointment"
+        action="clinic_admission_action"
+        sequence="5"
+        groups="base.group_no_one"/>
 
         <menuitem id="menu_clinic_appointment_config" 
         name="Configuration" 
         parent="menu_clinic_appointment"
         sequence="99"/>
 
+        <menuitem id="menu_clinic_mgt_settings" 
+        name="Settings" 
+        parent="menu_clinic_appointment" 
+        action="clinic_mgt_settings_action_form" 
+        sequence="100"
+        groups="base.group_no_one"/>
+
+        <menuitem id="meds_product_product"
+        name="Products" 
+        parent="menu_clinic_appointment_config" 
+        action="meds_product_product_view_action"
+        sequence="1"/>
+
         <menuitem id="menu_clinic_appointment_config_lab"
         name="Laboratory" 
         parent="menu_clinic_appointment_config" 
-        sequence="1"/>
+        sequence="2"/>
 
         <menuitem id="menu_clinic_appointment_config_lab_req" 
         parent="menu_clinic_appointment_config_lab"
@@ -814,19 +2340,18 @@
         <menuitem id="menu_clinic_appointment_config_chem" 
         parent="menu_clinic_appointment_config"
         action="config_blood_chem_request_action"
-        sequence="2"/>
+        sequence="3"/>
 
         <menuitem id="menu_clinic_appointment_config_xray" 
         parent="menu_clinic_appointment_config"
         action="config_xray_examination_request_action"
-        sequence="3"/>
-
+        sequence="4"/>
 
         <menuitem id="menu_clinic_appointment_config_md" 
         name="Physician" 
         parent="menu_clinic_appointment_config" 
-        sequence="4"
-        groups="group_md_appointment_admin"/>
+        sequence="5"
+        groups="group_md_appointment_user"/>
 
         <menuitem id="menu_clinic_appointment_config_md_license" 
         parent="menu_clinic_appointment_config_md"
@@ -837,6 +2362,35 @@
         parent="menu_clinic_appointment_config_md"
         action="config_md_pf_action"
         sequence="2"/>
+
+        <menuitem id="menu_clinic_appointment_config_others" 
+        name="Others" 
+        parent="menu_clinic_appointment_config" 
+        sequence="6"
+        groups="base.user_root"/>
+
+        <menuitem id="menu_clinic_appointment_config_others_religion" 
+        parent="menu_clinic_appointment_config_others"
+        action="config_religion_action_form"
+        sequence="1"/>
+
+        <menuitem id="menu_clinic_appointment_config_others_occupation" 
+        parent="menu_clinic_appointment_config_others"
+        action="config_occupation_action_form"
+        sequence="2"/>
+
+        <menuitem id="menu_clinic_appointment_config_others_generics" 
+        parent="menu_clinic_appointment_config_others"
+        action="config_product_generic_action_form"
+        groups="base.group_no_one"
+        sequence="3"/>
+
+        <menuitem id="menu_clinic_appointment_config_others_prescription" 
+        parent="menu_clinic_appointment_config_others"
+        action="product_prescription_action_form"
+        groups="base.group_no_one"
+        sequence="4"/>
+
 
   </data>
 </odoo>

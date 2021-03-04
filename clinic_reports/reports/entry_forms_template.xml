@@ -11,7 +11,7 @@
                 name="clinic_reports.entry_forms_template"
                 file="clinic_reports.entry_forms_template"
                 paperformat="clinic_reports.custom_letter_margin10_paperformat"
-                menu="True"
+                menu="False"
         />
         <template id="clinic_reports.entry_forms_template">
             <t t-call="web.html_container">
@@ -19,163 +19,137 @@
                     <!-- <t t-call="report.external_layout"> -->
                     <div class="page">
                         <style>
-                            .table-condensed{
-                            border-collapse:collapse;
-                            }
-                            table{
-                            empty-cells:show;
-                            }
-                            .border{
-                            border: 1px solid #a2bed0 !important;
-                            }
-                            .blue-top{
-                            border-top: 3px solid #19618d !important;
-                            }
-                            tr{
-                            min-height:2em;
-                            }
-                            td{
-                            padding: 5px 8px 5px !important;
-                            }
-                            .no-pad{
-                            padding: 0px 0px 0px !important;
-                            }
-                            span{
-                            color: #414547;
-                            font-family: Arial, Helvetica, sans-serif;
-                            font-size: 1.08333333rem;
-                            font-weight: 400;
-                            line-height: 1.5;
-                            text-align: left;
-                            margin: 0px 0px 0px !important;
-                            }
-                            .center{
-                            text-align: center;
-                            }
-                            .right{
-                            text-align: right;
-                            }
-                            .top{
-                            vertical-align: top;
-                            }
-                            .middle{
+                        .table-condensed{
+                        border-collapse:collapse;
+                        }
+                        table{
+                        empty-cells:show;
+                        }
+                        .border{
+                        border: 1px solid #a2bed0 !important;
+                        }
+                        .blue-top{
+                        border-top: 3px solid #19618d !important;
+                        }
+                        tr{
+                        min-height:2em;
+                        }
+                        td{
+                        padding: 5px 8px 5px !important;
+                        }
+                        .no-pad{
+                        padding: 0px 0px 0px !important;
+                        }
+                        span{
+                        color: #414547;
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 1.08333333rem;
+                        font-weight: 400;
+                        line-height: 1.5;
+                        text-align: left;
+                        margin: 0px 0px 0px !important;
+                        }
+                        .center{
+                        text-align: center;
+                        }
+                        .right{
+                        text-align: right;
+                        }
+                        .top{
+                        vertical-align: top;
+                        }
+                        .middle{
+                        vertical-align: middle;
+                        }
+                        .bottom{
+                        vertical-align: bottom;
+                        }
+                        .strong{
+                        font-weight:bold;
+                        }
+                        .upcase{
+                        text-transform: uppercase;
+                        }
+                        .border-top{
+                        border-top:1px solid black;
+                        font-size:15px !important;
+                        }
+                        .border-bottom{
+                        border-bottom:1px solid black;
+                        }
+                        img {
+                        display: block;
+                        margin-left: 20%;
+                        margin-right: auto;
+                        }
+                        .container {
+                        position: relative;
+                        text-align: center;
+                        
+                        }
+                        .container2 {
+                            display: table;
+                            overflow: hidden;
+                            display: table-cell; 
                             vertical-align: middle;
-                            }
-
-                            .bottom{
-                            vertical-align: bottom;
-                            }
-                            .strong{
-                            font-weight:bold;
-                            }
-                            .upcase{
-                            text-transform: uppercase;
-                            }
-                            .border-top{
-                            border-top:1px solid black;
-                            }
-                            .border-bottom{
-                            border-bottom:1px solid black;
-                            }
+                        }
+                        .centered {
+                        position: absolute;
+                        top: 8%;
+                        left: 40%;
+                        transform: translate(-50%, -50%);
+                        }
                         </style>
-                        <table class="table-condensed table">
-                            <tr>
-                                <td class="no-border center strong" colspan="5" width="100%"><h1>Natividad M. Torre MD</h1></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border center strong upcase" colspan="5" width="100%"><h4>Internal Medicine</h4></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border center strong upcase" colspan="5" width="100%"><h4>kidney disease and hypertension</h4></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1" width="10%"/>
-                                <td class="no-border upcase no-pad" colspan="1" width="20%">Clinic Hours</td>
-                                <td class="no-border no-pad" colspan="2" width="30%"/>
-                                <td class="no-border upcase no-pad" colspan="1" width="40%">hospital affiliations</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1" width="10%"/>
-                                <td class="no-border no-pad" colspan="1" width="20%">Mon - Sat Except Wed</td>
-                                <td class="no-border no-pad" colspan="2" width="30%"/>
-                                <td class="no-border no-pad" colspan="1" width="40%">Mindanao Medical Center</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1" width="10%"/>
-                                <td class="no-border no-pad" colspan="1" width="20%">GenMedex Bldg.</td>
-                                <td class="no-border no-pad" colspan="2" width="30%"/>
-                                <td class="no-border no-pad" colspan="1" width="40%">St. Elizabeth Hospital</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1" width="10%"/>
-                                <td class="no-border no-pad" colspan="1" width="20%">Santiago Blvd. GSC</td>
-                                <td class="no-border no-pad" colspan="2" width="30%"/>
-                                <td class="no-border no-pad" colspan="1" width="40%">General Santos Doctors Hospital</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1" width="10%"/>
-                                <td class="no-border no-pad" colspan="1" width="20%">9:00 AM - 12:00 NN</td>
-                                <td class="no-border no-pad" colspan="2" width="30%"/>
-                                <td class="no-border no-pad" colspan="1" width="40%">SUN No: 09228232825</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border no-pad" colspan="1" width="10%"/>
-                                <td class="no-border no-pad" colspan="1" width="20%">Tel No: 554-7750</td>
-                                <td class="no-border no-pad" colspan="3" width="70%"/>
-                            </tr>
-                            <tr>
-                                <td class="no-border" style="border-bottom: 3px solid black" colspan="5" width="100%"/>
-                            </tr>
-                            <tr>
-                                <td class="no-border strong center upcase" colspan="5" style="padding:3em 0em !important"><h2>entry form</h2></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border upcase" colspan="5">date: <span t-field="doc.booking_date"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border upcase" colspan="1">patient</td>
-                                <td class="no-border border-bottom" colspan="4"><span t-field="doc.patient_name"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border upcase" colspan="1">address</td>
-                                <td class="no-border border-bottom" colspan="4"><span t-field="doc.street"/> <span t-field="doc.street2"/> <span t-field="doc.city"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border upcase" colspan="1">occupation</td>
-                                <td class="no-border border-bottom" colspan="4"><span t-field="doc.occupation_id"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border upcase" colspan="1">age/sex</td>
-                                <td class="no-border border-bottom" colspan="1"><span t-field="doc.age"/> / <span t-field="doc.gender"/></td>
-                                <td class="no-border upcase" colspan="1">contact / email</td>
-                                <td class="no-border border-bottom" colspan="2"><span t-field="doc.phone"/> / <span t-field="doc.email"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border upcase strong center" colspan="5" style="padding:2em 0em !important;">vital stats</td>
-                            </tr>
-                            <tr>
-                                <td class="no-border upcase" colspan="2">height:</td>
-                                <td class="no-border border-bottom center" colspan="1"><span t-field="doc.height"/></td>
-                                <td class="no-border upcase" colspan="1">weight:</td>
-                                <td class="no-border border-bottom center" colspan="1"><span t-field="doc.weight"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border upcase" colspan="2">heart rate:</td>
-                                <td class="no-border border-bottom center" colspan="1"><span t-field="doc.heart_rate"/></td>
-                                <td class="no-border upcase" colspan="1">temperature:</td>
-                                <td class="no-border border-bottom center" colspan="1"><span t-field="doc.temp"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border upcase" colspan="3">blood pressure:</td>
-                                <td class="no-border border-bottom right" colspan="2"><span t-field="doc.bp"/></td>
-                            </tr>
-                            <tr>
-                                <td class="no-border upcase strong center" colspan="5" style="padding:2em 0em !important">chief complaint</td>
-                            </tr>
-                            <tr>
-                                <td colspan="5" style="word-wrap:break-word"><p><span t-field="doc.chief_complaint"/></p></td>
-                            </tr>
-                        </table>
+                        <div class="container">
+                            <div class="row" width="100%" style="position: relative; text-align: center;">
+                                <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="width:10%;" alt="Logo"/>
+                                <!-- <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 45px; width:10%;" alt="Logo"/> -->
+                                <div class="container centered strong">
+                                    <span class="strong" style='font-size: large;' t-field="doc.company_id.name"/>
+                                    <div style='font-size: medium;'>
+                                        Internal Medicine
+                                    </div>
+                                    <div style='font-size: small;'>
+                                        Kidney Disease and Hypertension
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div/>
+                        <div class="page">
+                            <table class="table-condensed table">
+                                <tr class="center" style="vertical-align: text-top; margin: auto; width: 80em;">
+                                    <td width="50%">
+                                        <div style='font-size: small;'>
+                                            <b>CLINIC HOURS:</b><br/>
+                                            Mon - Fri Except Wed<br/>
+                                            GenMedex Bldg.<br/>
+                                            Santiago Blvd. GSC<br/>
+                                            9:00 AM - 12:00 NN<br/>
+                                        </div>
+                                    </td>
+                                    <td width="50%">
+                                        <div style='font-size: small;'>
+                                        <b>HOSPITAL AFFILIATIONS:</b><br/>
+                                        Mindanao Medical Center<br/>
+                                        St. Elizabeth Hospital<br/>
+                                        General Santos Doctors Hospital<br/>
+                                        SARMED Hospital<br/>
+                                        SUN No.: 09228232825
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr style="vertical-align: text-top; margin: auto; width: 80em;">
+                                    <td class="no-border" style="border-bottom: 3px solid black" colspan="10" width="100%"/>
+                                </tr>
+                                <tr>
+                                    <td class="no-border upcase strong center" colspan="5" style="padding:2em 0em !important">chief complaint</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" style="word-wrap:break-word"><p><span t-field="doc.chief_complaint"/></p></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </t>
             </t>

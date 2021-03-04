@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 3.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_Letter" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Admission"/>
+	<queryString language="xPath">
+		<![CDATA[/data/record]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="id"/>
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="Last_Modified_on-__last_update" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Last_Modified_on-__last_update"/>
+		<fieldDescription><![CDATA[Last_Modified_on-__last_update]]></fieldDescription>
+	</field>
+	<field name="Security_Token-access_token" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Security_Token-access_token"/>
+		<fieldDescription><![CDATA[Security_Token-access_token]]></fieldDescription>
+	</field>
+	<field name="Portal_Access_URL-access_url" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Portal_Access_URL-access_url"/>
+		<fieldDescription><![CDATA[Portal_Access_URL-access_url]]></fieldDescription>
+	</field>
+	<field name="Access_warning-access_warning" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Access_warning-access_warning"/>
+		<fieldDescription><![CDATA[Access_warning-access_warning]]></fieldDescription>
+	</field>
+	<field name="Active-active" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Active-active"/>
+		<fieldDescription><![CDATA[Active-active]]></fieldDescription>
+	</field>
+	<field name="Next_Activity_Deadline-activity_date_deadline" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Next_Activity_Deadline-activity_date_deadline"/>
+		<fieldDescription><![CDATA[Next_Activity_Deadline-activity_date_deadline]]></fieldDescription>
+	</field>
+	<field name="Activity_State-activity_state" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Activity_State-activity_state"/>
+		<fieldDescription><![CDATA[Activity_State-activity_state]]></fieldDescription>
+	</field>
+	<field name="Next_Activity_Summary-activity_summary" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Next_Activity_Summary-activity_summary"/>
+		<fieldDescription><![CDATA[Next_Activity_Summary-activity_summary]]></fieldDescription>
+	</field>
+	<field name="Age-age" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Age-age"/>
+		<fieldDescription><![CDATA[Age-age]]></fieldDescription>
+	</field>
+	<field name="Amount_Due-amount_due" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Amount_Due-amount_due"/>
+		<fieldDescription><![CDATA[Amount_Due-amount_due]]></fieldDescription>
+	</field>
+	<field name="Amount_Paid-amount_paid" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Amount_Paid-amount_paid"/>
+		<fieldDescription><![CDATA[Amount_Paid-amount_paid]]></fieldDescription>
+	</field>
+	<field name="Total-amount_total" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Total-amount_total"/>
+		<fieldDescription><![CDATA[Total-amount_total]]></fieldDescription>
+	</field>
+	<field name="Balance-balance" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Balance-balance"/>
+		<fieldDescription><![CDATA[Balance-balance]]></fieldDescription>
+	</field>
+	<field name="Birthdate-birthdate" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Birthdate-birthdate"/>
+		<fieldDescription><![CDATA[Birthdate-birthdate]]></fieldDescription>
+	</field>
+	<field name="Others-blood_chem_others" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Others-blood_chem_others"/>
+		<fieldDescription><![CDATA[Others-blood_chem_others]]></fieldDescription>
+	</field>
+	<field name="Views-blood_chem_views" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Views-blood_chem_views"/>
+		<fieldDescription><![CDATA[Views-blood_chem_views]]></fieldDescription>
+	</field>
+	<field name="Consultation_Date-booking_date" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Consultation_Date-booking_date"/>
+		<fieldDescription><![CDATA[Consultation_Date-booking_date]]></fieldDescription>
+	</field>
+	<field name="Booking-booking_id" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Booking-booking_id"/>
+		<fieldDescription><![CDATA[Booking-booking_id]]></fieldDescription>
+	</field>
+	<field name="Blood_Pressure-bp" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Blood_Pressure-bp"/>
+		<fieldDescription><![CDATA[Blood_Pressure-bp]]></fieldDescription>
+	</field>
+	<field name="Cash_Tendered-cash" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Cash_Tendered-cash"/>
+		<fieldDescription><![CDATA[Cash_Tendered-cash]]></fieldDescription>
+	</field>
+	<field name="Change-change" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Change-change"/>
+		<fieldDescription><![CDATA[Change-change]]></fieldDescription>
+	</field>
+	<field name="Chief_Complaint-chief_complaint" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Chief_Complaint-chief_complaint"/>
+		<fieldDescription><![CDATA[Chief_Complaint-chief_complaint]]></fieldDescription>
+	</field>
+	<field name="City-city" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="City-city"/>
+		<fieldDescription><![CDATA[City-city]]></fieldDescription>
+	</field>
+	<field name="Civil_Status-civil_status" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Civil_Status-civil_status"/>
+		<fieldDescription><![CDATA[Civil_Status-civil_status]]></fieldDescription>
+	</field>
+	<field name="Created_on-create_date" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Created_on-create_date"/>
+		<fieldDescription><![CDATA[Created_on-create_date]]></fieldDescription>
+	</field>
+	<field name="Medicines-current_meds" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Medicines-current_meds"/>
+		<fieldDescription><![CDATA[Medicines-current_meds]]></fieldDescription>
+	</field>
+	<field name="Date_Issued-date_issued" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Date_Issued-date_issued"/>
+		<fieldDescription><![CDATA[Date_Issued-date_issued]]></fieldDescription>
+	</field>
+	<field name="Diagnosis-diagnosis" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Diagnosis-diagnosis"/>
+		<fieldDescription><![CDATA[Diagnosis-diagnosis]]></fieldDescription>
+	</field>
+	<field name="Display_Name-display_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Display_Name-display_name"/>
+		<fieldDescription><![CDATA[Display_Name-display_name]]></fieldDescription>
+	</field>
+	<field name="Email-email" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Email-email"/>
+		<fieldDescription><![CDATA[Email-email]]></fieldDescription>
+	</field>
+	<field name="Significant_Findings-findings" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Significant_Findings-findings"/>
+		<fieldDescription><![CDATA[Significant_Findings-findings]]></fieldDescription>
+	</field>
+	<field name="Follow_Up_Date-follow_up_date" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Follow_Up_Date-follow_up_date"/>
+		<fieldDescription><![CDATA[Follow_Up_Date-follow_up_date]]></fieldDescription>
+	</field>
+	<field name="Gender-gender" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Gender-gender"/>
+		<fieldDescription><![CDATA[Gender-gender]]></fieldDescription>
+	</field>
+	<field name="Status-group_state" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Status-group_state"/>
+		<fieldDescription><![CDATA[Status-group_state]]></fieldDescription>
+	</field>
+	<field name="Heart_Rate__bpm_-heart_rate" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Heart_Rate__bpm_-heart_rate"/>
+		<fieldDescription><![CDATA[Heart_Rate__bpm_-heart_rate]]></fieldDescription>
+	</field>
+	<field name="Height__Ft_-height" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Height__Ft_-height"/>
+		<fieldDescription><![CDATA[Height__Ft_-height]]></fieldDescription>
+	</field>
+	<field name="ID-id" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="ID-id"/>
+		<fieldDescription><![CDATA[ID-id]]></fieldDescription>
+	</field>
+	<field name="Photo-image" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Photo-image"/>
+		<fieldDescription><![CDATA[Photo-image]]></fieldDescription>
+	</field>
+	<field name="Medium_sized_photo-image_medium" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Medium_sized_photo-image_medium"/>
+		<fieldDescription><![CDATA[Medium_sized_photo-image_medium]]></fieldDescription>
+	</field>
+	<field name="Image_Path-image_path" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Image_Path-image_path"/>
+		<fieldDescription><![CDATA[Image_Path-image_path]]></fieldDescription>
+	</field>
+	<field name="Small_sized_photo-image_small" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Small_sized_photo-image_small"/>
+		<fieldDescription><![CDATA[Small_sized_photo-image_small]]></fieldDescription>
+	</field>
+	<field name="Laboratory_Result-lab_result" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Laboratory_Result-lab_result"/>
+		<fieldDescription><![CDATA[Laboratory_Result-lab_result]]></fieldDescription>
+	</field>
+	<field name="Laboratory_Result-lab_result1" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Laboratory_Result-lab_result1"/>
+		<fieldDescription><![CDATA[Laboratory_Result-lab_result1]]></fieldDescription>
+	</field>
+	<field name="Laboratory_Result-lab_result2" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Laboratory_Result-lab_result2"/>
+		<fieldDescription><![CDATA[Laboratory_Result-lab_result2]]></fieldDescription>
+	</field>
+	<field name="Laboratory_Result-lab_result3" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Laboratory_Result-lab_result3"/>
+		<fieldDescription><![CDATA[Laboratory_Result-lab_result3]]></fieldDescription>
+	</field>
+	<field name="License_No.-license_no" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="License_No.-license_no"/>
+		<fieldDescription><![CDATA[License_No.-license_no]]></fieldDescription>
+	</field>
+	<field name="Medicines-meds_due" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Medicines-meds_due"/>
+		<fieldDescription><![CDATA[Medicines-meds_due]]></fieldDescription>
+	</field>
+	<field name="Attachment_Count-message_attachment_count" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Attachment_Count-message_attachment_count"/>
+		<fieldDescription><![CDATA[Attachment_Count-message_attachment_count]]></fieldDescription>
+	</field>
+	<field name="Message_Delivery_error-message_has_error" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Message_Delivery_error-message_has_error"/>
+		<fieldDescription><![CDATA[Message_Delivery_error-message_has_error]]></fieldDescription>
+	</field>
+	<field name="Number_of_error-message_has_error_counter" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Number_of_error-message_has_error_counter"/>
+		<fieldDescription><![CDATA[Number_of_error-message_has_error_counter]]></fieldDescription>
+	</field>
+	<field name="Is_Follower-message_is_follower" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Is_Follower-message_is_follower"/>
+		<fieldDescription><![CDATA[Is_Follower-message_is_follower]]></fieldDescription>
+	</field>
+	<field name="Action_Needed-message_needaction" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Action_Needed-message_needaction"/>
+		<fieldDescription><![CDATA[Action_Needed-message_needaction]]></fieldDescription>
+	</field>
+	<field name="Number_of_Actions-message_needaction_counter" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Number_of_Actions-message_needaction_counter"/>
+		<fieldDescription><![CDATA[Number_of_Actions-message_needaction_counter]]></fieldDescription>
+	</field>
+	<field name="Unread_Messages-message_unread" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Unread_Messages-message_unread"/>
+		<fieldDescription><![CDATA[Unread_Messages-message_unread]]></fieldDescription>
+	</field>
+	<field name="Unread_Messages_Counter-message_unread_counter" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Unread_Messages_Counter-message_unread_counter"/>
+		<fieldDescription><![CDATA[Unread_Messages_Counter-message_unread_counter]]></fieldDescription>
+	</field>
+	<field name="Mobile-mobile" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Mobile-mobile"/>
+		<fieldDescription><![CDATA[Mobile-mobile]]></fieldDescription>
+	</field>
+	<field name="Booking_Number-name" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Booking_Number-name"/>
+		<fieldDescription><![CDATA[Booking_Number-name]]></fieldDescription>
+	</field>
+	<field name="Patient_Name-patient_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Patient_Name-patient_name"/>
+		<fieldDescription><![CDATA[Patient_Name-patient_name]]></fieldDescription>
+	</field>
+	<field name="Professional_Fee-pf" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Professional_Fee-pf"/>
+		<fieldDescription><![CDATA[Professional_Fee-pf]]></fieldDescription>
+	</field>
+	<field name="Professional_Fee-pf_due" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Professional_Fee-pf_due"/>
+		<fieldDescription><![CDATA[Professional_Fee-pf_due]]></fieldDescription>
+	</field>
+	<field name="Phone-phone" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Phone-phone"/>
+		<fieldDescription><![CDATA[Phone-phone]]></fieldDescription>
+	</field>
+	<field name="Physician_Name-physician_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Physician_Name-physician_name"/>
+		<fieldDescription><![CDATA[Physician_Name-physician_name]]></fieldDescription>
+	</field>
+	<field name="PTR_No.-ptr_no" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="PTR_No.-ptr_no"/>
+		<fieldDescription><![CDATA[PTR_No.-ptr_no]]></fieldDescription>
+	</field>
+	<field name="Recommendation-recommendation" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Recommendation-recommendation"/>
+		<fieldDescription><![CDATA[Recommendation-recommendation]]></fieldDescription>
+	</field>
+	<field name="Result_Date-result_date" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Result_Date-result_date"/>
+		<fieldDescription><![CDATA[Result_Date-result_date]]></fieldDescription>
+	</field>
+	<field name="S2_No.-s2_no" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="S2_No.-s2_no"/>
+		<fieldDescription><![CDATA[S2_No.-s2_no]]></fieldDescription>
+	</field>
+	<field name="Priority__-sequence" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Priority__-sequence"/>
+		<fieldDescription><![CDATA[Priority__-sequence]]></fieldDescription>
+	</field>
+	<field name="Status-state" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Status-state"/>
+		<fieldDescription><![CDATA[Status-state]]></fieldDescription>
+	</field>
+	<field name="Street-street" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Street-street"/>
+		<fieldDescription><![CDATA[Street-street]]></fieldDescription>
+	</field>
+	<field name="Street_2-street2" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Street_2-street2"/>
+		<fieldDescription><![CDATA[Street_2-street2]]></fieldDescription>
+	</field>
+	<field name="Sugar__mmHg_-sugar" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Sugar__mmHg_-sugar"/>
+		<fieldDescription><![CDATA[Sugar__mmHg_-sugar]]></fieldDescription>
+	</field>
+	<field name="Temperature__F_-temp" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Temperature__F_-temp"/>
+		<fieldDescription><![CDATA[Temperature__F_-temp]]></fieldDescription>
+	</field>
+	<field name="Blood_Chemistry_Others-test_blood_chem_others" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Blood_Chemistry_Others-test_blood_chem_others"/>
+		<fieldDescription><![CDATA[Blood_Chemistry_Others-test_blood_chem_others]]></fieldDescription>
+	</field>
+	<field name="CBC_Others-test_cbc_others" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="CBC_Others-test_cbc_others"/>
+		<fieldDescription><![CDATA[CBC_Others-test_cbc_others]]></fieldDescription>
+	</field>
+	<field name="Urinalysis_Others-test_urinalysis_others" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Urinalysis_Others-test_urinalysis_others"/>
+		<fieldDescription><![CDATA[Urinalysis_Others-test_urinalysis_others]]></fieldDescription>
+	</field>
+	<field name="X_Ray_Others-test_xray_others" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="X_Ray_Others-test_xray_others"/>
+		<fieldDescription><![CDATA[X_Ray_Others-test_xray_others]]></fieldDescription>
+	</field>
+	<field name="X_Ray_Views-test_xray_views" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="X_Ray_Views-test_xray_views"/>
+		<fieldDescription><![CDATA[X_Ray_Views-test_xray_views]]></fieldDescription>
+	</field>
+	<field name="Transaction_Date-transaction_date" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Transaction_Date-transaction_date"/>
+		<fieldDescription><![CDATA[Transaction_Date-transaction_date]]></fieldDescription>
+	</field>
+	<field name="Weight__Kg_-weight" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Weight__Kg_-weight"/>
+		<fieldDescription><![CDATA[Weight__Kg_-weight]]></fieldDescription>
+	</field>
+	<field name="Last_Updated_on-write_date" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Last_Updated_on-write_date"/>
+		<fieldDescription><![CDATA[Last_Updated_on-write_date]]></fieldDescription>
+	</field>
+	<field name="Others-xray_exam_others" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Others-xray_exam_others"/>
+		<fieldDescription><![CDATA[Others-xray_exam_others]]></fieldDescription>
+	</field>
+	<field name="Postal-zip" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Postal-zip"/>
+		<fieldDescription><![CDATA[Postal-zip]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="79">
+			<image>
+				<reportElement x="100" y="10" width="60" height="60"/>
+				<imageExpression><![CDATA["D:/devs/addons12/clinic_mgt/static/description/kidneyLogo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="10" width="570" height="30"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Natividad M. Torre MD]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61">
+			<staticText>
+				<reportElement x="-20" y="0" width="100" height="30">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e34a1338-8059-4495-a28e-955a59617bf4"/>
+				</reportElement>
+				<textElement lineSpacing="Single"/>
+				<text><![CDATA[Patient_Name-patient_name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125">
+			<textField>
+				<reportElement x="-20" y="0" width="100" height="30">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e34a1338-8059-4495-a28e-955a59617bf4"/>
+				</reportElement>
+				<textElement lineSpacing="Single"/>
+				<textFieldExpression><![CDATA[$F{Patient_Name-patient_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54">
+			<textField>
+				<reportElement x="-19" y="0" width="210" height="20"/>
+				<textElement lineSpacing="Single"/>
+				<textFieldExpression><![CDATA[$F{Booking_Number-name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42"/>
+	</summary>
+</jasperReport>

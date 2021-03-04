@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- config.denomination form view -->
+        <record id="config_denomination_view_form" model="ir.ui.view">
+            <field name="name">config.denomination.view.form</field>
+            <field name="model">config.denomination</field>
+            <field name="arch" type="xml">
+                <form string="Denom">
+                    <sheet>
+                        <group>
+                            <field name="denomination"/>
+                            <field name="active"/>
+                            <field name="currency_id" invisible='1'/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="config_denomination_view_tree" model="ir.ui.view">
+            <field name="name">config.denomination.tree</field>
+            <field name="model">config.denomination</field>
+            <field name="arch" type="xml">
+                <tree string="Denom">
+                    <field name="denomination"/>
+                    <field name="active"/>
+                    <field name="currency_id" invisible='1'/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="config_denomination_action_form" model="ir.actions.act_window">
+            <field name="name">Denomination</field>
+            <field name="res_model">config.denomination</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to "create" your first reconcillation.
+                </p>
+            </field>
+        </record>
+
+        <record id="cashier_cashcount_view_form" model="ir.ui.view">
+            <field name="name">cashier.cashcount.form</field>
+            <field name="model">cashier.cashcount</field>
+            <field name="arch" type="xml">
+                <form string="Cash Count Recon Denom">
+                    <header>
+                        <button name="action_void" class="oe_edit_only" 
+                        type="object" string="Void" states='confirm'
+                        confirm="Void Cash Count?"/>
+
+                        <field name="state" widget="statusbar" 
+                            statusbar_visible="ok,void"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="transaction_date"/>
+                            </group>
+                            <group style="width: 100%" string="Cash Count">
+                                <field name="cc_ids" attrs="{'readonly':[('state','=','void')]}">
+                                    <tree string="Cash Count"  create="false" editable="bottom">
+                                        <field name="denomination"/>
+                                        <field name="count"/>
+                                        <field name="total" sum="Total"/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- cashier.recon form view -->
+        <record id="cashier_recon_view_form" model="ir.ui.view">
+            <field name="name">cashier.recon.view.form</field>
+            <field name="model">cashier.recon</field>
+            <field name="arch" type="xml">
+                <form string="Recon" create="false"> 
+                    <header>
+
+                    <!-- <button name="action_new_cashcount" class="oe_highlight oe_edit_only" 
+                    type="object" string="Add New Cash Count" states='draft'
+                    confirm="Add New Cash Count?"/> -->
+
+                    <button name="action_close_recon" class="oe_highlight oe_read_only" 
+                    type="object" string="Close" states='draft'
+                    confirm="Close Reconcillation?"/>
+
+                    <button name="action_previous_state" class="oe_read_only" 
+                    type="object" string="Re-Open" states='confirm'
+                    confirm="Re-Open Reconcillation?"/>
+
+                    <field name="state" widget="statusbar" 
+                        statusbar_visible="draft,confirm,post"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="recon_date"/>
+                            </group>
+                            <group/>
+                            <group style="width: 100%" string="Out-Patients">
+                                <field name="billing_ids" nolabel="1" readonly="1"
+                                    attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree string="Out-Patient" editable="bottom">
+                                            <field name="priority"/>
+                                            <field name="patient_id"/>
+                                            <field name="pf_due" sum="Total"/>
+                                            <field name="meds_due" sum="Total"/>
+                                            <field name="other_due" sum="Total"/>
+                                            <field name="discount" sum="Total"/>
+                                            <field name="amount_paid" sum="Total"/>
+                                            <field name="bill_currency_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group style="width: 100%" string="Cash Count">
+                                <field name="cc_ids"  nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree string="Cash Count" create="false" editable="bottom">
+                                        <field name="denomination"/>
+                                        <field name="count"/>
+                                        <field name="total"  sum="Total"/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <!-- <field name="cashcount_ids" nolabel="1"
+                                    attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree string="Cash Count" create="false" editable="bottom">
+                                        <field name="transaction_date"/>
+                                        <field name="name"/>
+                                        <field name="cc_ids" widget="many2many_tags" readonly="1"/>
+                                        <field name="cash_total" sum="Total"/>
+                                        <field name="state" readonly="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </tree>
+                                </field> -->
+                            </group>
+                            <group style="width: 100%" string="Summary" class="oe_subtotal_footer oe_left">
+                                <field name="billing_amount"/>
+                                <field name="meds_total"/>
+                                <field name="others_total"/>
+                                <field name="total_due" class="oe_subtotal_footer_separator"/>
+                                <field name="disc_total"/>
+                                <field name="paid_amount" class="oe_subtotal_footer_separator"/>
+                                <field name="cashcount"/>
+                                <field name="balance" class="oe_subtotal_footer_separator"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="cashier_recon_view_tree" model="ir.ui.view">
+            <field name="name">cashier.recon.tree</field>
+            <field name="model">cashier.recon</field>
+            <field name="arch" type="xml">
+                <tree string="Recon" create="false">
+                    <field name="recon_date"/>
+                    <field name="billing_amount"/>
+                    <field name="meds_total"/>
+                    <field name="disc_total"/>
+                    <field name="paid_amount"/>
+                    <field name="cashcount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="cashier_recon_search" model="ir.ui.view">
+            <field name="name">cashier.recon.search</field>
+            <field name="model">cashier.recon</field>
+            <field name="arch" type="xml">
+                <search string="Recon">
+                    <filter name="filter_recon_date" date="recon_date" string="Reconcillation Date" default_period="today"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="cashier_recon_action" model="ir.actions.act_window">
+            <field name="name">Daily Reconcillation</field>
+            <field name="res_model">cashier.recon</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    You do not have any Reconcillation.
+                </p>
+            </field>
+            <field name="context">{'search_default_filter_recon_date':1}</field>
+        </record>
+
+        <menuitem id="menu_clinic_appointment_booking_cashier" 
+        name="Cashiering" 
+        parent="menu_clinic_appointment"
+        sequence="6"
+        groups="group_md_appointment_billing"/>
+
+        <menuitem id="menu_clinic_appointment_booking_billing" 
+        parent="menu_clinic_appointment_booking_cashier"
+        action="clinic_booking_billing_action"
+        sequence="1"/>
+
+        <menuitem id="menu_clinic_appointment_booking_billing_recon" 
+        parent="menu_clinic_appointment_booking_cashier"
+        action="cashier_recon_action"
+        sequence="2"/>
+
+        <menuitem id="menu_clinic_appointment_config_others_denom" 
+        parent="menu_clinic_appointment_config_others"
+        action="config_denomination_action_form"
+        groups="base.group_no_one"
+        sequence="5"/>
+        
+    </data>
+</odoo>

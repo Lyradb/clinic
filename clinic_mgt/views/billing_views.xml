@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+        <record id="clinic_booking_billing_view_kanban" model="ir.ui.view">
+            <field name="name">clinic.booking.view.kanban</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <kanban string="Appointment" quick_add="False" create="false"> 
+                <field name="name"/>
+                <field name="state"/>
+                <field name="booking_date"/>
+                <field name="image_medium"/>
+                <field name="image_small"/>
+                <field name="display_name"/>
+                <field name="remarks_ids"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="o_kanban_record_has_image_fill oe_kanban_global_click o_res_partner_kanban">
+                            <div class="o_kanban_image_fill_left" t-attf-style="background-image:url('#{kanban_image('res.partner', 'image_small', record.patient_id.raw_value)}')">
+                                    <h1 style="color: #17a2b8 !important;">
+                                        <field name="transaction_date" invisible="1"/>
+                                    </h1>
+                            </div>
+                            <div  class="oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading"><field name="patient_id"/></strong>
+                                <div class="o_kanban_tags_section oe_kanban_partner_categories">
+                                    <span class="oe_kanban_list_many2many">
+                                            <field name="remarks_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    </span>
+                                </div>
+                                <ul style="list-style-type: none;">
+                                    <li class="float-right mb4 badge"><div class="col-12" style="background-color: #FFA500; border-radius: 5px;"><h1><field name="priority"/></h1></div></li>
+                                    <li><field name="booking_date"/></li>
+                                </ul>
+                                <div class="oe_kanban_partner_links"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+                    
+                </kanban>
+            </field>
+        </record>
+
+        <record id="clinic_booking_billing_view_form" model="ir.ui.view">
+            <field name="name">clinic.booking.form</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <form string="Clinic Booking" create="false">
+                    <header>
+
+                        <button name="action_done" class="oe_highlight oe_read_only" 
+                        type="object" string="Done" states='bo'
+                        confirm="Booking is done?"/>
+
+                        <button name="action_prev_state"  class="oe_read_only"
+                        type="object" string="Previous Status"
+                        confirm="Set the status to previous state?"
+                        states="confirm,opd,bo,free,done"/>
+
+                        <field name="state" widget="statusbar" 
+                        statusbar_visible="bo,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_right oe_button_box oe_read_only">
+                            <button states="bo,done" name="action_check_order" type="object" help="Sales Order - Medicine charge will reflect once the transaction is confirmed."
+                                    class="oe_stat_button" icon="fa-usd" groups="clinic_mgt.group_md_appointment_billing">
+                                <field name="order_id"  widget="statinfo"/>
+                            </button>
+                            <button attrs="{'invisible':[('order_id','=',False)]}" name="action_check_invoice" type="object" help="Invoice"
+                                    class="oe_stat_button" icon="fa-pencil-square-o" groups="clinic_mgt.group_md_appointment_billing">
+                                <field name="invoice_id" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="patient_id" default_focus="1" placeholder="Name" attrs="{'readonly':['|','|','|',('state','=','transfer'),('state','=','void'),('state','=','done'),('state','=','free')]}"/>
+                            </h1>
+                            <div class="o_row">
+                                <ul style="list-style-type: none;">
+                                    <li>
+                                        <field name="transaction_date" readonly="1"/>
+                                    </li>
+                                    <li t-if="!record.transfer_to_id.raw_value">
+                                        <field name="transfer_to_id"/>
+                                    </li>
+                                    <li>
+                                        <field name="remarks_ids" widget="many2many_tags" options="{'color_field': 'color'}" 
+                                        attrs="{'readonly':['|','|','|',('state','=','transfer'),('state','=','void'),('state','=','done'),('state','=','free')]}"/>
+                                    </li>
+                                    <li groups='base.groups_no_one'>
+                                        <field name="company_id" attrs="{'readonly':['|','|','|',('state','=','transfer'),('state','=','void'),('state','=','done'),('state','=','free')]}"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="booking_date" attrs="{'readonly':['|','|','|',('state','=','transfer'),('state','=','void'),('state','=','done'),('state','=','free')]}"/>
+                            </group>
+                            <group>
+                                <field name="physician_id" widget='selection' attrs="{'invisible':[('physician_id','=',False)], 'readonly':['|','|','|',('state','=','transfer'),('state','=','void'),('state','=','done'),('state','=','free')]}"/>
+                            </group>
+                            <group/>
+                        </group>
+                        <notebook>
+                            <page string="Billing" states='bo,done'>
+                                <group class="oe_subtotal_footer oe_left" string="Billing Summary">
+                                    <field name="bill_currency_id" invisible="True"/>
+                                    <field name="pf_due"/>
+                                    <field name="meds_due"/>
+                                    <field name="other_due" attrs="{'readonly':[('state','!=','bo')]}"/>
+                                    <field name="total_due" class="oe_subtotal_footer_separator"/>
+                                    <field name="discount"  attrs="{'readonly':[('state','!=','bo')]}"/>
+                                    <field name="amount_due" class="oe_subtotal_footer_separator"/>
+                                    <field name="cash" attrs="{'required':[('state','=','bo')], 'readonly':[('state','!=','bo')]}"/>
+                                    <field name="amount_paid" class="oe_subtotal_footer_separator"/>
+                                    <field name="balance" class="oe_subtotal_footer_separator" attrs="{'invisible':[('balance','&lt;=',0.0)]}"/>
+                                    <field name="change" class="oe_subtotal_footer_separator" attrs="{'invisible':[('change','&lt;=',0.0)]}"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="clinic_booking_billing_view_tree" model="ir.ui.view">
+            <field name="name">clinic.booking.tree</field>
+            <field name="model">clinic.booking</field>
+            <field name="arch" type="xml">
+                <tree create="false">
+                    <field name="priority"/>
+                    <field name="transaction_date"/>
+                    <field name="booking_date"/>
+                    <field name="patient_id"/>
+                    <field name="birthdate"/>
+                    <field name="gender"/>
+                    <field name="state"/>
+                    <field name="follow_up_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- <delete id="clinic_booking_billing_action" model="ir.actions.act_window"/> -->
+        <record id="clinic_booking_billing_action" model="ir.actions.act_window">
+            <field name="name">Billing</field>
+            <field name="res_model">clinic.booking</field>
+            <field name="view_mode">kanban,tree,form,graph,pivot</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Billing Department.
+                </p>
+                <p>
+                    You have no billing for today.
+                </p>
+            </field>
+            <field name="domain">[('state','in',['bo','done','free'])]</field>
+            <field name="context">{'search_default_group_by_state':1,'search_default_filter_booking_date':1}</field>
+        </record>
+
+        <record id="clinic_booking_billing_action_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="clinic_booking_billing_view_kanban"/>
+            <field name="act_window_id" ref="clinic_booking_billing_action"/>
+        </record>
+
+        <record id="clinic_booking_billing_action_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="clinic_booking_billing_view_tree"/>
+            <field name="act_window_id" ref="clinic_booking_billing_action"/>
+        </record>
+
+        <record id="clinic_booking_billing_action_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="4"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="clinic_booking_billing_view_form"/>
+            <field name="act_window_id" ref="clinic_booking_billing_action"/>
+        </record>
+        
+        <menuitem id="menu_clinic_appointment_booking_billing" 
+        parent="menu_clinic_appointment"
+        sequence="6"
+        action="clinic_booking_billing_action"/>
+
+        <delete id="clinic_booking_cert_view_form" model="ir.ui.view"/>
+        <delete id="clinic_booking_cert_view_kanban" model="ir.ui.view"/>
+        <delete id="clinic_booking_cert_view_tree" model="ir.ui.view"/>
+        <delete id="clinic_booking_cert_view_tree" model="ir.ui.view"/>
+        <delete id="clinic_booking_cert_action" model="ir.actions.act_window"/>
+        <delete id="clinic_booking_cert_action_kanban" model="ir.actions.act_window.view"/>
+        <delete id="clinic_booking_cert_action_tree" model="ir.actions.act_window.view"/>
+        <delete id="clinic_booking_cert_action_form" model="ir.actions.act_window.view"/>
+  </data>
+</odoo>
